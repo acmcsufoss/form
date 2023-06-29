@@ -2,8 +2,6 @@
 
 A Python platform managing authenticated Discord form submissions within the server through automated links.
 
-Certainly! Here's a more concise version of the "Development" section for your project's README, covering the topics of adding new dependencies, adding new scripts, and installing project dependencies:
-
 ## Development
 
 ### Adding dependencies and scripts
