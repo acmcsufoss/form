@@ -23,6 +23,8 @@ python -m poetry install
 
 This command will install the defined dependencies and make any necessary adjustments to the project.
 
+> NOTE: Install Poetry using `python -m pip install poetry` if your machine does not have it installed.
+
 ### Running the project
 
 To run the project or execute any scripts within the project, use the following command:
@@ -33,7 +35,7 @@ python -m poetry run python main.py
 
 ### Linting
 
-- If you don't black installed, write `pip install black`.
+- If you don't black installed, write `python -m pip install black`.
 - If there exists formatting and linting errors please type, `python -m black .` to view those errors.
 
 ---
