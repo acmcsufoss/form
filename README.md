@@ -17,7 +17,7 @@ To add new dependencies or scripts to the project, follow these steps:
 
 To install project dependencies or apply changes made to the `pyproject.toml` file, use the following command:
 
-```
+```sh
 python -m poetry install
 ```
 

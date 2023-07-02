@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, redirect
+from form import Form
 
 app = Flask(__name__)
 
@@ -16,6 +17,7 @@ def generate_form():
 
 @app.route("/forms/<form_id>", methods=["GET"])
 def edit_form(form_id):
+    # Allow the user to edit the form's existing fields or add new ones.
     return "HTML form edit page"
 
 
@@ -32,9 +34,11 @@ def submit_form(response_id):
     # Process the form response
     return redirect("/success?response_id=" + response_id, code=302)
 
+
 # TODO: Add endpoint for saving draft.
 
 # TODO: Add endpoint for submitting at a later date.
+
 
 @app.route("/success", methods=["GET"])
 def success_page():
