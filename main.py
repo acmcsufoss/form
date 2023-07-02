@@ -32,9 +32,11 @@ def submit_form(response_id):
     # Process the form response
     return redirect("/success?response_id=" + response_id, code=302)
 
+
 # TODO: Add endpoint for saving draft.
 
 # TODO: Add endpoint for submitting at a later date.
+
 
 @app.route("/success", methods=["GET"])
 def success_page():
