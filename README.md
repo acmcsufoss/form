@@ -33,6 +33,8 @@ To run the project or execute any scripts within the project, use the following 
 python -m poetry run python main.py
 ```
 
+> NOTE: This project uses Python 3.11 version.
+
 ### Linting
 
 - If you don't black installed, write `python -m pip install black`.
