@@ -1,0 +1,33 @@
+<form action="/forms/{{ form.id }}" method="post">
+  <!-- TODO: Questions -->
+
+  <!-- Linked sheet -->
+  <fieldset>
+    <legend>Linked Google Sheets sheet.</legend>
+
+    <label for="id">Sheet ID:</label>
+    <input type="text" name="id" id="id" value="{{ form.linked_sheet.id }}" />
+
+    <label for="name">Sheet name:</label>
+    <input
+      type="text"
+      name="name"
+      id="name"
+      value="{{ form.linked_sheet.name }}"
+    />
+  </fieldset>
+
+  <!-- Linked Discord message -->
+
+  <fieldset {% if form.linked_discord_message.id %}disabled{% endif %}>
+    <legend>Linked Discord message.</legend>
+
+    <label for="channel_id">Channel ID:</label>
+    <input
+      type="text"
+      name="channel_id"
+      id="channel_id"
+      value="{{ form.linked_discord_message.channel_id }}"
+    />
+  </fieldset>
+</form>

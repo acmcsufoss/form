@@ -1,7 +1,10 @@
 {
+  "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "python.formatting.provider": "black",
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "strict",
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
-  },
-  "python.formatting.provider": "none"
+  }
 }

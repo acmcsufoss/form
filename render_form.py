@@ -19,7 +19,7 @@ def render_form(form: Form, action: str) -> str:
     """
     form_html = f"""<form action="{action}" method="post">"""
 
-    for question in form.questions.get_questions():
+    for question in form.fields.get_questions():
         form_html += render_question(question)
 
     form_html += "</form>"

@@ -275,14 +275,11 @@ class DiscordMessage:
     # content is the content of the Discord message.
     content: str
 
-    # id is the ID of the Discord message.
-    id: str
+    # id is the ID of the Discord message that the form is linked to (if any).
+    id: str | None
 
     # channel_id is the ID of the Discord channel that the Discord message is in.
     channel_id: str
-
-    # guild_id is the ID of the Discord guild that the Discord message is in.
-    guild_id: str
 
 
 @dataclass
@@ -313,5 +310,5 @@ class Form:
     # linked_sheet is the Google Sheets sheet that the form is linked to.
     linked_sheet: GoogleSheetsSheet | None
 
-    # discord_message is the Discord message that the form is linked to.
+    # linked_discord_message is the Discord message that the form is linked to.
     linked_discord_message: DiscordMessage | None

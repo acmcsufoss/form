@@ -1,5 +1,5 @@
 import pickle
-from form import Form
+from form.form import Form
 from form_database import FormDatabase
 from typing import Dict, Type
 
