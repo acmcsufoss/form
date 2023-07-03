@@ -23,15 +23,20 @@ class Question:
     def __init__(
         self,
         type: QuestionType,
+        name: str,
         content: str,
         required: bool | None = False,
     ):
         self.type = type
+        self.name = name
         self.content = content
         self.required = required
 
     # type is the type of form field.
     type: QuestionType
+
+    # name is the name of the form field.
+    name: str
 
     # content is the markdown question content for the form field.
     content: str
@@ -48,6 +53,7 @@ class SingleTextSelectQuestion(Question):
 
     def __init__(
         self,
+        name: str,
         question: str,
         choices: list[str],
         custom_choice: bool = False,
@@ -55,7 +61,7 @@ class SingleTextSelectQuestion(Question):
         default_custom_choice: str | None = None,
         required: bool | None = False,
     ):
-        super().__init__(QuestionType.SINGLE_TEXT_SELECT, question, required)
+        super().__init__(QuestionType.SINGLE_TEXT_SELECT, name, question, required)
         self.choices = choices
         self.custom_choice = custom_choice
         self.default_choice = default_choice
@@ -85,6 +91,7 @@ class NumberQuestion(Question):
 
     def __init__(
         self,
+        name: str,
         question: str,
         min: int | None = None,
         max: int | None = None,
@@ -93,7 +100,7 @@ class NumberQuestion(Question):
         required: bool | None = False,
         placeholder: str | None = None,
     ):
-        super().__init__(QuestionType.NUMBER, question, required)
+        super().__init__(QuestionType.NUMBER, name, question, required)
         self.min = min
         self.max = max
         self.step = step
@@ -124,6 +131,7 @@ class TextQuestion(Question):
 
     def __init__(
         self,
+        name: str,
         question: str,
         min_length: int | None = None,
         max_length: int | None = None,
@@ -132,7 +140,7 @@ class TextQuestion(Question):
         pattern: str | None = None,
         placeholder: str | None = None,
     ):
-        super().__init__(Question.TEXT, question, required)
+        super().__init__(Question.TEXT, name, question, required)
         self.min_length = min_length
         self.max_length = max_length
         self.default = default
@@ -160,6 +168,7 @@ class TextareaQuestion:
 
     def __init__(
         self,
+        name,
         question: str,
         min_length: int | None = None,
         max_length: int | None = None,
@@ -167,7 +176,7 @@ class TextareaQuestion:
         required: bool | None = False,
         placeholder: str | None = None,
     ):
-        super().__init__(QuestionType.TEXTAREA, question, required)
+        super().__init__(QuestionType.TEXTAREA, name, question, required)
         self.min_length = min_length
         self.max_length = max_length
         self.default = default
@@ -194,11 +203,12 @@ class CheckboxQuestion(Question):
 
     def __init__(
         self,
+        name: str,
         question: str,
         default: bool,
         required: bool | None = False,
     ):
-        super().__init__(QuestionType.CHECKBOX, question, required)
+        super().__init__(QuestionType.CHECKBOX, name, question, required)
         self.default = default
 
     # default is the default value for the checkbox.
@@ -216,11 +226,12 @@ class ColorQuestion(Question):
 
     def __init__(
         self,
+        name: str,
         question: str,
         default: str | None = None,
         required: bool | None = False,
     ):
-        super().__init__(QuestionType.COLOR, question, required)
+        super().__init__(QuestionType.COLOR, name, question, required)
         self.default = default
 
     # default is the default value for the color input.
@@ -285,6 +296,7 @@ class GoogleSheetsSheet:
 
     # name is the name of the Google Sheets sheet.
     name: str
+
 
 @dataclass
 class Form:
