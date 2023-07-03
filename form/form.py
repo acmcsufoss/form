@@ -150,7 +150,7 @@ class TextQuestion(Question):
 
 
 @dataclass
-class TextareaQuestion():
+class TextareaQuestion:
     """
     Class for keeping track of a textarea form question.
 
@@ -205,8 +205,6 @@ class CheckboxQuestion(Question):
     default: bool
 
 
-
-
 @dataclass
 class ColorQuestion(Question):
     """
@@ -227,7 +225,6 @@ class ColorQuestion(Question):
 
     # default is the default value for the color input.
     default: str | None
-
 
 
 @dataclass
@@ -256,8 +253,6 @@ class QuestionList:
             return random.sample(self.fields, len(self.fields))
 
         return self.fields
-
-
 
 
 @dataclass
