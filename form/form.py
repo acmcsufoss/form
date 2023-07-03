@@ -25,7 +25,7 @@ class Question:
         type: QuestionType,
         name: str,
         content: str,
-        required: bool | None = False,
+        required: bool = False,
     ):
         self.type = type
         self.name = name
@@ -59,7 +59,7 @@ class SingleTextSelectQuestion(Question):
         custom_choice: bool = False,
         default_choice: int | None = None,
         default_custom_choice: str | None = None,
-        required: bool | None = False,
+        required: bool = False,
     ):
         super().__init__(QuestionType.SINGLE_TEXT_SELECT, name, question, required)
         self.choices = choices
@@ -97,7 +97,7 @@ class NumberQuestion(Question):
         max: int | None = None,
         step: int | None = None,
         default: int | None = None,
-        required: bool | None = False,
+        required: bool = False,
         placeholder: str | None = None,
     ):
         super().__init__(QuestionType.NUMBER, name, question, required)
@@ -136,11 +136,11 @@ class TextQuestion(Question):
         min_length: int | None = None,
         max_length: int | None = None,
         default: str | None = None,
-        required: bool | None = False,
+        required: bool = False,
         pattern: str | None = None,
         placeholder: str | None = None,
     ):
-        super().__init__(Question.TEXT, name, question, required)
+        super().__init__(QuestionType.TEXT, name, question, required)
         self.min_length = min_length
         self.max_length = max_length
         self.default = default
@@ -158,7 +158,7 @@ class TextQuestion(Question):
 
 
 @dataclass
-class TextareaQuestion:
+class TextareaQuestion(Question):
     """
     Class for keeping track of a textarea form question.
 
@@ -168,12 +168,12 @@ class TextareaQuestion:
 
     def __init__(
         self,
-        name,
+        name: str,
         question: str,
         min_length: int | None = None,
         max_length: int | None = None,
         default: str | None = None,
-        required: bool | None = False,
+        required: bool = False,
         placeholder: str | None = None,
     ):
         super().__init__(QuestionType.TEXTAREA, name, question, required)
@@ -206,7 +206,7 @@ class CheckboxQuestion(Question):
         name: str,
         question: str,
         default: bool,
-        required: bool | None = False,
+        required: bool = False,
     ):
         super().__init__(QuestionType.CHECKBOX, name, question, required)
         self.default = default
@@ -229,7 +229,7 @@ class ColorQuestion(Question):
         name: str,
         question: str,
         default: str | None = None,
-        required: bool | None = False,
+        required: bool = False,
     ):
         super().__init__(QuestionType.COLOR, name, question, required)
         self.default = default
@@ -252,8 +252,8 @@ class QuestionList:
         self.fields = fields
         self.shuffled = shuffled
 
-    # fields is the list of form fields for the fieldset.
-    fields: list[Question]
+    # questions are the questions in the question list.
+    questions: list[Question]
 
     # shuffled is whether or not the fieldset is shuffled.
     shuffled: bool

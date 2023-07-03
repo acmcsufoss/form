@@ -1,5 +1,5 @@
 from mistune import html as md2html
-from form import (
+from form.form import (
     Form,
     QuestionType,
     Question,
@@ -13,13 +13,13 @@ from form import (
 )
 
 
-def render_form(form: Form, action: str) -> str:
+def render_form(form: Form) -> str:
     """
     Render a form as HTML.
     """
-    form_html = f"""<form action="{action}" method="post">"""
+    form_html = f"""<form action="/forms/{form.id}" method="post">"""
 
-    for question in form.fields.get_questions():
+    for question in form.questions.get_questions():
         form_html += render_question(question)
 
     form_html += "</form>"
@@ -31,7 +31,7 @@ def render_question(question: Question) -> str:
     Render a question as HTML.
     """
     question_html = "<fieldset>"
-    question_html += f"<legend>{md2html(question.title)}</legend>"
+    question_html += f"<legend>{md2html(question.content)}</legend>"
     # TODO: Handle default values.
     match question.type:
         case QuestionType.SINGLE_TEXT_SELECT:
