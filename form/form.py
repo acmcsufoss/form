@@ -256,6 +256,37 @@ class QuestionList:
 
 
 @dataclass
+class DiscordMessage:
+    """
+    Class for keeping track of a Discord message.
+    """
+
+    # content is the content of the Discord message.
+    content: str
+
+    # id is the ID of the Discord message.
+    id: str
+
+    # channel_id is the ID of the Discord channel that the Discord message is in.
+    channel_id: str
+
+    # guild_id is the ID of the Discord guild that the Discord message is in.
+    guild_id: str
+
+
+@dataclass
+class GoogleSheetsSheet:
+    """
+    Class for keeping track of a Google Sheets sheet.
+    """
+
+    # id is the ID of the Google Sheets sheet.
+    id: str
+
+    # name is the name of the Google Sheets sheet.
+    name: str
+
+@dataclass
 class Form:
     """
     Class for keeping track of a form.
@@ -267,18 +298,8 @@ class Form:
     # questions is the list of questions for the form.
     questions: QuestionList
 
-    # linked_sheet_id is the ID of the linked Google Sheets sheet for the responses
-    # to the form.
-    linked_sheet_id: str | None
+    # linked_sheet is the Google Sheets sheet that the form is linked to.
+    linked_sheet: GoogleSheetsSheet | None
 
-    # discord_message_content is the content of the Discord message
-    # representation of the form.
-    discord_message_content: str
-
-    # discord_message_id is the ID of the Discord message representation of the
-    # form.
-    discord_message_id: str
-
-    # discord_channel_id is the ID of the Discord channel that the Discord
-    # message representation of the form is in.
-    discord_channel_id: str
+    # discord_message is the Discord message that the form is linked to.
+    linked_discord_message: DiscordMessage | None
