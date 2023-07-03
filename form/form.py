@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
+import random
 
 
 class FormFieldType(Enum):
@@ -7,6 +8,7 @@ class FormFieldType(Enum):
 
     SINGLE_SELECT = "single_select"
     MULTIPLE_SELECT = "multiple_select"
+    FIELDSET = "fieldset"
     NUMBER = "number"
     TEXT = "text"
     TEXTAREA = "textarea"
@@ -23,6 +25,16 @@ class FormFieldType(Enum):
 @dataclass
 class FormField:
     """Class for keeping track of an item in a form."""
+
+    def __init__(
+        self,
+        type: FormFieldType,
+        question: str,
+        required: bool | None = False,
+    ):
+        self.type = type
+        self.question = question
+        self.required = required
 
     # type is the type of form field.
     type: FormFieldType
@@ -43,6 +55,16 @@ class PatternedFormField(FormField):
     https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern
     """
 
+    def __init__(
+        self,
+        type: FormFieldType,
+        question: str,
+        required: bool | None = False,
+        pattern: str | None = None,
+    ):
+        super().__init__(type, question, required)
+        self.pattern = pattern
+
     # pattern is the regex pattern for the text.
     pattern: str | None
 
@@ -56,6 +78,16 @@ class PlaceheldFormField(FormField):
     https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/placeholder
     """
 
+    def __init__(
+        self,
+        type: FormFieldType,
+        question: str,
+        required: bool | None = False,
+        placeholder: str | None = None,
+    ):
+        super().__init__(type, question, required)
+        self.placeholder = placeholder
+
     # placeholder is the placeholder for the text.
     placeholder: str | None
 
@@ -64,8 +96,20 @@ class PlaceheldFormField(FormField):
 class SingleSelectFormField(FormField):
     """Class for keeping track of a single select form field."""
 
-    # type is the FormFieldType.SINGLE_SELECT type.
-    type: FormFieldType.SINGLE_SELECT
+    def __init__(
+        self,
+        question: str,
+        choices: list[str],
+        custom_choice: bool = False,
+        default_choice: int | None = None,
+        default_custom_choice: str | None = None,
+        required: bool | None = False,
+    ):
+        super().__init__(FormFieldType.SINGLE_SELECT, question, required)
+        self.choices = choices
+        self.custom_choice = custom_choice
+        self.default_choice = default_choice
+        self.default_custom_choice = default_custom_choice
 
     # choices are the choices for the form field.
     choices: list[str]
@@ -84,8 +128,20 @@ class SingleSelectFormField(FormField):
 class MultipleSelectFormField(FormField):
     """Class for keeping track of a multiple select form field."""
 
-    # type is the FormFieldType.MULTIPLE_SELECT type.
-    type: FormFieldType.MULTIPLE_SELECT
+    def __init__(
+        self,
+        question: str,
+        choices: list[str],
+        custom_choices: int = 1,
+        default_choices: list[int] | None = None,
+        default_custom_choices: list[str] | None = None,
+        required: bool | None = False,
+    ):
+        super().__init__(FormFieldType.MULTIPLE_SELECT, question, required)
+        self.choices = choices
+        self.custom_choices = custom_choices
+        self.default_choices = default_choices
+        self.default_custom_choices = default_custom_choices
 
     # choices are the choices for the form field.
     choices: list[str]
@@ -109,8 +165,21 @@ class NumberFormField(PlaceheldFormField):
     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number
     """
 
-    # type is the FormFieldType.NUMBER type.
-    type: FormFieldType.NUMBER
+    def __init__(
+        self,
+        question: str,
+        min: int | None = None,
+        max: int | None = None,
+        step: int | None = None,
+        default: int | None = None,
+        required: bool | None = False,
+        placeholder: str | None = None,
+    ):
+        super().__init__(FormFieldType.NUMBER, question, required, placeholder)
+        self.min = min
+        self.max = max
+        self.step = step
+        self.default = default
 
     # min is the minimum value for the number.
     min: int | None
@@ -134,8 +203,21 @@ class TextFormField(PatternedFormField, PlaceheldFormField):
     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
     """
 
-    # type is the FormFieldType.TEXT type.
-    type: FormFieldType.TEXT
+    def __init__(
+        self,
+        question: str,
+        min_length: int | None = None,
+        max_length: int | None = None,
+        default: str | None = None,
+        required: bool | None = False,
+        pattern: str | None = None,
+        placeholder: str | None = None,
+    ):
+        super().__init__(FormFieldType.TEXT, question, required, pattern)
+        self.min_length = min_length
+        self.max_length = max_length
+        self.default = default
+        self.placeholder = placeholder
 
     # min_length is the minimum length for the text.
     min_length: int | None
@@ -156,8 +238,19 @@ class TextareaFormField(PlaceheldFormField):
     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
     """
 
-    # type is the FormFieldType.TEXTAREA type.
-    type: FormFieldType.TEXTAREA
+    def __init__(
+        self,
+        question: str,
+        min_length: int | None = None,
+        max_length: int | None = None,
+        default: str | None = None,
+        required: bool | None = False,
+        placeholder: str | None = None,
+    ):
+        super().__init__(FormFieldType.TEXTAREA, question, required, placeholder)
+        self.min_length = min_length
+        self.max_length = max_length
+        self.default = default
 
     # min_length is the minimum length for the textarea.
     min_length: int | None
@@ -178,8 +271,14 @@ class CheckboxFormField(FormField):
     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
     """
 
-    # type is the FormFieldType.CHECKBOX type.
-    type: FormFieldType.CHECKBOX
+    def __init__(
+        self,
+        question: str,
+        default: bool,
+        required: bool | None = False,
+    ):
+        super().__init__(FormFieldType.CHECKBOX, question, required)
+        self.default = default
 
     # default is the default value for the checkbox.
     default: bool
@@ -194,8 +293,18 @@ class DateFormField(FormField):
     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
     """
 
-    # type is the FormFieldType.DATE type.
-    type: FormFieldType.DATE
+    def __init__(
+        self,
+        question: str,
+        min: str | None = None,
+        max: str | None = None,
+        default: str | None = None,
+        required: bool | None = False,
+    ):
+        super().__init__(FormFieldType.DATE, question, required)
+        self.min = min
+        self.max = max
+        self.default = default
 
     # min is the minimum value for the date.
     min: str | None
@@ -216,8 +325,18 @@ class TimeFormField(FormField):
     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time
     """
 
-    # type is the FormFieldType.TIME type.
-    type: FormFieldType.TIME
+    def __init__(
+        self,
+        question: str,
+        min: str | None = None,
+        max: str | None = None,
+        default: str | None = None,
+        required: bool | None = False,
+    ):
+        super().__init__(FormFieldType.TIME, question, required)
+        self.min = min
+        self.max = max
+        self.default = default
 
     # min is the minimum value for the time.
     min: str | None
@@ -235,10 +354,21 @@ class DatetimeFormField(DateFormField, TimeFormField):
     Class for keeping track of a datetime form field.
 
     See:
-    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local"""
+    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local
+    """
+
+    def __init__(
+        self,
+        question: str,
+        min: str | None = None,
+        max: str | None = None,
+        default: str | None = None,
+        required: bool | None = False,
+    ):
+        super().__init__(question, min, max, default, required)
 
     # type is the FormFieldType.DATE_TIME type.
-    type: FormFieldType.DATE_TIME
+    type: FormFieldType = FormFieldType.DATE_TIME
 
 
 @dataclass
@@ -250,48 +380,51 @@ class FileFormField(FormField):
     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
     """
 
-    # type is the FormFieldType.FILE type.
-    type: FormFieldType.FILE
+    def __init__(
+        self,
+        question: str,
+        accept: list[str] | None = None,
+        multiple: bool = False,
+        default: list[str] | None = None,
+        required: bool | None = False,
+    ):
+        super().__init__(FormFieldType.FILE, question, required)
+        self.accept = accept
+        self.multiple = multiple
+        self.default = default
 
-    # accept is the accepted file types for the file.
+    # accept is the file types accepted by the file input.
     accept: list[str] | None
 
-    # multiple is whether or not the file accepts multiple files.
+    # multiple is whether or not multiple files can be selected.
     multiple: bool
 
-    # default is the default URL list of file(s) for the file.
+    # default is the default value for the file input.
     default: list[str] | None
 
 
 @dataclass
 class TelFormField(PatternedFormField, PlaceheldFormField):
     """
-    Class for keeping track of a telephone number form field.
+    Class for keeping track of a tel form field.
 
     See:
     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel
     """
 
-    # type is the FormFieldType.TEL type.
-    type: FormFieldType.TEL
+    def __init__(
+        self,
+        question: str,
+        default: str | None = None,
+        required: bool | None = False,
+        pattern: str | None = None,
+        placeholder: str | None = None,
+    ):
+        super().__init__(FormFieldType.TEL, question, required, pattern)
+        self.placeholder = placeholder
+        self.default = default
 
-    # default is the default value for the tel.
-    default: str | None
-
-
-@dataclass
-class URLFormField(PatternedFormField, PlaceheldFormField):
-    """
-    Class for keeping track of a URL form field.
-
-    See:
-    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url
-    """
-
-    # type is the FormFieldType.URL type.
-    type: FormFieldType.URL
-
-    # default is the default value for the URL.
+    # default is the default value for the tel input.
     default: str | None
 
 
@@ -304,11 +437,94 @@ class ColorFormField(FormField):
     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color
     """
 
-    # type is the FormFieldType.COLOR type.
-    type: FormFieldType.COLOR
+    def __init__(
+        self,
+        question: str,
+        default: str | None = None,
+        required: bool | None = False,
+    ):
+        super().__init__(FormFieldType.COLOR, question, required)
+        self.default = default
 
-    # default is the default value for the color.
+    # default is the default value for the color input.
     default: str | None
+
+
+@dataclass
+class URLFormField(PatternedFormField, PlaceheldFormField):
+    """
+    Class for keeping track of a url form field.
+
+    See:
+    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url
+    """
+
+    def __init__(
+        self,
+        question: str,
+        default: str | None = None,
+        required: bool | None = False,
+        pattern: str | None = None,
+        placeholder: str | None = None,
+    ):
+        super().__init__(FormFieldType.URL, question, required, pattern)
+        self.placeholder = placeholder
+        self.default = default
+
+    # default is the default value for the url input.
+    default: str | None
+
+
+@dataclass
+class Fieldset:
+    """
+    Class for keeping track of a fieldset.
+    """
+
+    def __init__(
+        self,
+        fields: list[FormField],
+        shuffled: bool = False,
+    ):
+        self.fields = fields
+        self.shuffled = shuffled
+
+    # fields is the list of form fields for the fieldset.
+    fields: list[FormField]
+
+    # shuffled is whether or not the fieldset is shuffled.
+    shuffled: bool
+
+    # get_fields returns the list of form fields for the fieldset.
+    def get_fields(self) -> list[FormField]:
+        if self.shuffled:
+            return random.sample(self.fields, len(self.fields))
+
+        return self.fields
+
+
+@dataclass
+class FieldsetFormField(FormField):
+    """
+    Class for keeping track of a fieldset form field.
+    """
+
+    def __init__(
+        self,
+        question: str,
+        fieldset: Fieldset,
+        required: bool = False,
+        max: int = 1,
+    ):
+        super().__init__(FormFieldType.FIELDSET, question, required)
+        self.fieldset = fieldset
+        self.max = max
+
+    # fieldset is the fieldset of the fieldset form field.
+    fieldset: Fieldset
+
+    # max is the maximum number of times the fieldset can be repeated.
+    max: int
 
 
 @dataclass
@@ -320,8 +536,8 @@ class Form:
     # id is the ID of the form.
     id: str
 
-    # items is the list of form items for the form.
-    items: list[FormField]
+    # fieldset is the fieldset of the form.
+    fieldset: Fieldset
 
     # linked_sheet_id is the ID of the linked Google Sheets sheet for the responses
     # to the form.
@@ -339,6 +555,13 @@ class Form:
     # message representation of the form is in.
     discord_channel_id: str
 
-    # discord_guild_id is the ID of the Discord guild that the Discord channel
-    # that the Discord message representation of the form is in.
-    discord_guild_id: str
+
+# overwrite_default_responses: bool = False
+
+# I will make a recursive form field groups system where in the case that i need
+# to make instances of a form incrementally, i can do so by making a form field.
+
+# The way to add a new subform is by subform link. They just click it and they navigate to it.
+# When they go back to the main form, the subform is added to the main form where they can delete it or add more subforms.
+# When they delete a subform, they are asked to confirm the deletion and can even undo the deletion until the submission. Unless the form is able to be edited after submisssion.
+# The subform codes are stored somewhere to verify that a subform id is valid without storing it in a db.
