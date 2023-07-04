@@ -159,7 +159,7 @@ function addQuestion(data) {
 
   const question = document.createElement("fieldset");
   const legend = document.createElement("legend");
-  legend.innerText = QUESTION_LEGENDS[data.type];
+  legend.innerText = QUESTION_LEGENDS[QuestionType[data.type]];
   console.log({ data, QUESTION_LEGENDS });
   question.appendChild(legend);
 
