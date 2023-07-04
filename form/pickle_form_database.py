@@ -1,6 +1,6 @@
 import pickle
 from form.form import Form
-from form_database import FormDatabase
+from form.form_database import FormDatabase
 
 
 class PickleFormDatabase(FormDatabase):
@@ -19,6 +19,11 @@ class PickleFormDatabase(FormDatabase):
         """Retrieve a form by ID."""
         forms = self._load_forms()
         return forms.get(form_id)
+
+    def get_all_forms(self) -> list[Form]:
+        """Retrieve all forms."""
+        forms = self._load_forms()
+        return list(forms.values())
 
     def delete_form(self, form_id: str) -> None:
         """Delete a form by ID."""

@@ -3,7 +3,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "python.formatting.provider": "black",
   "python.languageServer": "Pylance",
-  "python.analysis.typeCheckingMode": "strict",
+  "python.analysis.typeCheckingMode": "basic",
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
   }

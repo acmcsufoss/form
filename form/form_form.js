@@ -31,6 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
       console.info(`Loaded ${input.name} (${stored}) from local storage.`);
     }
   });
+
+  // Add the add question form to the page.
+  addAddQuestionForm();
 });
 
 /**

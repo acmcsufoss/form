@@ -274,17 +274,17 @@ class DiscordMessage:
     Class for keeping track of a Discord message.
     """
 
+    # webhook_url is the webhook URL of the Discord message.
+    webhook_url: str
+
     # content is the content of the Discord message.
     content: str
 
     # id is the ID of the Discord message that the form is linked to (if any).
     id: str | None
 
-    # channel_id is the ID of the Discord channel that the Discord message is in.
-    channel_id: str
-
     # timestamp is the timestamp of the Discord message.
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None
 
 
 @dataclass
@@ -295,6 +295,8 @@ class Form:
 
     def __init__(self, id: str = str(uuid.uuid4())):
         self.id = id
+        self.questions = None
+        self.linked_discord_message = None
 
     # id is the ID of the form.
     id: str

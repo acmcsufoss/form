@@ -12,6 +12,10 @@ class FormDatabase:
         """Abstract method to retrieve a form by ID."""
         raise NotImplementedError("get_form method must be implemented.")
 
+    def get_all_forms(self) -> list[Form]:
+        """Abstract method to retrieve all forms."""
+        raise NotImplementedError("get_all_forms method must be implemented.")
+
     def delete_form(self, form_id: str) -> None:
         """Abstract method to delete a form by ID."""
         raise NotImplementedError("delete_form method must be implemented.")
