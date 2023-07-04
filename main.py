@@ -1,35 +1,45 @@
-from flask import Flask, request, jsonify, redirect
-from form import Form
+from flask import Flask, request, redirect, render_template
+from form.form import Form
+from form.pickle_form_database import PickleFormDatabase
+from response.pickle_response_database import PickleResponseDatabase
+
 
 app = Flask(__name__)
-
+form_db = PickleFormDatabase("forms.pkl")
+response_db = PickleResponseDatabase("responses.pkl")
 
 @app.route("/forms", methods=["GET"])
-def list_forms():
-    forms = [{"id": "form1", "title": "Form 1"}, {"id": "form2", "title": "Form 2"}]
-    return jsonify(forms)
-
-
-@app.route("/forms", methods=["POST"])
-def generate_form():
-    return redirect("/forms/new", code=302)
+def new_form_page():
+    new_form = Form()
+    form_db.save_form(new_form)
+    return redirect(f"/forms/{new_form.id}", code=302)
 
 
 @app.route("/forms/<form_id>", methods=["GET"])
-def edit_form(form_id):
-    # Allow the user to edit the form's existing fields or add new ones.
-    return "HTML form edit page"
+def edit_form_page(form_id: str):
+    form = form_db.get_form(form_id)
+    return render_template("form.html", form=form)
 
 
 @app.route("/forms/<form_id>", methods=["POST"])
-def update_form(form_id):
+def edit_form(form_id: str):
     form_update = request.get_json()
     # Process the form update
     return "", 200
 
 
+@app.route("/<response_id>", methods=["GET"])
+def respond_form_page(response_id: str):
+    # Get the form by ID
+    # Render the form
+
 @app.route("/<response_id>", methods=["POST"])
-def submit_form(response_id):
+def respond_form(response_id: str):
+    # Get the form by ID
+    # Render the form
+
+@app.route("/<response_id>", methods=["POST"])
+def submit_form(response_id: str):
     form_response = request.get_json()
     # Process the form response
     return redirect("/success?response_id=" + response_id, code=302)

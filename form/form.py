@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 import random
+import uuid
 
 
 class QuestionType(Enum):
@@ -301,11 +302,14 @@ class Form:
     Class for keeping track of a form.
     """
 
+    def __init__(self, id: str = str(uuid.uuid4())):
+        self.id = id
+
     # id is the ID of the form.
     id: str
 
     # questions is the list of questions for the form.
-    questions: QuestionList
+    questions: QuestionList | None
 
     # linked_sheet is the Google Sheets sheet that the form is linked to.
     linked_sheet: GoogleSheetsSheet | None
