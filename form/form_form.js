@@ -7,13 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add event listener to save form data when it changes.
   formForm.addEventListener("change", (event) => {
     const name = event.target.name;
-    if (!name.startsWith("question_")) {
-      return;
-    }
+    let value = event.target.value;
+    switch (event.target.type) {
+      case "checkbox": {
+        value = event.target.checked ? "on" : "off";
+        break;
+      }
 
-    const value = event.target.value;
-    if (!value) {
-      return;
+      case "radio": {
+        value = event.target.value;
+        break;
+      }
     }
 
     // Save the input element's value to local storage by its name.
@@ -23,11 +27,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Load form data from local storage by reading all input elements' values
   // and setting them to the values from local storage.
-  const inputs = formForm.querySelectorAll("input, textarea, select");
+  const inputs = formForm.querySelectorAll("input,textarea,select");
   inputs.forEach((input) => {
     const stored = localStorage.getItem(input.name);
     if (stored) {
-      input.value = stored;
+      switch (input.type) {
+        case "checkbox": {
+          input.checked = stored === "on";
+          break;
+        }
+
+        case "radio": {
+          input.checked = input.value === stored;
+          break;
+        }
+
+        default: {
+          input.value = stored;
+        }
+      }
+
       console.info(`Loaded ${input.name} (${stored}) from local storage.`);
     }
   });
@@ -76,10 +95,10 @@ function addAddQuestionForm() {
 
   // Add question type select to choose which type of question to add.
   const questionTypeSelect = document.createElement("select");
-  Object.entries(QuestionType).forEach((value, name) => {
+  Object.entries(QuestionType).forEach(([key, value]) => {
     const option = document.createElement("option");
-    option.value = value;
-    option.innerText = name;
+    option.value = key;
+    option.innerText = value;
     questionTypeSelect.appendChild(option);
   });
   addQuestionForm.appendChild(questionTypeSelect);
@@ -93,6 +112,35 @@ function addAddQuestionForm() {
   });
   addQuestionForm.appendChild(addQuestionButton);
   addQuestionContainer.appendChild(addQuestionForm);
+
+  // List all of the questions stored in local storage.
+  const questions = Object.entries(localStorage).filter(([name]) =>
+    name.startsWith("question_type_")
+  );
+
+  // Add all of the questions to the page.
+  questions.forEach(([name, value]) => {
+    const key = name.replace("question_type_", "");
+    console.log({ name, key });
+    addQuestion({
+      key,
+      type: value,
+      name: localStorage.getItem(`question_name_${key}`),
+      content: localStorage.getItem(`question_content_${key}`),
+      required: localStorage.getItem(`question_required_${key}`) === "on",
+      min: localStorage.getItem(`question_min_${key}`),
+      max: localStorage.getItem(`question_max_${key}`),
+      step: localStorage.getItem(`question_step_${key}`),
+      default: localStorage.getItem(`question_default_${key}`),
+      placeholder: localStorage.getItem(`question_placeholder_${key}`),
+      choices: localStorage.getItem(`question_choices_${key}`),
+      custom_choice: localStorage.getItem(`question_custom_choice_${key}`),
+      default_choice: localStorage.getItem(`question_default_choice_${key}`),
+      default_custom_choice: localStorage.getItem(
+        `question_default_custom_choice_${key}`
+      ),
+    });
+  });
 }
 
 /**
@@ -112,6 +160,7 @@ function addQuestion(data) {
   const question = document.createElement("fieldset");
   const legend = document.createElement("legend");
   legend.innerText = QUESTION_LEGENDS[data.type];
+  console.log({ data, QUESTION_LEGENDS });
   question.appendChild(legend);
 
   const questionTypeField = document.createElement("input");
@@ -119,20 +168,24 @@ function addQuestion(data) {
   questionTypeField.name = `question_type_${data.key}`;
   questionTypeField.value = data.type;
   question.appendChild(questionTypeField);
+  localStorage.setItem(questionTypeField.name, questionTypeField.value);
 
   const questionNameField = document.createElement("input");
+  questionNameField.type = "text";
   questionNameField.name = `question_name_${data.key}`;
   if (data.name) {
     questionNameField.value = data.name;
   }
   question.appendChild(questionNameField);
+  localStorage.setItem(questionNameField.name, questionNameField.value);
 
   const questionContentField = document.createElement("textarea");
   questionContentField.name = `question_content_${data.key}`;
   if (data.content) {
-    questionContentField.value = data.content;
+    questionContentField.innerHTML = data.content;
   }
   question.appendChild(questionContentField);
+  localStorage.setItem(questionContentField.name, questionContentField.value);
 
   const questionRequiredField = document.createElement("input");
   questionRequiredField.type = "checkbox";
@@ -141,8 +194,12 @@ function addQuestion(data) {
     questionRequiredField.checked = true;
   }
   question.appendChild(questionRequiredField);
+  localStorage.setItem(
+    questionRequiredField.name,
+    questionRequiredField.checked ? "on" : "off"
+  );
 
-  switch (questionType) {
+  switch (data.type) {
     case QuestionType.NUMBER: {
       const questionMinField = document.createElement("input");
       questionMinField.type = "number";
@@ -151,6 +208,7 @@ function addQuestion(data) {
         questionMinField.value = data.min;
       }
       question.appendChild(questionMinField);
+      localStorage.setItem(questionMinField.name, questionMinField.value);
 
       const questionMaxField = document.createElement("input");
       questionMaxField.type = "number";
@@ -159,6 +217,7 @@ function addQuestion(data) {
         questionMaxField.value = data.max;
       }
       question.appendChild(questionMaxField);
+      localStorage.setItem(questionMaxField.name, questionMaxField.value);
 
       const questionStepField = document.createElement("input");
       questionStepField.type = "number";
@@ -167,6 +226,7 @@ function addQuestion(data) {
         questionStepField.value = data.step;
       }
       question.appendChild(questionStepField);
+      localStorage.setItem(questionStepField.name, questionStepField.value);
 
       const questionDefaultField = document.createElement("input");
       questionDefaultField.type = "number";
@@ -175,6 +235,10 @@ function addQuestion(data) {
         questionDefaultField.value = data.default;
       }
       question.appendChild(questionDefaultField);
+      localStorage.setItem(
+        questionDefaultField.name,
+        questionDefaultField.value
+      );
 
       const questionPlaceholderField = document.createElement("input");
       questionPlaceholderField.type = "text";
@@ -183,6 +247,10 @@ function addQuestion(data) {
         questionPlaceholderField.value = data.placeholder;
       }
       question.appendChild(questionPlaceholderField);
+      localStorage.setItem(
+        questionPlaceholderField.name,
+        questionPlaceholderField.value
+      );
       break;
     }
 
@@ -194,6 +262,10 @@ function addQuestion(data) {
         questionChoicesField.innerText = data.choices;
       }
       question.appendChild(questionChoicesField);
+      localStorage.setItem(
+        questionChoicesField.name,
+        questionChoicesField.value
+      );
 
       const questionCustomChoiceField = document.createElement("input");
       questionCustomChoiceField.type = "checkbox";
@@ -202,6 +274,10 @@ function addQuestion(data) {
         questionCustomChoiceField.checked = true;
       }
       question.appendChild(questionCustomChoiceField);
+      localStorage.setItem(
+        questionCustomChoiceField.name,
+        questionCustomChoiceField.checked
+      );
 
       const questionDefaultChoiceField = document.createElement("input");
       questionDefaultChoiceField.type = "number";
@@ -211,6 +287,10 @@ function addQuestion(data) {
         questionDefaultChoiceField.value = data.default_choice;
       }
       question.appendChild(questionDefaultChoiceField);
+      localStorage.setItem(
+        questionDefaultChoiceField.name,
+        questionDefaultChoiceField.value
+      );
 
       const questionDefaultCustomChoiceField = document.createElement("input");
       questionDefaultCustomChoiceField.type = "text";
@@ -220,6 +300,10 @@ function addQuestion(data) {
         questionDefaultCustomChoiceField.value = data.default_custom_choice;
       }
       question.appendChild(questionDefaultCustomChoiceField);
+      localStorage.setItem(
+        questionDefaultCustomChoiceField.name,
+        questionDefaultCustomChoiceField.value
+      );
       break;
     }
 
@@ -231,6 +315,10 @@ function addQuestion(data) {
         questionMinLengthField.value = data.min;
       }
       question.appendChild(questionMinLengthField);
+      localStorage.setItem(
+        questionMinLengthField.name,
+        questionMinLengthField.value
+      );
 
       const questionMaxLengthField = document.createElement("input");
       questionMaxLengthField.type = "number";
@@ -239,6 +327,10 @@ function addQuestion(data) {
         questionMaxLengthField.value = data.max;
       }
       question.appendChild(questionMaxLengthField);
+      localStorage.setItem(
+        questionMaxLengthField.name,
+        questionMaxLengthField.value
+      );
 
       const questionDefaultField = document.createElement("input");
       questionDefaultField.type = "text";
@@ -247,6 +339,11 @@ function addQuestion(data) {
         questionDefaultField.value = data.default;
       }
       question.appendChild(questionDefaultField);
+      localStorage.setItem(
+        questionDefaultField.name,
+        questionDefaultField.value
+      );
+      break;
     }
 
     case QuestionType.TEXTAREA: {
@@ -257,6 +354,10 @@ function addQuestion(data) {
         questionMinLengthField.value = data.min;
       }
       question.appendChild(questionMinLengthField);
+      localStorage.setItem(
+        questionMinLengthField.name,
+        questionMinLengthField.value
+      );
 
       const questionMaxLengthField = document.createElement("input");
       questionMaxLengthField.type = "number";
@@ -265,6 +366,10 @@ function addQuestion(data) {
         questionMaxLengthField.value = data.max;
       }
       question.appendChild(questionMaxLengthField);
+      localStorage.setItem(
+        questionMaxLengthField.name,
+        questionMaxLengthField.value
+      );
 
       const questionDefaultField = document.createElement("input");
       questionDefaultField.type = "text";
@@ -273,6 +378,10 @@ function addQuestion(data) {
         questionDefaultField.value = data.default;
       }
       question.appendChild(questionDefaultField);
+      localStorage.setItem(
+        questionDefaultField.name,
+        questionDefaultField.value
+      );
 
       const questionPlaceholderField = document.createElement("input");
       questionPlaceholderField.type = "text";
@@ -281,6 +390,10 @@ function addQuestion(data) {
         questionPlaceholderField.value = data.placeholder;
       }
       question.appendChild(questionPlaceholderField);
+      localStorage.setItem(
+        questionPlaceholderField.name,
+        questionPlaceholderField.value
+      );
       break;
     }
 
@@ -292,6 +405,10 @@ function addQuestion(data) {
         questionDefaultField.checked = true;
       }
       question.appendChild(questionDefaultField);
+      localStorage.setItem(
+        questionDefaultField.name,
+        questionDefaultField.checked
+      );
       break;
     }
 
@@ -303,6 +420,10 @@ function addQuestion(data) {
         questionDefaultField.value = data.default;
       }
       question.appendChild(questionDefaultField);
+      localStorage.setItem(
+        questionDefaultField.name,
+        questionDefaultField.value
+      );
       break;
     }
 
@@ -318,7 +439,15 @@ function addQuestion(data) {
 
     const confirmed = confirm("Are you sure you want to delete this question?");
     if (confirmed) {
+      // Remove from DOM.
       question.remove();
+
+      // Remove from local storage.
+      Object.keys(localStorage).forEach((key) => {
+        if (key.endsWith(data.key)) {
+          localStorage.removeItem(key);
+        }
+      });
     }
   });
   question.appendChild(deleteButton);

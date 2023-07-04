@@ -18,18 +18,24 @@ def render_form_form_html(form_id: str) -> str:
 
     form_html += """<div class="questions"></div>"""
 
-    form_html += """<label for="shuffled">Shuffled:</label>"""
-    form_html += """<input type="checkbox" name="shuffled" />"""
-
     form_html += "<noscript>"
     form_html += "<p>JavaScript is required to use this form.</p>"
     form_html += "</noscript>"
 
+    form_html += """<label for="shuffled">Shuffled:</label>"""
+    form_html += """<input type="checkbox" name="shuffled" />"""
+
+    form_html += "<br />"
+
     form_html += """<label for="webhook_url">Webhook URL:</label>"""
     form_html += """<input type="url" name="webhook_url" />"""
 
+    form_html += "<br />"
+
     form_html += """<label for="content">Content:</label>"""
-    form_html += """<textarea name="content"></textarea>"""
+    form_html += """<textarea name="content" placeholder="This is the text that will be sent to the webhook."></textarea>"""
+
+    form_html += "<br />"
 
     form_html += """<input type="submit" value="Submit" />"""
     form_html += "</form>"
