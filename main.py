@@ -27,6 +27,12 @@ def edit_form(form_id: str):
     # Process the form update
     return "", 200
 
+@app.route("/forms/<form_id>/cancel", methods=["POST"]):
+def cancel_autosend(form_id: str):
+    form = form_db.get_form(form_id)
+    form. = False
+    form_db.save_form(form)
+    return "", 200
 
 @app.route("/<response_id>", methods=["GET"])
 def respond_form_page(response_id: str):

@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from enum import Enum
 import random
 import uuid
+import datetime
 
 
 class QuestionType(Enum):
@@ -282,18 +283,8 @@ class DiscordMessage:
     # channel_id is the ID of the Discord channel that the Discord message is in.
     channel_id: str
 
-
-@dataclass
-class GoogleSheetsSheet:
-    """
-    Class for keeping track of a Google Sheets sheet.
-    """
-
-    # id is the ID of the Google Sheets sheet.
-    id: str
-
-    # name is the name of the Google Sheets sheet.
-    name: str
+    # timestamp is the timestamp of the Discord message.
+    timestamp: datetime.datetime
 
 
 @dataclass
@@ -310,9 +301,6 @@ class Form:
 
     # questions is the list of questions for the form.
     questions: QuestionList | None
-
-    # linked_sheet is the Google Sheets sheet that the form is linked to.
-    linked_sheet: GoogleSheetsSheet | None
 
     # linked_discord_message is the Discord message that the form is linked to.
     linked_discord_message: DiscordMessage | None
