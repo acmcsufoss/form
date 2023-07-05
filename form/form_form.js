@@ -165,10 +165,6 @@ function addQuestion(data) {
   questionTypeField.type = "hidden";
   questionTypeField.name = `question_type_${data.key}`;
   questionTypeField.value = data.type;
-  const questionTypeLabel = document.createElement("label");
-  questionTypeLabel.innerText = "Question type:";
-  questionTypeLabel.for = questionTypeField.name;
-  question.appendChild(questionTypeLabel);
   question.appendChild(questionTypeField);
   localStorage.setItem(questionTypeField.name, questionTypeField.value);
 
