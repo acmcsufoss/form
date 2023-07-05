@@ -39,6 +39,7 @@ def edit_form_page(form_id: str) -> tuple[str, int, dict[str, str]]:
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <link rel="icon" href="https://acmcsuf.com/favicon.ico" />
         <title>Edit form</title>
     </head>
     <body><div class="add-question"></div>{form_form_html}{form_form_js}</body>
