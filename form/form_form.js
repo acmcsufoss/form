@@ -121,7 +121,6 @@ function addAddQuestionForm() {
   // Add all of the questions to the page.
   questions.forEach(([name, value]) => {
     const key = name.replace("question_type_", "");
-    console.log({ name, key });
     addQuestion({
       key,
       type: value,
@@ -160,13 +159,16 @@ function addQuestion(data) {
   const question = document.createElement("fieldset");
   const legend = document.createElement("legend");
   legend.innerText = QUESTION_LEGENDS[QuestionType[data.type]];
-  console.log({ data, QUESTION_LEGENDS });
   question.appendChild(legend);
 
   const questionTypeField = document.createElement("input");
   questionTypeField.type = "hidden";
   questionTypeField.name = `question_type_${data.key}`;
   questionTypeField.value = data.type;
+  const questionTypeLabel = document.createElement("label");
+  questionTypeLabel.innerText = "Question type:";
+  questionTypeLabel.for = questionTypeField.name;
+  question.appendChild(questionTypeLabel);
   question.appendChild(questionTypeField);
   localStorage.setItem(questionTypeField.name, questionTypeField.value);
 
@@ -176,6 +178,10 @@ function addQuestion(data) {
   if (data.name) {
     questionNameField.value = data.name;
   }
+  const questionNameLabel = document.createElement("label");
+  questionNameLabel.innerText = "Question name:";
+  questionNameLabel.for = questionNameField.name;
+  question.appendChild(questionNameLabel);
   question.appendChild(questionNameField);
   localStorage.setItem(questionNameField.name, questionNameField.value);
 
@@ -184,6 +190,10 @@ function addQuestion(data) {
   if (data.content) {
     questionContentField.innerHTML = data.content;
   }
+  const questionContentLabel = document.createElement("label");
+  questionContentLabel.innerText = "Question content:";
+  questionContentLabel.for = questionContentField.name;
+  question.appendChild(questionContentLabel);
   question.appendChild(questionContentField);
   localStorage.setItem(questionContentField.name, questionContentField.value);
 
@@ -193,6 +203,10 @@ function addQuestion(data) {
   if (data.required) {
     questionRequiredField.checked = true;
   }
+  const questionRequiredLabel = document.createElement("label");
+  questionRequiredLabel.innerText = "Question required:";
+  questionRequiredLabel.for = questionRequiredField.name;
+  question.appendChild(questionRequiredLabel);
   question.appendChild(questionRequiredField);
   localStorage.setItem(
     questionRequiredField.name,
@@ -207,6 +221,10 @@ function addQuestion(data) {
       if (data.min) {
         questionMinField.value = data.min;
       }
+      const questionMinLabel = document.createElement("label");
+      questionMinLabel.innerText = "Question min:";
+      questionMinLabel.for = questionMinField.name;
+      question.appendChild(questionMinLabel);
       question.appendChild(questionMinField);
       localStorage.setItem(questionMinField.name, questionMinField.value);
 
@@ -216,6 +234,10 @@ function addQuestion(data) {
       if (data.max) {
         questionMaxField.value = data.max;
       }
+      const questionMaxLabel = document.createElement("label");
+      questionMaxLabel.innerText = "Question max:";
+      questionMaxLabel.for = questionMaxField.name;
+      question.appendChild(questionMaxLabel);
       question.appendChild(questionMaxField);
       localStorage.setItem(questionMaxField.name, questionMaxField.value);
 
@@ -225,6 +247,10 @@ function addQuestion(data) {
       if (data.step) {
         questionStepField.value = data.step;
       }
+      const questionStepLabel = document.createElement("label");
+      questionStepLabel.innerText = "Question step:";
+      questionStepLabel.for = questionStepField.name;
+      question.appendChild(questionStepLabel);
       question.appendChild(questionStepField);
       localStorage.setItem(questionStepField.name, questionStepField.value);
 
@@ -234,6 +260,10 @@ function addQuestion(data) {
       if (data.default) {
         questionDefaultField.value = data.default;
       }
+      const questionDefaultLabel = document.createElement("label");
+      questionDefaultLabel.innerText = "Question default:";
+      questionDefaultLabel.for = questionDefaultField.name;
+      question.appendChild(questionDefaultLabel);
       question.appendChild(questionDefaultField);
       localStorage.setItem(
         questionDefaultField.name,
@@ -246,6 +276,10 @@ function addQuestion(data) {
       if (data.placeholder) {
         questionPlaceholderField.value = data.placeholder;
       }
+      const questionPlaceholderLabel = document.createElement("label");
+      questionPlaceholderLabel.innerText = "Question placeholder:";
+      questionPlaceholderLabel.for = questionPlaceholderField.name;
+      question.appendChild(questionPlaceholderLabel);
       question.appendChild(questionPlaceholderField);
       localStorage.setItem(
         questionPlaceholderField.name,
@@ -261,6 +295,10 @@ function addQuestion(data) {
       if (data.choices) {
         questionChoicesField.innerText = data.choices;
       }
+      const questionChoicesLabel = document.createElement("label");
+      questionChoicesLabel.innerText = "Question choices:";
+      questionChoicesLabel.for = questionChoicesField.name;
+      question.appendChild(questionChoicesLabel);
       question.appendChild(questionChoicesField);
       localStorage.setItem(
         questionChoicesField.name,
@@ -273,6 +311,10 @@ function addQuestion(data) {
       if (data.custom_choice) {
         questionCustomChoiceField.checked = true;
       }
+      const questionCustomChoiceLabel = document.createElement("label");
+      questionCustomChoiceLabel.innerText = "Question custom choice:";
+      questionCustomChoiceLabel.for = questionCustomChoiceField.name;
+      question.appendChild(questionCustomChoiceLabel);
       question.appendChild(questionCustomChoiceField);
       localStorage.setItem(
         questionCustomChoiceField.name,
@@ -286,6 +328,10 @@ function addQuestion(data) {
       if (data.default_choice) {
         questionDefaultChoiceField.value = data.default_choice;
       }
+      const questionDefaultChoiceLabel = document.createElement("label");
+      questionDefaultChoiceLabel.innerText = "Question default choice:";
+      questionDefaultChoiceLabel.for = questionDefaultChoiceField.name;
+      question.appendChild(questionDefaultChoiceLabel);
       question.appendChild(questionDefaultChoiceField);
       localStorage.setItem(
         questionDefaultChoiceField.name,
@@ -299,6 +345,12 @@ function addQuestion(data) {
       if (data.default_custom_choice) {
         questionDefaultCustomChoiceField.value = data.default_custom_choice;
       }
+      const questionDefaultCustomChoiceLabel = document.createElement("label");
+      questionDefaultCustomChoiceLabel.innerText =
+        "Question default custom choice:";
+      questionDefaultCustomChoiceLabel.for =
+        questionDefaultCustomChoiceField.name;
+      question.appendChild(questionDefaultCustomChoiceLabel);
       question.appendChild(questionDefaultCustomChoiceField);
       localStorage.setItem(
         questionDefaultCustomChoiceField.name,
@@ -326,6 +378,10 @@ function addQuestion(data) {
       if (data.max) {
         questionMaxLengthField.value = data.max;
       }
+      const questionMaxLengthLabel = document.createElement("label");
+      questionMaxLengthLabel.innerText = "Question max length:";
+      questionMaxLengthLabel.for = questionMaxLengthField.name;
+      question.appendChild(questionMaxLengthLabel);
       question.appendChild(questionMaxLengthField);
       localStorage.setItem(
         questionMaxLengthField.name,
@@ -338,6 +394,10 @@ function addQuestion(data) {
       if (data.default) {
         questionDefaultField.value = data.default;
       }
+      const questionDefaultLabel = document.createElement("label");
+      questionDefaultLabel.innerText = "Question default value:";
+      questionDefaultLabel.for = questionDefaultField.name;
+      question.appendChild(questionDefaultLabel);
       question.appendChild(questionDefaultField);
       localStorage.setItem(
         questionDefaultField.name,
@@ -353,6 +413,10 @@ function addQuestion(data) {
       if (data.min) {
         questionMinLengthField.value = data.min;
       }
+      const questionMinLengthLabel = document.createElement("label");
+      questionMinLengthLabel.innerText = "Question min length:";
+      questionMinLengthLabel.for = questionMinLengthField.name;
+      question.appendChild(questionMinLengthLabel);
       question.appendChild(questionMinLengthField);
       localStorage.setItem(
         questionMinLengthField.name,
@@ -365,6 +429,10 @@ function addQuestion(data) {
       if (data.max) {
         questionMaxLengthField.value = data.max;
       }
+      const questionMaxLengthLabel = document.createElement("label");
+      questionMaxLengthLabel.innerText = "Question max length:";
+      questionMaxLengthLabel.for = questionMaxLengthField.name;
+      question.appendChild(questionMaxLengthLabel);
       question.appendChild(questionMaxLengthField);
       localStorage.setItem(
         questionMaxLengthField.name,
@@ -377,6 +445,10 @@ function addQuestion(data) {
       if (data.default) {
         questionDefaultField.value = data.default;
       }
+      const questionDefaultLabel = document.createElement("label");
+      questionDefaultLabel.innerText = "Question default value:";
+      questionDefaultLabel.for = questionDefaultField.name;
+      question.appendChild(questionDefaultLabel);
       question.appendChild(questionDefaultField);
       localStorage.setItem(
         questionDefaultField.name,
@@ -389,6 +461,10 @@ function addQuestion(data) {
       if (data.placeholder) {
         questionPlaceholderField.value = data.placeholder;
       }
+      const questionPlaceholderLabel = document.createElement("label");
+      questionPlaceholderLabel.innerText = "Question placeholder:";
+      questionPlaceholderLabel.for = questionPlaceholderField.name;
+      question.appendChild(questionPlaceholderLabel);
       question.appendChild(questionPlaceholderField);
       localStorage.setItem(
         questionPlaceholderField.name,
@@ -404,6 +480,10 @@ function addQuestion(data) {
       if (data.default) {
         questionDefaultField.checked = true;
       }
+      const questionDefaultLabel = document.createElement("label");
+      questionDefaultLabel.innerText = "Question default value:";
+      questionDefaultLabel.for = questionDefaultField.name;
+      question.appendChild(questionDefaultLabel);
       question.appendChild(questionDefaultField);
       localStorage.setItem(
         questionDefaultField.name,
@@ -419,6 +499,10 @@ function addQuestion(data) {
       if (data.default) {
         questionDefaultField.value = data.default;
       }
+      const questionDefaultLabel = document.createElement("label");
+      questionDefaultLabel.innerText = "Question default value:";
+      questionDefaultLabel.for = questionDefaultField.name;
+      question.appendChild(questionDefaultLabel);
       question.appendChild(questionDefaultField);
       localStorage.setItem(
         questionDefaultField.name,
