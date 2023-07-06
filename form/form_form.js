@@ -95,6 +95,7 @@ function addAddQuestionForm() {
 
   // Add question type select to choose which type of question to add.
   const questionTypeSelect = document.createElement("select");
+  questionTypeSelect.name = "question_type";
   Object.entries(QuestionType).forEach(([key, value]) => {
     const option = document.createElement("option");
     option.value = key;
@@ -118,7 +119,7 @@ function addAddQuestionForm() {
     name.startsWith("question_type_")
   );
 
-  // Add all of the questions to the page.
+  // Add all of the stored questions to the page.
   questions.forEach(([name, value]) => {
     const key = name.replace("question_type_", "");
     addQuestion({
@@ -149,12 +150,17 @@ function addQuestion(data) {
   const questionsContainer = document.querySelector(".questions");
   data ||= {
     key: Math.random().toString(36).substring(2, 15),
-  };
+    type: (() => {
+      const questionTypeField = document.querySelector(
+        "select[name=question_type]"
+      );
+      if (!(questionTypeField.value in QuestionType)) {
+        throw new Error("Invalid question type.");
+      }
 
-  data.type = document.querySelector("select")?.value;
-  if (!data.type || !(data.type in QuestionType)) {
-    return;
-  }
+      return questionTypeField.value;
+    })(),
+  };
 
   const question = document.createElement("fieldset");
   const legend = document.createElement("legend");

@@ -33,7 +33,7 @@ def render_form_form_html(form_id: str) -> str:
     form_html += "<br />"
 
     form_html += """<label for="content">Content:</label>"""
-    form_html += """<textarea name="content" placeholder="This is the text that will be sent to the webhook."></textarea>"""
+    form_html += """<textarea name="content" placeholder="This is the Discord message content."></textarea>"""
 
     form_html += "<br />"
 
