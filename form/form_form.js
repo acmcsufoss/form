@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Save the input element's value to local storage by its name.
-    localStorage.setItem(name, value);
+    saveFormItem(name, value);
     console.info(`Saved ${name} (${value}) to local storage.`);
   });
 
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // and setting them to the values from local storage.
   const inputs = formForm.querySelectorAll("input,textarea,select");
   inputs.forEach((input) => {
-    const stored = localStorage.getItem(input.name);
+    const stored = readFormItem(input.name);
     if (stored) {
       switch (input.type) {
         case "checkbox": {
@@ -115,32 +115,10 @@ function addAddQuestionForm() {
   addQuestionContainer.appendChild(addQuestionForm);
 
   // List all of the questions stored in local storage.
-  const questions = Object.entries(localStorage).filter(([name]) =>
-    name.startsWith("question_type_")
-  );
+  const questions = readFormItems();
 
   // Add all of the stored questions to the page.
-  questions.forEach(([name, value]) => {
-    const key = name.replace("question_type_", "");
-    addQuestion({
-      key,
-      type: value,
-      name: localStorage.getItem(`question_name_${key}`),
-      content: localStorage.getItem(`question_content_${key}`),
-      required: localStorage.getItem(`question_required_${key}`) === "on",
-      min: localStorage.getItem(`question_min_${key}`),
-      max: localStorage.getItem(`question_max_${key}`),
-      step: localStorage.getItem(`question_step_${key}`),
-      default: localStorage.getItem(`question_default_${key}`),
-      placeholder: localStorage.getItem(`question_placeholder_${key}`),
-      choices: localStorage.getItem(`question_choices_${key}`),
-      custom_choice: localStorage.getItem(`question_custom_choice_${key}`),
-      default_choice: localStorage.getItem(`question_default_choice_${key}`),
-      default_custom_choice: localStorage.getItem(
-        `question_default_custom_choice_${key}`
-      ),
-    });
-  });
+  questions.forEach(addQuestion);
 }
 
 /**
@@ -152,7 +130,7 @@ function addQuestion(data) {
     key: Math.random().toString(36).substring(2, 15),
     type: (() => {
       const questionTypeField = document.querySelector(
-        "select[name=question_type]"
+        "select[name=question_type]",
       );
       if (!(questionTypeField.value in QuestionType)) {
         throw new Error("Invalid question type.");
@@ -172,7 +150,10 @@ function addQuestion(data) {
   questionTypeField.name = `question_type_${data.key}`;
   questionTypeField.value = data.type;
   question.appendChild(questionTypeField);
-  localStorage.setItem(questionTypeField.name, questionTypeField.value);
+  saveFormItem(questionTypeField.name, questionTypeField.value);
+
+  const details = document.createElement("details");
+  const summary = document.createElement("summary");
 
   const questionNameField = document.createElement("input");
   questionNameField.type = "text";
@@ -182,14 +163,15 @@ function addQuestion(data) {
     questionNameField.value = data.name;
   }
   const questionNameLabel = document.createElement("label");
-  questionNameLabel.innerText = "Question name:";
+  questionNameLabel.innerText = "Question name (unique ID):";
   questionNameLabel.htmlFor = questionNameField.name;
   const questionNameGroup = document.createElement("div");
   questionNameGroup.classList.add("form-group");
   questionNameGroup.appendChild(questionNameLabel);
   questionNameGroup.appendChild(questionNameField);
-  question.appendChild(questionNameGroup);
-  localStorage.setItem(questionNameField.name, questionNameField.value);
+  summary.appendChild(questionNameGroup);
+  details.appendChild(summary);
+  saveFormItem(questionNameField.name, questionNameField.value);
 
   const questionContentField = document.createElement("textarea");
   questionContentField.name = `question_content_${data.key}`;
@@ -204,8 +186,8 @@ function addQuestion(data) {
   questionContentGroup.classList.add("form-group");
   questionContentGroup.appendChild(questionContentLabel);
   questionContentGroup.appendChild(questionContentField);
-  question.appendChild(questionContentGroup);
-  localStorage.setItem(questionContentField.name, questionContentField.value);
+  details.appendChild(questionContentGroup);
+  saveFormItem(questionContentField.name, questionContentField.value);
 
   const questionRequiredField = document.createElement("input");
   questionRequiredField.type = "checkbox";
@@ -221,10 +203,10 @@ function addQuestion(data) {
   questionRequiredGroup.classList.add("form-group");
   questionRequiredGroup.appendChild(questionRequiredLabel);
   questionRequiredGroup.appendChild(questionRequiredField);
-  question.appendChild(questionRequiredGroup);
-  localStorage.setItem(
+  details.appendChild(questionRequiredGroup);
+  saveFormItem(
     questionRequiredField.name,
-    questionRequiredField.checked ? "on" : "off"
+    questionRequiredField.checked ? "on" : "off",
   );
 
   switch (QuestionType[data.type]) {
@@ -243,8 +225,8 @@ function addQuestion(data) {
       questionMinGroup.classList.add("form-group");
       questionMinGroup.appendChild(questionMinLabel);
       questionMinGroup.appendChild(questionMinField);
-      question.appendChild(questionMinGroup);
-      localStorage.setItem(questionMinField.name, questionMinField.value);
+      details.appendChild(questionMinGroup);
+      saveFormItem(questionMinField.name, questionMinField.value);
 
       const questionMaxField = document.createElement("input");
       questionMaxField.type = "number";
@@ -260,7 +242,7 @@ function addQuestion(data) {
       questionMaxGroup.classList.add("form-group");
       questionMaxGroup.appendChild(questionMaxLabel);
       questionMaxGroup.appendChild(questionMaxField);
-      localStorage.setItem(questionMaxField.name, questionMaxField.value);
+      saveFormItem(questionMaxField.name, questionMaxField.value);
 
       const questionStepField = document.createElement("input");
       questionStepField.type = "number";
@@ -276,8 +258,8 @@ function addQuestion(data) {
       questionStepGroup.classList.add("form-group");
       questionStepGroup.appendChild(questionStepLabel);
       questionStepGroup.appendChild(questionStepField);
-      question.appendChild(questionStepGroup);
-      localStorage.setItem(questionStepField.name, questionStepField.value);
+      details.appendChild(questionStepGroup);
+      saveFormItem(questionStepField.name, questionStepField.value);
 
       const questionDefaultField = document.createElement("input");
       questionDefaultField.type = "number";
@@ -293,11 +275,8 @@ function addQuestion(data) {
       questionDefaultGroup.classList.add("form-group");
       questionDefaultGroup.appendChild(questionDefaultLabel);
       questionDefaultGroup.appendChild(questionDefaultField);
-      question.appendChild(questionDefaultGroup);
-      localStorage.setItem(
-        questionDefaultField.name,
-        questionDefaultField.value
-      );
+      details.appendChild(questionDefaultGroup);
+      saveFormItem(questionDefaultField.name, questionDefaultField.value);
 
       const questionPlaceholderField = document.createElement("input");
       questionPlaceholderField.type = "text";
@@ -313,10 +292,10 @@ function addQuestion(data) {
       questionPlaceholderGroup.classList.add("form-group");
       questionPlaceholderGroup.appendChild(questionPlaceholderLabel);
       questionPlaceholderGroup.appendChild(questionPlaceholderField);
-      question.appendChild(questionPlaceholderGroup);
-      localStorage.setItem(
+      details.appendChild(questionPlaceholderGroup);
+      saveFormItem(
         questionPlaceholderField.name,
-        questionPlaceholderField.value
+        questionPlaceholderField.value,
       );
       break;
     }
@@ -336,11 +315,8 @@ function addQuestion(data) {
       questionChoicesGroup.classList.add("form-group");
       questionChoicesGroup.appendChild(questionChoicesLabel);
       questionChoicesGroup.appendChild(questionChoicesField);
-      question.appendChild(questionChoicesGroup);
-      localStorage.setItem(
-        questionChoicesField.name,
-        questionChoicesField.value
-      );
+      details.appendChild(questionChoicesGroup);
+      saveFormItem(questionChoicesField.name, questionChoicesField.value);
 
       const questionCustomChoiceField = document.createElement("input");
       questionCustomChoiceField.type = "checkbox";
@@ -356,10 +332,10 @@ function addQuestion(data) {
       questionCustomChoiceGroup.classList.add("form-group");
       questionCustomChoiceGroup.appendChild(questionCustomChoiceLabel);
       questionCustomChoiceGroup.appendChild(questionCustomChoiceField);
-      question.appendChild(questionCustomChoiceGroup);
-      localStorage.setItem(
+      details.appendChild(questionCustomChoiceGroup);
+      saveFormItem(
         questionCustomChoiceField.name,
-        questionCustomChoiceField.checked
+        questionCustomChoiceField.checked,
       );
 
       const questionDefaultChoiceField = document.createElement("input");
@@ -377,16 +353,17 @@ function addQuestion(data) {
       questionDefaultChoiceGroup.classList.add("form-group");
       questionDefaultChoiceGroup.appendChild(questionDefaultChoiceLabel);
       questionDefaultChoiceGroup.appendChild(questionDefaultChoiceField);
-      question.appendChild(questionDefaultChoiceGroup);
-      localStorage.setItem(
+      details.appendChild(questionDefaultChoiceGroup);
+      saveFormItem(
         questionDefaultChoiceField.name,
-        questionDefaultChoiceField.value
+        questionDefaultChoiceField.value,
       );
 
       const questionDefaultCustomChoiceField = document.createElement("input");
       questionDefaultCustomChoiceField.type = "text";
       questionDefaultCustomChoiceField.placeholder = "Default custom choice";
-      questionDefaultCustomChoiceField.name = `question_default_custom_choice_${data.key}`;
+      questionDefaultCustomChoiceField.name =
+        `question_default_custom_choice_${data.key}`;
       questionDefaultCustomChoiceField.id =
         questionDefaultCustomChoiceField.name;
       if (data.default_custom_choice) {
@@ -400,15 +377,15 @@ function addQuestion(data) {
       const questionDefaultCustomChoiceGroup = document.createElement("div");
       questionDefaultCustomChoiceGroup.classList.add("form-group");
       questionDefaultCustomChoiceGroup.appendChild(
-        questionDefaultCustomChoiceLabel
+        questionDefaultCustomChoiceLabel,
       );
       questionDefaultCustomChoiceGroup.appendChild(
-        questionDefaultCustomChoiceField
+        questionDefaultCustomChoiceField,
       );
-      question.appendChild(questionDefaultCustomChoiceGroup);
-      localStorage.setItem(
+      details.appendChild(questionDefaultCustomChoiceGroup);
+      saveFormItem(
         questionDefaultCustomChoiceField.name,
-        questionDefaultCustomChoiceField.value
+        questionDefaultCustomChoiceField.value,
       );
       break;
     }
@@ -428,11 +405,8 @@ function addQuestion(data) {
       questionMinLengthGroup.classList.add("form-group");
       questionMinLengthGroup.appendChild(questionMinLengthLabel);
       questionMinLengthGroup.appendChild(questionMinLengthField);
-      question.appendChild(questionMinLengthGroup);
-      localStorage.setItem(
-        questionMinLengthField.name,
-        questionMinLengthField.value
-      );
+      details.appendChild(questionMinLengthGroup);
+      saveFormItem(questionMinLengthField.name, questionMinLengthField.value);
 
       const questionMaxLengthField = document.createElement("input");
       questionMaxLengthField.type = "number";
@@ -448,11 +422,8 @@ function addQuestion(data) {
       questionMaxLengthGroup.classList.add("form-group");
       questionMaxLengthGroup.appendChild(questionMaxLengthLabel);
       questionMaxLengthGroup.appendChild(questionMaxLengthField);
-      question.appendChild(questionMaxLengthGroup);
-      localStorage.setItem(
-        questionMaxLengthField.name,
-        questionMaxLengthField.value
-      );
+      details.appendChild(questionMaxLengthGroup);
+      saveFormItem(questionMaxLengthField.name, questionMaxLengthField.value);
 
       const questionDefaultField = document.createElement("input");
       questionDefaultField.type = "text";
@@ -468,11 +439,8 @@ function addQuestion(data) {
       questionDefaultGroup.classList.add("form-group");
       questionDefaultGroup.appendChild(questionDefaultLabel);
       questionDefaultGroup.appendChild(questionDefaultField);
-      question.appendChild(questionDefaultGroup);
-      localStorage.setItem(
-        questionDefaultField.name,
-        questionDefaultField.value
-      );
+      details.appendChild(questionDefaultGroup);
+      saveFormItem(questionDefaultField.name, questionDefaultField.value);
       break;
     }
 
@@ -491,11 +459,8 @@ function addQuestion(data) {
       questionMinLengthGroup.classList.add("form-group");
       questionMinLengthGroup.appendChild(questionMinLengthLabel);
       questionMinLengthGroup.appendChild(questionMinLengthField);
-      question.appendChild(questionMinLengthGroup);
-      localStorage.setItem(
-        questionMinLengthField.name,
-        questionMinLengthField.value
-      );
+      details.appendChild(questionMinLengthGroup);
+      saveFormItem(questionMinLengthField.name, questionMinLengthField.value);
 
       const questionMaxLengthField = document.createElement("input");
       questionMaxLengthField.type = "number";
@@ -511,11 +476,8 @@ function addQuestion(data) {
       questionMaxLengthGroup.classList.add("form-group");
       questionMaxLengthGroup.appendChild(questionMaxLengthLabel);
       questionMaxLengthGroup.appendChild(questionMaxLengthField);
-      question.appendChild(questionMaxLengthGroup);
-      localStorage.setItem(
-        questionMaxLengthField.name,
-        questionMaxLengthField.value
-      );
+      details.appendChild(questionMaxLengthGroup);
+      saveFormItem(questionMaxLengthField.name, questionMaxLengthField.value);
 
       const questionDefaultField = document.createElement("input");
       questionDefaultField.type = "text";
@@ -531,11 +493,8 @@ function addQuestion(data) {
       questionDefaultGroup.classList.add("form-group");
       questionDefaultGroup.appendChild(questionDefaultLabel);
       questionDefaultGroup.appendChild(questionDefaultField);
-      question.appendChild(questionDefaultGroup);
-      localStorage.setItem(
-        questionDefaultField.name,
-        questionDefaultField.value
-      );
+      details.appendChild(questionDefaultGroup);
+      saveFormItem(questionDefaultField.name, questionDefaultField.value);
 
       const questionPlaceholderField = document.createElement("input");
       questionPlaceholderField.type = "text";
@@ -551,10 +510,10 @@ function addQuestion(data) {
       questionPlaceholderGroup.classList.add("form-group");
       questionPlaceholderGroup.appendChild(questionPlaceholderLabel);
       questionPlaceholderGroup.appendChild(questionPlaceholderField);
-      question.appendChild(questionPlaceholderGroup);
-      localStorage.setItem(
+      details.appendChild(questionPlaceholderGroup);
+      saveFormItem(
         questionPlaceholderField.name,
-        questionPlaceholderField.value
+        questionPlaceholderField.value,
       );
       break;
     }
@@ -574,11 +533,8 @@ function addQuestion(data) {
       questionDefaultGroup.classList.add("form-group");
       questionDefaultGroup.appendChild(questionDefaultLabel);
       questionDefaultGroup.appendChild(questionDefaultField);
-      question.appendChild(questionDefaultGroup);
-      localStorage.setItem(
-        questionDefaultField.name,
-        questionDefaultField.checked
-      );
+      details.appendChild(questionDefaultGroup);
+      saveFormItem(questionDefaultField.name, questionDefaultField.checked);
       break;
     }
 
@@ -597,11 +553,8 @@ function addQuestion(data) {
       questionDefaultGroup.classList.add("form-group");
       questionDefaultGroup.appendChild(questionDefaultLabel);
       questionDefaultGroup.appendChild(questionDefaultField);
-      question.appendChild(questionDefaultGroup);
-      localStorage.setItem(
-        questionDefaultField.name,
-        questionDefaultField.value
-      );
+      details.appendChild(questionDefaultGroup);
+      saveFormItem(questionDefaultField.name, questionDefaultField.value);
       break;
     }
 
@@ -609,6 +562,7 @@ function addQuestion(data) {
       break;
     }
   }
+  question.appendChild(details);
 
   const deleteButton = document.createElement("button");
   deleteButton.innerText = "Delete";
@@ -650,3 +604,43 @@ const QUESTION_LEGENDS = {
   [QuestionType.CHECKBOX]: "Checkbox",
   [QuestionType.COLOR]: "Color",
 };
+
+function saveFormItem(key, value) {
+  localStorage.setItem(`${FORM_ID}_${key}`, value);
+}
+
+function readFormItem(key) {
+  return localStorage.getItem(`${FORM_ID}_${key}`);
+}
+
+function readFormItems() {
+  const questions = Object.entries(localStorage).filter(([name]) =>
+    name.startsWith(`${FORM_ID}_question_type_`)
+  );
+
+  const questionList = questions.map(([name, value]) => {
+    const key = name.replace(`${FORM_ID}_question_type_`, "");
+    return {
+      key,
+      type: value,
+      name: readFormItem(`question_name_${key}`),
+      content: readFormItem(`question_content_${key}`),
+      required: readFormItem(`question_required_${key}`) === "on",
+      min: readFormItem(`question_min_${key}`),
+      max: readFormItem(`question_max_${key}`),
+      step: readFormItem(`question_step_${key}`),
+      default: readFormItem(`question_default_${key}`),
+      placeholder: readFormItem(`question_placeholder_${key}`),
+      choices: readFormItem(`question_choices_${key}`),
+      custom_choice: readFormItem(`question_custom_choice_${key}`),
+      default_choice: readFormItem(`question_default_choice_${key}`),
+      default_custom_choice: readFormItem(
+        `question_default_custom_choice_${key}`,
+      ),
+    };
+  });
+
+  return questionList;
+}
+
+const FORM_ID = location.pathname.split("/")[2];

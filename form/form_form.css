@@ -1,0 +1,10 @@
+body {
+  max-width: 50ch;
+  margin: 0 auto;
+}
+
+fieldset {
+  outline: 1px solid gray;
+  padding: 1em;
+  border-radius: 1em;
+}

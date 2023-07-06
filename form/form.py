@@ -293,8 +293,8 @@ class Form:
     Class for keeping track of a form.
     """
 
-    def __init__(self, id: str = str(uuid.uuid4())):
-        self.id = id
+    def __init__(self, id: str | None = None):
+        self.id = id or str(uuid.uuid4())
         self.questions = None
         self.linked_discord_message = None
 

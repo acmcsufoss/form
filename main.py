@@ -34,6 +34,7 @@ def edit_form_page(form_id: str) -> tuple[str, int, dict[str, str]]:
 
     form_form_html = form.render_form_form_html.render_form_form_html(form_id)
     form_form_js = form.render_form_form_html.render_form_form_js()
+    form_form_css = form.render_form_form_html.render_form_form_css()
     return (
         f"""<!DOCTYPE html>
 <html lang="en">
@@ -41,8 +42,14 @@ def edit_form_page(form_id: str) -> tuple[str, int, dict[str, str]]:
         <meta charset="UTF-8" />
         <link rel="icon" href="https://acmcsuf.com/favicon.ico" />
         <title>Edit form</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+        {form_form_css}
     </head>
-    <body><div class="add-question"></div>{form_form_html}{form_form_js}</body>
+    <body>
+      <h1>Edit form</h1>
+      {form_form_html}
+      {form_form_js}
+    </body>
 </html>""",
         200,
         {"Content-Type": "text/html"},
