@@ -167,7 +167,7 @@ def render_form_list_page_html(forms: list[form.form.Form]) -> str:
     """
     Render the form list page as HTML.
     """
-    page_html = "<h1>Forms</h1>"
-    page_html += render_form_list_html(forms)
-    page_html += '<a href="/forms/new">New form</a>'
-    return render_page_layout_html(page_html)
+    body_html = "<h1>Forms</h1>"
+    body_html += render_form_list_html(forms)
+    body_html += '<a href="/forms/new">New form</a>'
+    return render_page_layout_html(body_html)
