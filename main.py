@@ -44,7 +44,7 @@ def edit_form_page(form_id: str) -> tuple[str, int, dict[str, str]]:
         return "Form already sent", 400, {}
 
     return (
-        html_util.render_form_form_html(f.id),
+        html_util.render_edit_form_page_html(f.id),
         200,
         {"Content-Type": "text/html"},
     )

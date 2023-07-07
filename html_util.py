@@ -171,3 +171,15 @@ def render_form_list_page_html(forms: list[form.form.Form]) -> str:
     body_html += render_form_list_html(forms)
     body_html += '<a href="/forms/new">New form</a>'
     return render_page_layout_html(body_html)
+
+
+def render_edit_form_page_html(form_id: str) -> str:
+    """
+    Render the form list page as HTML.
+    """
+    body_html = "<h1>Edit Form</h1>"
+    body_html += render_form_form_html(form_id)
+    body_html += '<a href="/forms">Back</a>'
+    body_html += '<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>'
+    body_html += render_form_form_js()
+    return render_page_layout_html(body_html)

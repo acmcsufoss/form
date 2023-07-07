@@ -53,6 +53,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Add the add question form to the page.
   addAddQuestionForm();
+
+  // // Initialize sortable questions.
+  console.log({ Sortable });
+  // Sortable.create(el, {
+  //   group: "localStorage-example",
+  //   store: {
+  //     /**
+  //      * Get the order of elements. Called once during initialization.
+  //      * @param   {Sortable}  sortable
+  //      * @returns {Array}
+  //      */
+  //     get: function (sortable) {
+  //       var order = localStorage.getItem(sortable.options.group.name);
+  //       return order ? order.split("|") : [];
+  //     },
+
+  //     /**
+  //      * Save the order of elements. Called onEnd (when the item is dropped).
+  //      * @param {Sortable}  sortable
+  //      */
+  //     set: function (sortable) {
+  //       var order = sortable.toArray();
+  //       localStorage.setItem(sortable.options.group.name, order.join("|"));
+  //     },
+  //   },
+  // });
 });
 
 /**
@@ -132,7 +158,7 @@ function addQuestion(data) {
     key: Math.random().toString(36).substring(2, 15),
     type: (() => {
       const questionTypeField = document.querySelector(
-        "select[name=question_type]",
+        "select[name=question_type]"
       );
       if (!(questionTypeField.value in QuestionType)) {
         throw new Error("Invalid question type.");
@@ -208,7 +234,7 @@ function addQuestion(data) {
   details.appendChild(questionRequiredGroup);
   saveFormItem(
     questionRequiredField.name,
-    questionRequiredField.checked ? "on" : "off",
+    questionRequiredField.checked ? "on" : "off"
   );
 
   switch (QuestionType[data.type]) {
@@ -297,7 +323,7 @@ function addQuestion(data) {
       details.appendChild(questionPlaceholderGroup);
       saveFormItem(
         questionPlaceholderField.name,
-        questionPlaceholderField.value,
+        questionPlaceholderField.value
       );
       break;
     }
@@ -337,7 +363,7 @@ function addQuestion(data) {
       details.appendChild(questionCustomChoiceGroup);
       saveFormItem(
         questionCustomChoiceField.name,
-        questionCustomChoiceField.checked,
+        questionCustomChoiceField.checked
       );
 
       const questionDefaultChoiceField = document.createElement("input");
@@ -358,14 +384,13 @@ function addQuestion(data) {
       details.appendChild(questionDefaultChoiceGroup);
       saveFormItem(
         questionDefaultChoiceField.name,
-        questionDefaultChoiceField.value,
+        questionDefaultChoiceField.value
       );
 
       const questionDefaultCustomChoiceField = document.createElement("input");
       questionDefaultCustomChoiceField.type = "text";
       questionDefaultCustomChoiceField.placeholder = "Default custom choice";
-      questionDefaultCustomChoiceField.name =
-        `question_default_custom_choice_${data.key}`;
+      questionDefaultCustomChoiceField.name = `question_default_custom_choice_${data.key}`;
       questionDefaultCustomChoiceField.id =
         questionDefaultCustomChoiceField.name;
       if (data.default_custom_choice) {
@@ -379,15 +404,15 @@ function addQuestion(data) {
       const questionDefaultCustomChoiceGroup = document.createElement("div");
       questionDefaultCustomChoiceGroup.classList.add("form-group");
       questionDefaultCustomChoiceGroup.appendChild(
-        questionDefaultCustomChoiceLabel,
+        questionDefaultCustomChoiceLabel
       );
       questionDefaultCustomChoiceGroup.appendChild(
-        questionDefaultCustomChoiceField,
+        questionDefaultCustomChoiceField
       );
       details.appendChild(questionDefaultCustomChoiceGroup);
       saveFormItem(
         questionDefaultCustomChoiceField.name,
-        questionDefaultCustomChoiceField.value,
+        questionDefaultCustomChoiceField.value
       );
       break;
     }
@@ -515,7 +540,7 @@ function addQuestion(data) {
       details.appendChild(questionPlaceholderGroup);
       saveFormItem(
         questionPlaceholderField.name,
-        questionPlaceholderField.value,
+        questionPlaceholderField.value
       );
       break;
     }
@@ -607,12 +632,20 @@ const QUESTION_LEGENDS = {
   [QuestionType.COLOR]: "Color",
 };
 
-function saveFormItem(key, value) {
-  localStorage.setItem(`${FORM_ID}_${key}`, value);
+function saveFormItem(key, value, index) {
+  localStorage.setItem(`${FORM_ID}_${key}`, JSON.stringify({ value, index }));
 }
 
 function readFormItem(key) {
-  return localStorage.getItem(`${FORM_ID}_${key}`);
+  const item = localStorage.getItem(`${FORM_ID}_${key}`);
+  if (item) {
+    try {
+      return JSON.parse(item).value;
+    } catch {
+      return item;
+    }
+  }
+  return null;
 }
 
 function readFormItems() {
@@ -637,7 +670,7 @@ function readFormItems() {
       custom_choice: readFormItem(`question_custom_choice_${key}`),
       default_choice: readFormItem(`question_default_choice_${key}`),
       default_custom_choice: readFormItem(
-        `question_default_custom_choice_${key}`,
+        `question_default_custom_choice_${key}`
       ),
     };
   });
