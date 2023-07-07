@@ -33,21 +33,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (stored) {
       switch (input.type) {
         case "checkbox": {
-          input.checked = stored === "on";
+          input.checked = stored.value === "on";
           break;
         }
 
         case "radio": {
-          input.checked = input.value === stored;
+          input.checked = input.value === stored.value;
           break;
         }
 
         default: {
-          input.value = stored;
+          input.value = stored.value;
         }
       }
 
-      console.info(`Loaded ${input.name} (${stored}) from local storage.`);
+      console.info(
+        `Loaded ${input.name} (${stored.value}) from local storage.`
+      );
     }
   });
 
@@ -170,6 +172,7 @@ function addQuestion(data) {
 
   const question = document.createElement("fieldset");
   const legend = document.createElement("legend");
+  console.log({ data, QuestionType });
   legend.innerText = QUESTION_LEGENDS[QuestionType[data.type]];
   question.appendChild(legend);
 
@@ -639,43 +642,50 @@ function saveFormItem(key, value, index) {
 function readFormItem(key) {
   const item = localStorage.getItem(`${FORM_ID}_${key}`);
   if (item) {
-    try {
-      return JSON.parse(item).value;
-    } catch {
-      return item;
-    }
+    return JSON.parse(item);
   }
+
   return null;
 }
 
 function readFormItems() {
-  const questions = Object.entries(localStorage).filter(([name]) =>
-    name.startsWith(`${FORM_ID}_question_type_`)
+  const questionTypePrefix = `${FORM_ID}_question_type_`;
+  const questionNames = Object.keys(localStorage).filter((name) =>
+    name.startsWith(questionTypePrefix)
   );
 
-  const questionList = questions.map(([name, value]) => {
+  const questionList = questionNames.map((name) => {
     const key = name.replace(`${FORM_ID}_question_type_`, "");
-    return {
-      key,
-      type: value,
-      name: readFormItem(`question_name_${key}`),
-      content: readFormItem(`question_content_${key}`),
-      required: readFormItem(`question_required_${key}`) === "on",
-      min: readFormItem(`question_min_${key}`),
-      max: readFormItem(`question_max_${key}`),
-      step: readFormItem(`question_step_${key}`),
-      default: readFormItem(`question_default_${key}`),
-      placeholder: readFormItem(`question_placeholder_${key}`),
-      choices: readFormItem(`question_choices_${key}`),
-      custom_choice: readFormItem(`question_custom_choice_${key}`),
-      default_choice: readFormItem(`question_default_choice_${key}`),
-      default_custom_choice: readFormItem(
-        `question_default_custom_choice_${key}`
-      ),
-    };
+    const { index, value } = readFormItem(`question_type_${key}`);
+
+    return [
+      index,
+      {
+        key,
+        type: value,
+        name: readFormItem(`question_name_${key}`).value,
+        content: readFormItem(`question_content_${key}`).value,
+        required: readFormItem(`question_required_${key}`).value === "on",
+        min: readFormItem(`question_min_${key}`).value,
+        max: readFormItem(`question_max_${key}`).value,
+        step: readFormItem(`question_step_${key}`).value,
+        default: readFormItem(`question_default_${key}`).value,
+        placeholder: readFormItem(`question_placeholder_${key}`).value,
+        choices: readFormItem(`question_choices_${key}`).value,
+        custom_choice: readFormItem(`question_custom_choice_${key}`).value,
+        default_choice: readFormItem(`question_default_choice_${key}`).value,
+        default_custom_choice: readFormItem(
+          `question_default_custom_choice_${key}`
+        ).value,
+      },
+    ];
   });
 
-  return questionList;
+  // Sort by order stored in local storage.
+  const sortedQuestionList = questionList
+    .sort((a, b) => a[0] - b[0])
+    .map((item) => item[1]);
+  return sortedQuestionList;
 }
 
 const FORM_ID = location.pathname.split("/")[2];
