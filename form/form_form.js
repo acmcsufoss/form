@@ -85,6 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
  * }} Form
  */
 
+// TODO: Create a localStorage wrapper for mapping form questions to sorted arrays of indices.
+
 function addAddQuestionForm() {
   const addQuestionContainer = document.querySelector(".add-question");
   if (!addQuestionContainer) {
