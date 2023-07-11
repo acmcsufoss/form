@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Add the add question form to the page.
+  // https://github.com/SortableJS/Sortable#store (See: onEnd).
   addAddQuestionForm();
 
   // // Initialize sortable questions.

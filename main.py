@@ -125,9 +125,11 @@ def submit_form(response_id: str):
 def success_page():
     return "HTML success page"
 
+
 @app.route("/oauth", methods=["GET"])
 def oauth_page():
     return "testing"
+
 
 if __name__ == "__main__":
     app.run(port=8000)

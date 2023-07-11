@@ -74,30 +74,6 @@ def render_question_html(question: form.form.Question) -> str:
     return question_html
 
 
-def render_layout_css() -> str:
-    """
-    Render required CSS style tag for all pages.
-    """
-    # Read CSS content from file.
-    with open("form/form_form.css", "r") as file:
-        css = "<style>"
-        css += file.read()
-        css += "</style>"
-        return css
-
-
-def render_form_form_js() -> str:
-    """
-    Render required JS script tag for form form.
-    """
-    # Read JS content from file.
-    with open("form/form_form.js", "r") as file:
-        js = "<script>"
-        js += file.read()
-        js += "</script>"
-        return js
-
-
 def render_form_form_html(form_id: str) -> str:
     """
     Render a form form as HTML.
@@ -154,7 +130,8 @@ def render_page_layout_html(content: str) -> str:
     page_html += '<link rel="icon" href="https://acmcsuf.com/favicon.ico" />'
     page_html += "<title>Forms</title>"
     page_html += '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">'
-    page_html += render_layout_css()
+    page_html += '<link rel="stylesheet" href="/static/global.css">'
+    page_html += '<script src="/static/import_map.json" type="importmap"></script>'
     page_html += "</head>"
     page_html += "<body>"
     page_html += content
@@ -181,5 +158,5 @@ def render_edit_form_page_html(form_id: str) -> str:
     body_html += render_form_form_html(form_id)
     body_html += '<a href="/forms">Back</a>'
     body_html += '<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>'
-    body_html += render_form_form_js()
+    body_html += '<script src="/static/edit_forms_page.js" type="module"></script>'
     return render_page_layout_html(body_html)
