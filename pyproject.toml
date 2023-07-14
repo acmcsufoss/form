@@ -10,6 +10,7 @@ python = "^3.11"
 flask = "^2.3.2"
 mistune = "^3.0.1"
 requests = "^2.31.0"
+pyjwt = "^2.7.0"
 
 
 [build-system]

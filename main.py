@@ -6,6 +6,23 @@ import response.pickle_response_database
 import discord.webhook
 import datetime
 import time
+import jwt
+import os
+
+SERVER_URL = "https://form.acmcsuf.com/forms"
+
+CLIENT_ID = os.getenv("CLIENT_ID")
+if CLIENT_ID is None:
+    raise LookupError
+
+CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+if CLIENT_SECRET is None:
+    raise LookupError
+
+JWT_SECRET = os.getenv("JWT_SECRET")
+if JWT_SECRET is None:
+    raise LookupError
+
 
 app = Flask(__name__)
 form_db = form.pickle_form_database.PickleFormDatabase("forms.pkl")
@@ -127,7 +144,21 @@ def success_page():
 
 @app.route("/oauth", methods=["GET"])
 def oauth_page():
-    return "testing"
+    # check to see if they're logged in
+    token = request.cookies.get('jwt') 
+    if token is not None:
+        decoded_data = jwt.decode(jwt=token,
+                                key=JWT_SECRET,
+                                algorithms=["HS256"])
+        # https://medium.com/geekculture/how-to-encode-and-decode-jwt-token-using-python-f9c33de576c5
+        # TODO: handle redirecting to /forms
+        return ""
+    # TODO: check if the code is in the url search parameters. If the code is not in the URL search parameters, redirect them to the authorization url.
+    # TODO: if the code is in the url search parameters, execute the exchange_code function. 
+    # TODO: using the access token, encode a new jwt and set it as the jwt cookie.
+    # TODO: redirect them to the /forms if everything is successful.
+
+    return "testing" 
 
 if __name__ == "__main__":
     app.run(port=8000)
