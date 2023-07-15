@@ -1,5 +1,4 @@
 import requests
-import os
 from urllib.parse import quote
 
 API_ENDPOINT = 'https://discord.com/api/v10'
@@ -24,5 +23,5 @@ def exchange_code(code: str, redirect_uri: str, client_id: str, client_secret: s
   return r.json()
 
 def make_authorization_url(client_id: str, redirect_uri: str) -> str:
-  return f"https://discord.com/oauth2/authorize?response_type=code&client_id={client_id}&scope=identify%20guilds.join%20guilds.members.read&redirect_uri={quote(redirect_uri)}"
+  return f"https://discord.com/oauth2/authorize?response_type=code&client_id={client_id}&scope=identify%20guilds.members.read&redirect_uri={quote(redirect_uri)}"
 
