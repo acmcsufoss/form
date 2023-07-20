@@ -248,14 +248,14 @@ class QuestionList:
 
     def __init__(
         self,
-        fields: list[Question],
+        data: list[Question],
         shuffled: bool = False,
     ):
-        self.fields = fields
+        self.data = data
         self.shuffled = shuffled
 
-    # questions are the questions in the question list.
-    questions: list[Question]
+    # data is the list of questions.
+    data: list[Question]
 
     # shuffled is whether or not the fieldset is shuffled.
     shuffled: bool
@@ -263,9 +263,9 @@ class QuestionList:
     # get_questions returns the list of questions.
     def get_questions(self) -> list[Question]:
         if self.shuffled:
-            return random.sample(self.fields, len(self.fields))
+            return random.sample(self.data, len(self.data))
 
-        return self.fields
+        return self.data
 
 
 @dataclass
