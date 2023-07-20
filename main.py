@@ -48,7 +48,7 @@ def form_list_page():
 
 @app.route("/forms/new", methods=["GET"])
 def new_form_page():
-   # Check if the request is authenticated. If not, redirect to Discord Oauth.
+    # Check if the request is authenticated. If not, redirect to Discord Oauth.
     f = form.form.Form()
     form_db.save_form(f)
     return redirect(f"/forms/{f.id}", code=302)
@@ -146,23 +146,24 @@ def submit_form(response_id: str):
 def success_page():
     return "HTML success page"
 
+
 @app.route("/oauth", methods=["GET"])
 def oauth_page():
-    token = request.cookies.get('jwt') 
+    token = request.cookies.get("jwt")
     # Redirects to /forms if the user is already logged in.
     if token is not None:
-        decoded_data = jwt.decode(jwt=token,
-                                key=JWT_SECRET,
-                                algorithms=["HS256"])
+        decoded_data = jwt.decode(jwt=token, key=JWT_SECRET, algorithms=["HS256"])
         print(decoded_data)
         return redirect("/forms", code=302)
         # https://medium.com/geekculture/how-to-encode-and-decode-jwt-token-using-python-f9c33de576c5
 
-    # Redirects to the authorization url if the code is not in the url search parameters. 
-    code = request.args.get('code')
-    redirect_uri = SERVER_URL + '/oauth'
+    # Redirects to the authorization url if the code is not in the url search parameters.
+    code = request.args.get("code")
+    redirect_uri = SERVER_URL + "/oauth"
     if code is None:
-        return redirect(oauth2.make_authorization_url(CLIENT_ID, redirect_uri), code=302)
+        return redirect(
+            oauth2.make_authorization_url(CLIENT_ID, redirect_uri), code=302
+        )
 
     # Executes the exchange_code function if the code is in the url search parameters.
     exchange_data = oauth2.exchange_code(code, redirect_uri, CLIENT_ID, CLIENT_SECRET)
@@ -172,10 +173,10 @@ def oauth_page():
     jwt_token = jwt.encode(exchange_data, JWT_SECRET, algorithm="HS256")
     print(jwt_token)
     response = redirect("/forms", code=302)
-    response.set_cookie('jwt', jwt_token)
+    response.set_cookie("jwt", jwt_token)
     return response
 
-    '''
+    """
     {
     "access_token": "6qrZcUqja7812RVdnEKjpzOL4CvHBFG",
     "token_type": "Bearer",
@@ -183,7 +184,8 @@ def oauth_page():
     "refresh_token": "D43f5y0ahjqew82jZ4NViEr2YafMKhue",
     "scope": "identify"
     }
-    '''
+    """
+
 
 if __name__ == "__main__":
     app.run(port=8000)
@@ -197,7 +199,7 @@ def execute_every_minute(fn):
         )
 
         time_difference = (next_minute - now).total_seconds()
-        time.sleep(time_difference) 
+        time.sleep(time_difference)
 
         try:
             if fn():
