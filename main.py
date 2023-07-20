@@ -13,7 +13,9 @@ import dotenv
 
 dotenv.load_dotenv()
 
-SERVER_URL = "https://form.acmcsuf.com"
+SERVER_URL = os.getenv("SERVER_URL")
+if SERVER_URL is None:
+    raise LookupError
 
 CLIENT_ID = os.getenv("CLIENT_ID")
 if CLIENT_ID is None:
@@ -164,10 +166,11 @@ def oauth_page():
 
     # Executes the exchange_code function if the code is in the url search parameters.
     exchange_data = oauth2.exchange_code(code, redirect_uri, CLIENT_ID, CLIENT_SECRET)
-
+    print(exchange_data)
     # Encodes a new jwt token and sets it as the jwt cookie.
     # Redirects to /forms if everything is successful.
     jwt_token = jwt.encode(exchange_data, JWT_SECRET, algorithm="HS256")
+    print(jwt_token)
     response = redirect("/forms", code=302)
     response.set_cookie('jwt', jwt_token)
     return response
