@@ -6,6 +6,29 @@ import response.pickle_response_database
 import discord.webhook
 import datetime
 import time
+import jwt
+import os
+import oauth2
+import dotenv
+
+dotenv.load_dotenv()
+
+SERVER_URL = os.getenv("SERVER_URL")
+if SERVER_URL is None:
+    raise LookupError
+
+CLIENT_ID = os.getenv("CLIENT_ID")
+if CLIENT_ID is None:
+    raise LookupError
+
+CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+if CLIENT_SECRET is None:
+    raise LookupError
+
+JWT_SECRET = os.getenv("JWT_SECRET")
+if JWT_SECRET is None:
+    raise LookupError
+
 
 app = Flask(__name__)
 form_db = form.pickle_form_database.PickleFormDatabase("forms.pkl")
@@ -14,8 +37,7 @@ response_db = response.pickle_response_database.PickleResponseDatabase("response
 
 @app.route("/forms", methods=["GET"])
 def form_list_page():
-    # TODO: Check if request is authenticated.
-    # TODO: If no Discord user is authenticated, redirect to Discord OAuth.
+    # Checks if the request is authenticated. If not, redirect to Discord Oauth.
     all_forms = form_db.get_all_forms()
     return (
         html_util.render_form_list_page_html(all_forms),
@@ -26,8 +48,7 @@ def form_list_page():
 
 @app.route("/forms/new", methods=["GET"])
 def new_form_page():
-    # TODO: Check if request is authenticated.
-    # TODO: If no Discord user is authenticated, redirect to Discord OAuth.
+    # Check if the request is authenticated. If not, redirect to Discord Oauth.
     f = form.form.Form()
     form_db.save_form(f)
     return redirect(f"/forms/{f.id}", code=302)
@@ -128,7 +149,43 @@ def success_page():
 
 @app.route("/oauth", methods=["GET"])
 def oauth_page():
-    return "testing"
+    token = request.cookies.get("jwt")
+    # Redirects to /forms if the user is already logged in.
+    if token is not None:
+        decoded_data = jwt.decode(jwt=token, key=JWT_SECRET, algorithms=["HS256"])
+        print(decoded_data)
+        return redirect("/forms", code=302)
+        # https://medium.com/geekculture/how-to-encode-and-decode-jwt-token-using-python-f9c33de576c5
+
+    # Redirects to the authorization url if the code is not in the url search parameters.
+    code = request.args.get("code")
+    redirect_uri = SERVER_URL + "/oauth"
+    if code is None:
+        return redirect(
+            oauth2.make_authorization_url(CLIENT_ID, redirect_uri), code=302
+        )
+
+    # Executes the exchange_code function if the code is in the url search parameters.
+    exchange_data = oauth2.exchange_code(code, redirect_uri, CLIENT_ID, CLIENT_SECRET)
+    print(exchange_data)
+    # Encodes a new jwt token and sets it as the jwt cookie.
+    # Redirects to /forms if everything is successful.
+    jwt_token = jwt.encode(exchange_data, JWT_SECRET, algorithm="HS256")
+    print(jwt_token)
+    response = redirect("/forms", code=302)
+    response.set_cookie("jwt", jwt_token)
+    return response
+
+    """
+    {
+    "access_token": "6qrZcUqja7812RVdnEKjpzOL4CvHBFG",
+    "token_type": "Bearer",
+    "expires_in": 604800,
+    "refresh_token": "D43f5y0ahjqew82jZ4NViEr2YafMKhue",
+    "scope": "identify"
+    }
+    """
+
 
 
 if __name__ == "__main__":
