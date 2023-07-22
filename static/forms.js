@@ -101,4 +101,5 @@ export async function getForm(formID) {
  */
 export function fromElement(element) {
   // TODO: Parse form from form editor element.
+  // TODO: Use this function to store the form state in localStorage.
 }
