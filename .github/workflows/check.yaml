@@ -12,3 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: psf/black@stable
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Generate question_type.json
+        run: python scripts/generate_question_type.py
