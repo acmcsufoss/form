@@ -29,8 +29,8 @@ python -m poetry install
 This command will install the defined dependencies and make any necessary
 adjustments to the project.
 
-> NOTE: Install Poetry using `python -m pip install poetry` if your machine does
-> not have it installed.
+> **Note**: Install Poetry using `python -m pip install poetry` if your machine
+> does not have it installed.
 
 ### Running the project
 
@@ -41,7 +41,7 @@ command:
 python -m poetry run python main.py
 ```
 
-> NOTE: This project uses Python 3.11 version.
+> **Note**: This project uses Python 3.11 version.
 
 ### Linting
 

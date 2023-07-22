@@ -58,7 +58,7 @@ export function getFormID(url) {
 
   return url.pathname.substring(
     FORMS_PREFIX.length,
-    url.pathname.indexOf("/", FORMS_PREFIX.length)
+    url.pathname.indexOf("/", FORMS_PREFIX.length),
   );
 }
 

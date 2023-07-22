@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       console.info(
-        `Loaded ${input.name} (${stored.value}) from local storage.`
+        `Loaded ${input.name} (${stored.value}) from local storage.`,
       );
     }
   });
@@ -161,7 +161,7 @@ function addQuestion(data) {
     key: Math.random().toString(36).substring(2, 15),
     type: (() => {
       const questionTypeField = document.querySelector(
-        "select[name=question_type]"
+        "select[name=question_type]",
       );
       if (!(questionTypeField.value in QuestionType)) {
         throw new Error("Invalid question type.");
@@ -238,7 +238,7 @@ function addQuestion(data) {
   details.appendChild(questionRequiredGroup);
   saveFormItem(
     questionRequiredField.name,
-    questionRequiredField.checked ? "on" : "off"
+    questionRequiredField.checked ? "on" : "off",
   );
 
   switch (QuestionType[data.type]) {
@@ -327,7 +327,7 @@ function addQuestion(data) {
       details.appendChild(questionPlaceholderGroup);
       saveFormItem(
         questionPlaceholderField.name,
-        questionPlaceholderField.value
+        questionPlaceholderField.value,
       );
       break;
     }
@@ -367,7 +367,7 @@ function addQuestion(data) {
       details.appendChild(questionCustomChoiceGroup);
       saveFormItem(
         questionCustomChoiceField.name,
-        questionCustomChoiceField.checked
+        questionCustomChoiceField.checked,
       );
 
       const questionDefaultChoiceField = document.createElement("input");
@@ -388,13 +388,14 @@ function addQuestion(data) {
       details.appendChild(questionDefaultChoiceGroup);
       saveFormItem(
         questionDefaultChoiceField.name,
-        questionDefaultChoiceField.value
+        questionDefaultChoiceField.value,
       );
 
       const questionDefaultCustomChoiceField = document.createElement("input");
       questionDefaultCustomChoiceField.type = "text";
       questionDefaultCustomChoiceField.placeholder = "Default custom choice";
-      questionDefaultCustomChoiceField.name = `question_default_custom_choice_${data.key}`;
+      questionDefaultCustomChoiceField.name =
+        `question_default_custom_choice_${data.key}`;
       questionDefaultCustomChoiceField.id =
         questionDefaultCustomChoiceField.name;
       if (data.default_custom_choice) {
@@ -408,15 +409,15 @@ function addQuestion(data) {
       const questionDefaultCustomChoiceGroup = document.createElement("div");
       questionDefaultCustomChoiceGroup.classList.add("form-group");
       questionDefaultCustomChoiceGroup.appendChild(
-        questionDefaultCustomChoiceLabel
+        questionDefaultCustomChoiceLabel,
       );
       questionDefaultCustomChoiceGroup.appendChild(
-        questionDefaultCustomChoiceField
+        questionDefaultCustomChoiceField,
       );
       details.appendChild(questionDefaultCustomChoiceGroup);
       saveFormItem(
         questionDefaultCustomChoiceField.name,
-        questionDefaultCustomChoiceField.value
+        questionDefaultCustomChoiceField.value,
       );
       break;
     }
@@ -544,7 +545,7 @@ function addQuestion(data) {
       details.appendChild(questionPlaceholderGroup);
       saveFormItem(
         questionPlaceholderField.name,
-        questionPlaceholderField.value
+        questionPlaceholderField.value,
       );
       break;
     }
@@ -676,7 +677,7 @@ function readFormItems() {
         custom_choice: readFormItem(`question_custom_choice_${key}`).value,
         default_choice: readFormItem(`question_default_choice_${key}`).value,
         default_custom_choice: readFormItem(
-          `question_default_custom_choice_${key}`
+          `question_default_custom_choice_${key}`,
         ).value,
       },
     ];
