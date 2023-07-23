@@ -1,8 +1,9 @@
-from dataclasses import dataclass
+from pydantic import BaseModel, Field
 from enum import Enum
+from typing import Optional, Literal, ClassVar
+from datetime import datetime
 import random
 import uuid
-import datetime
 
 
 class QuestionType(Enum):
@@ -16,23 +17,10 @@ class QuestionType(Enum):
     COLOR = "color"
 
 
-@dataclass
-class Question:
+class Question(BaseModel):
     """
     Class for keeping track of a question.
     """
-
-    def __init__(
-        self,
-        type: QuestionType,
-        name: str,
-        content: str,
-        required: bool = False,
-    ):
-        self.type = type
-        self.name = name
-        self.content = content
-        self.required = required
 
     # type is the type of form field.
     type: QuestionType
@@ -47,217 +35,130 @@ class Question:
     required: bool
 
 
-@dataclass
 class SingleTextSelectQuestion(Question):
     """
     Class for keeping track of a single text select question.
     """
 
-    def __init__(
-        self,
-        name: str,
-        question: str,
-        choices: list[str],
-        custom_choice: bool = False,
-        default_choice: int | None = None,
-        default_custom_choice: str | None = None,
-        required: bool = False,
-    ):
-        super().__init__(QuestionType.SINGLE_TEXT_SELECT, name, question, required)
-        self.choices = choices
-        self.custom_choice = custom_choice
-        self.default_choice = default_choice
-        self.default_custom_choice = default_custom_choice
+    # type is the type of form field.
+    type: QuestionType = QuestionType.SINGLE_TEXT_SELECT
 
-    # choices are the choices for the form field.
+    # choices is the list of choices for the form field.
     choices: list[str]
 
-    # custom_choice is whether or not the form field allows custom choices.
+    # custom_choice is whether or not the form field has a custom choice.
     custom_choice: bool
 
     # default_choice is the default choice for the form field.
-    default_choice: int | None
+    default_choice: Optional[int]
 
     # default_custom_choice is the default custom choice for the form field.
-    default_custom_choice: str | None
+    default_custom_choice: Optional[str]
 
 
-@dataclass
 class NumberQuestion(Question):
-    """
-    Class for keeping track of a number form question.
 
-    See:
-    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number
+    """
+    Class for keeping track of a number question.
     """
 
-    def __init__(
-        self,
-        name: str,
-        question: str,
-        min: int | None = None,
-        max: int | None = None,
-        step: int | None = None,
-        default: int | None = None,
-        required: bool = False,
-        placeholder: str | None = None,
-    ):
-        super().__init__(QuestionType.NUMBER, name, question, required)
-        self.min = min
-        self.max = max
-        self.step = step
-        self.default = default
-        self.placeholder = placeholder
+    # type is the type of form field.
+    type: QuestionType = QuestionType.NUMBER
 
     # min is the minimum value for the number.
-    min: int | None
+    min: Optional[int]
 
     # max is the maximum value for the number.
-    max: int | None
-
-    # step is the step value for the number.
-    step: int | None
+    max: Optional[int]
 
     # default is the default value for the number.
-    default: int | None
+    default: Optional[int]
+
+    # placeholder is the placeholder value for the number.
+    placeholder: Optional[str]
+
+    # step is the step value for the number.
+    step: Optional[int]
 
 
-@dataclass
 class TextQuestion(Question):
     """
-    Class for keeping track of a text form question.
-
-    See:
-    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
+    Class for keeping track of a text question.
     """
 
-    def __init__(
-        self,
-        name: str,
-        question: str,
-        min_length: int | None = None,
-        max_length: int | None = None,
-        default: str | None = None,
-        required: bool = False,
-        pattern: str | None = None,
-        placeholder: str | None = None,
-    ):
-        super().__init__(QuestionType.TEXT, name, question, required)
-        self.min_length = min_length
-        self.max_length = max_length
-        self.default = default
-        self.placeholder = placeholder
-        self.pattern = pattern
-
-    # min_length is the minimum length for the text.
-    min_length: int | None
-
-    # max_length is the maximum length for the text.
-    max_length: int | None
+    # type is the type of form field.
+    type: QuestionType = QuestionType.TEXT
 
     # default is the default value for the text.
-    default: str | None
+    default: Optional[str]
+
+    # placeholder is the placeholder value for the text.
+    placeholder: Optional[str]
+
+    # min_length is the minimum length for the text.
+    min_length: Optional[int]
+
+    # max_length is the maximum length for the text.
+    max_length: Optional[int]
+
+    # pattern is the regex pattern for the text.
+    pattern: Optional[str]
 
 
-@dataclass
 class TextareaQuestion(Question):
     """
-    Class for keeping track of a textarea form question.
-
-    See:
-    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
+    Class for keeping track of a textarea question.
     """
 
-    def __init__(
-        self,
-        name: str,
-        question: str,
-        min_length: int | None = None,
-        max_length: int | None = None,
-        default: str | None = None,
-        required: bool = False,
-        placeholder: str | None = None,
-    ):
-        super().__init__(QuestionType.TEXTAREA, name, question, required)
-        self.min_length = min_length
-        self.max_length = max_length
-        self.default = default
-        self.placeholder = placeholder
+    # type is the type of form field.
+    type: QuestionType = QuestionType.TEXTAREA
 
-    # min_length is the minimum length for the textarea.
-    min_length: int | None
+    # default is the default value for the text area.
+    default: Optional[str]
 
-    # max_length is the maximum length for the textarea.
-    max_length: int | None
+    # min_length is the minimum length for the text area.
+    min_length: Optional[int]
 
-    # default is the default value for the textarea.
-    default: str | None
+    # max_length is the maximum length for the text area.
+    max_length: Optional[int]
+
+    # placeholder is the placeholder value for the text area.
+    placeholder: Optional[str]
 
 
-@dataclass
 class CheckboxQuestion(Question):
     """
-    Class for keeping track of a checkbox form question.
-
-    See:
-    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
+    Class for keeping track of a checkbox question.
     """
 
-    def __init__(
-        self,
-        name: str,
-        question: str,
-        default: bool,
-        required: bool = False,
-    ):
-        super().__init__(QuestionType.CHECKBOX, name, question, required)
-        self.default = default
+    # type is the type of form field.
+    type: QuestionType = QuestionType.CHECKBOX
 
     # default is the default value for the checkbox.
     default: bool
 
 
-@dataclass
 class ColorQuestion(Question):
     """
     Class for keeping track of a color form field.
-
-    See:
-    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color
     """
 
-    def __init__(
-        self,
-        name: str,
-        question: str,
-        default: str | None = None,
-        required: bool = False,
-    ):
-        super().__init__(QuestionType.COLOR, name, question, required)
-        self.default = default
+    # type is the type of form field.
+    type: QuestionType = QuestionType.COLOR
 
     # default is the default value for the color input.
-    default: str | None
+    default: Optional[str]
 
 
-@dataclass
-class QuestionList:
+class QuestionList(BaseModel):
     """
     Class for keeping track of a list of questions.
     """
 
-    def __init__(
-        self,
-        data: list[Question],
-        shuffled: bool = False,
-    ):
-        self.data = data
-        self.shuffled = shuffled
-
     # data is the list of questions.
     data: list[Question]
 
-    # shuffled is whether or not the fieldset is shuffled.
+    # shuffled is whether or not the questions are shuffled.
     shuffled: bool
 
     # get_questions returns the list of questions.
@@ -268,27 +169,25 @@ class QuestionList:
         return self.data
 
 
-@dataclass
-class DiscordMessage:
+class DiscordMessage(BaseModel):
     """
     Class for keeping track of a Discord message.
     """
 
+    # id is the ID of the Discord message that the form is linked to (if any).
+    id: Optional[str]
+
     # webhook_url is the webhook URL of the Discord message.
     webhook_url: str
 
-    # content is the content of the Discord message.
+    # content is the Discord message content.
     content: str
 
-    # id is the ID of the Discord message that the form is linked to (if any).
-    id: str | None
-
-    # timestamp is the timestamp of the Discord message.
-    timestamp: datetime.datetime | None
+    # timestamp is the Discord message timestamp.
+    timestamp: Optional[datetime]
 
 
-@dataclass
-class Form:
+class Form(BaseModel):
     """
     Class for keeping track of a form.
     """
@@ -298,11 +197,11 @@ class Form:
         self.questions = None
         self.linked_discord_message = None
 
-    # id is the ID of the form.
+    # id is the form ID.
     id: str
 
     # questions is the list of questions for the form.
-    questions: QuestionList | None
+    questions: Optional[QuestionList]
 
     # linked_discord_message is the Discord message that the form is linked to.
-    linked_discord_message: DiscordMessage | None
+    linked_discord_message: Optional[DiscordMessage]

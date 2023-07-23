@@ -15,19 +15,19 @@ dotenv.load_dotenv()
 
 SERVER_URL = os.getenv("SERVER_URL")
 if SERVER_URL is None:
-    raise LookupError
+    raise ValueError("Required environment variable 'SERVER_URL' is missing.")
 
 CLIENT_ID = os.getenv("CLIENT_ID")
 if CLIENT_ID is None:
-    raise LookupError
+    raise ValueError("Required environment variable 'CLIENT_ID' is missing.")
 
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 if CLIENT_SECRET is None:
-    raise LookupError
+    raise ValueError("Required environment variable 'CLIENT_SECRET' is missing.")
 
 JWT_SECRET = os.getenv("JWT_SECRET")
 if JWT_SECRET is None:
-    raise LookupError
+    raise ValueError("Required environment variable 'JWT_SECRET' is missing.")
 
 
 app = Flask(__name__)
