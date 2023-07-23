@@ -48,17 +48,17 @@ const FORMS_PREFIX = "/forms/";
 /**
  * getFormID gets the form ID from the URL.
  *
- * @param {URL} url The URL to get the form ID from.
- * @returns {string | null} The form ID or null if the URL is not a form URL.
+ * @param {string} pathname The URL to get the form ID from.
+ * @returns {string | undefined} The form ID or undefined if the URL is not a form URL.
  */
-export function getFormID(url) {
-  if (!url.pathname.startsWith(FORMS_PREFIX)) {
-    return null;
+export function getFormID(pathname) {
+  if (!pathname.startsWith(FORMS_PREFIX)) {
+    return;
   }
 
-  return url.pathname.substring(
+  return pathname.substring(
     FORMS_PREFIX.length,
-    url.pathname.indexOf("/", FORMS_PREFIX.length),
+    pathname.indexOf("/", FORMS_PREFIX.length),
   );
 }
 
@@ -102,4 +102,39 @@ export async function getForm(formID) {
 export function fromElement(element) {
   // TODO: Parse form from form editor element.
   // TODO: Use this function to store the form state in localStorage.
+  const id = getFormID(element.action);
+  if (!id) {
+    throw new Error("form ID not set");
+  }
+
+  const discordWebhookURL = element.querySelector(
+    "input[name=discord_webhook_url]",
+  ).value;
+  if (!discordWebhookURL) {
+    throw new Error("discord webhook URL not set");
+  }
+
+  const discordMessageContent = element.querySelector(
+    "textarea[name=discord_message_content]",
+  ).value;
+  if (!discordMessageContent) {
+    throw new Error("discord message content not set");
+  }
+
+  const discordMessageTimestamp = element.querySelector(
+    "input[name=discord_message_timestamp]",
+  ).value;
+  if (!discordMessageTimestamp) {
+    throw new Error("discord message timestamp not set");
+  }
+
+  return {
+    id,
+    linked_discord_message: {
+      id: null,
+      webhook_url: discordWebhookURL,
+      content: discordMessageContent,
+      timestamp: discordMessageTimestamp,
+    },
+  };
 }
