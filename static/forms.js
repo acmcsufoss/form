@@ -23,7 +23,7 @@ const FORMS_PREFIX = "/forms/";
 
 /**
  * @typedef {{
- *   fields: Question[];
+ *   data: Question[];
  *   shuffled: boolean;
  * }} QuestionList
  */
@@ -107,29 +107,49 @@ export function fromElement(element) {
     throw new Error("form ID not set");
   }
 
+  const shuffled = element.querySelector("input[name=shuffled]").checked;
+
   const discordWebhookURL = element.querySelector(
     "input[name=discord_webhook_url]",
-  ).value;
-  if (!discordWebhookURL) {
+  )?.value;
+  if (typeof discordWebhookURL !== "string") {
     throw new Error("discord webhook URL not set");
   }
 
   const discordMessageContent = element.querySelector(
     "textarea[name=discord_message_content]",
-  ).value;
-  if (!discordMessageContent) {
+  )?.value;
+  if (typeof discordMessageContent !== "string") {
     throw new Error("discord message content not set");
   }
 
   const discordMessageTimestamp = element.querySelector(
     "input[name=discord_message_timestamp]",
-  ).value;
-  if (!discordMessageTimestamp) {
+  )?.value;
+  if (typeof discordMessageTimestamp !== "string") {
     throw new Error("discord message timestamp not set");
   }
 
+  /** @type {Question[]} */
+  const questionData = Array.from(
+    element.querySelectorAll("div.question"),
+  ).reduce((allQuestions, questionElement) => {
+    /** @type {Question} */
+    const question = {};
+    questionElement.forEach((questionElement) => {
+      questionElement
+        .querySelectorAll("input, select, textarea")
+        .forEach((inputElement) => {
+          question[inputElement.name] = inputElement.value;
+        });
+    });
+    allQuestions.push(question);
+    return allQuestions;
+  }, []);
+
   return {
     id,
+    questions: { shuffled, data: questionData },
     linked_discord_message: {
       id: null,
       webhook_url: discordWebhookURL,
