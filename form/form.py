@@ -161,13 +161,6 @@ class QuestionList(BaseModel):
     # shuffled is whether or not the questions are shuffled.
     shuffled: bool
 
-    # get_questions returns the list of questions.
-    def get_questions(self) -> list[Question]:
-        if self.shuffled:
-            return random.sample(self.data, len(self.data))
-
-        return self.data
-
 
 class DiscordMessage(BaseModel):
     """
@@ -192,11 +185,6 @@ class Form(BaseModel):
     Class for keeping track of a form.
     """
 
-    def __init__(self, id: str | None = None):
-        self.id = id or str(uuid.uuid4())
-        self.questions = None
-        self.linked_discord_message = None
-
     # id is the form ID.
     id: str
 
@@ -205,3 +193,13 @@ class Form(BaseModel):
 
     # linked_discord_message is the Discord message that the form is linked to.
     linked_discord_message: Optional[DiscordMessage]
+
+
+def get_questions(form: Form) -> list[Question]:
+    """
+    get_questions returns the list of questions.
+    """
+    if form.shuffled:
+        return random.sample(form.data, len(form.data))
+
+    return form.data
