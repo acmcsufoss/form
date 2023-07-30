@@ -1,7 +1,7 @@
 from flask import Flask, request, redirect
 import form.form
 import html_util
-import form.pickle_form_database
+import form.json_form_database
 import response.pickle_response_database
 import discord.webhook
 import datetime
@@ -10,6 +10,7 @@ import jwt
 import os
 import oauth2
 import dotenv
+import uuid
 
 dotenv.load_dotenv()
 
@@ -31,7 +32,7 @@ if JWT_SECRET is None:
 
 
 app = Flask(__name__)
-form_db = form.pickle_form_database.PickleFormDatabase("forms.pkl")
+form_db = form.json_form_database.JSONFormDatabase("forms.json")
 response_db = response.pickle_response_database.PickleResponseDatabase("responses.pkl")
 
 
@@ -49,7 +50,11 @@ def form_list_page():
 @app.route("/forms/new", methods=["GET"])
 def new_form_page():
     # Check if the request is authenticated. If not, redirect to Discord Oauth.
-    f = form.form.Form()
+    f = form.form.Form(
+        id=str(uuid.uuid4()),
+        questions=None,
+        linked_discord_message=None,
+    )
     form_db.save_form(f)
     return redirect(f"/forms/{f.id}", code=302)
 

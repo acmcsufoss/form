@@ -195,11 +195,23 @@ class Form(BaseModel):
     linked_discord_message: Optional[DiscordMessage]
 
 
-def get_questions(form: Form) -> list[Question]:
+class FormMap(BaseModel):
+    """
+    Class for keeping track of a map of forms.
+    """
+
+    # data is the map of forms.
+    data: dict[str, Form]
+
+
+def get_questions(f: Form) -> list[Question]:
     """
     get_questions returns the list of questions.
     """
-    if form.shuffled:
-        return random.sample(form.data, len(form.data))
+    if f.questions is None:
+        return []
 
-    return form.data
+    if f.questions.shuffled:
+        return random.sample(f.questions.data, len(f.questions.data))
+
+    return f.questions.data

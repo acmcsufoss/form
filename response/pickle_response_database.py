@@ -2,6 +2,8 @@ import pickle
 from response.response import Response
 from response.response_database import ResponseDatabase
 
+# TODO: Implement in JSON.
+
 
 class PickleResponseDatabase(ResponseDatabase):
     """Response database implementation using local pickle storage."""
