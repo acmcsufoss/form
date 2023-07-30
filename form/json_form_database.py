@@ -39,4 +39,4 @@ class JSONFormDatabase(form.form_database.FormDatabase):
 
     def _save_forms(self, form_map: form.form.FormMap) -> None:
         with open(self.file_path, "w") as f:
-            f.write(form_map.model_dump_json())
+            f.write(form_map.model_dump_json(indent=2))
