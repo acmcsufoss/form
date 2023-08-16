@@ -5,17 +5,16 @@ A platform managing authenticated Discord form submissions within the server thr
 ## Development
 
 Run the development server with [`deno`](https://deno.land/x/install).
+This command will install the required dependencies and start the development server.
 
 ```sh
 deno task start
 ```
 
-This command will install the required dependencies and start the development server.
-
 ### Environment variables
 
-- `DISCORD_CLIENT_ID`: Discord client ID for [OAuth2 authentication](https://deno.land/x/deno_kv_oauth/mod.ts?s=createDiscordOAuth2Client).
-- `DISCORD_CLIENT_SECRET`: Discord client secret for [OAuth2 authentication](https://deno.land/x/deno_kv_oauth/mod.ts?s=createDiscordOAuth2Client).
+- `DISCORD_CLIENT_ID`: Discord client ID for [OAuth2 authentication](https://discord.com/developers/docs/topics/oauth2).
+- `DISCORD_CLIENT_SECRET`: Discord client secret for [OAuth2 authentication](https://discord.com/developers/docs/topics/oauth2).
 
 ### Style guide
 
