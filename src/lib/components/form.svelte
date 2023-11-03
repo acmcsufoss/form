@@ -5,8 +5,7 @@
     import { QuestionType } from "../form/form.js";
     
     // Placeholder for now before we start importing actual data
-    /*
-    undo comments if you wanted to use this testing data.
+
     let question_1 : Question = {
         type: QuestionType.CHECKBOX,
 
@@ -37,8 +36,18 @@
 
         questions: questionList
     }
-    */
+    
 </script>
+
+
+<!-- Dont use div here use form html thingy -->
+<div>
+    {#each questionList.data as question}
+        <h2> {question.name}</h2>
+        <p> {question.content}</p>
+        
+    {/each} 
+</div>
 
 <!-- 
     TO DO: 

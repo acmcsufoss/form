@@ -60,6 +60,22 @@ export interface Question {
     required: boolean;
 }
 
+export interface SingleTextSelectQuestion extends Question {
+    type: QuestionType.SINGLE_TEXT_SELECT;
+
+    /**
+     * choices is the list of choices for the form field.
+     */
+    choices: string[];
+
+    custom_choice: boolean;
+
+    defualt_choice?: number;
+
+    defualt_custom_choice?:string;
+
+}
+
 export enum QuestionType {
     // Enum for keeping track of question types.
 
