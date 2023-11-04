@@ -40,14 +40,13 @@
 </script>
 
 
-<!-- Dont use div here use form html thingy -->
-<div>
+<form action="">
     {#each questionList.data as question}
         <h2> {question.name}</h2>
         <p> {question.content}</p>
         
     {/each} 
-</div>
+</form>
 
 <!-- 
     TO DO: 

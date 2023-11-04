@@ -114,6 +114,38 @@ export interface SingleTextSelectQuestion extends Question {
 
 }
 
+export interface NumberQuestion extends Question {
+    /**
+     * type is the type of form field
+     */
+    type: QuestionType.NUMBER;
+
+    /**
+     * min is the minimum value for the number.
+     */
+    min?: number;
+
+    /**
+     * max is the maximum value for the number.
+     */
+    max?: number;
+
+    /**
+     * defualt is the default value for the number.
+     */
+    default?: number;
+
+    /**
+     * placeholder is the placeholder value for the number;
+     */
+    placeholder?: string;
+
+    /**
+     * step is the step value for the number.
+     */
+    step?: number;
+}
+
 export enum QuestionType {
     /**
      * Enum for keeping track of question types.
