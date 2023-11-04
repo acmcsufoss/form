@@ -21,46 +21,75 @@ export interface Form {
     linked_discord_message?: DiscordMessage;
 }
 
-// for keeping track of a Discord message.
+/**
+ * for keeping track of a Discord message.
+ */
 export interface DiscordMessage {
-    // id is the ID of the Discord message that the form is linked to (if any).
+    /**
+     * id is the ID of the Discord message that the form is linked to (if any).
+     */
     id?: string;
 
-    // webhook_url is the webhook URL of the Discord message.
+    /**
+     * webhook_url is the webhook URL of the Discord message.
+     */
     webhook_url: string;
 
-    // content is the Discord message content.
+    /**
+     * content is the Discord message content.
+     */
     content: string;
 
-    // timestamp is the Discord message timestamp.
+    /**
+     * timestamp is the Discord message timestamp.
+     */
     timestamp: Date;
 }
 
-// for keeping track of a list of questions.
+/**
+ * for keeping track of a list of questions.
+ */
 export interface QuestionList {
-    // data is the list of questions.
+    /**
+     * data is the list of questions.
+     */
     data: Question[];
 
-    // shuffled is whether or not the questions are shuffled.
+    /**
+     * shuffled is whether or not the questions are shuffled.
+     */
     shuffled: boolean; 
 }
 
-// for keeping track of a question.
+/**
+ * for keeping track of a question.
+ */
 export interface Question {
-    // type is the type of form field.
+    /**
+     * type is the type of form field.
+     */
     type: QuestionType;
 
-    // name is the name of the form field.
+    /**
+     * name is the name of the form field.
+     */
     name: string;
 
-    // content is the markdown question content for the form field.
+    /**
+     * content is the markdown question content for the form field.
+     */
     content: string;
 
-    // required is whether or not the form field is required.
+    /**
+     * required is whether or not the form field is required.
+     */
     required: boolean;
 }
 
 export interface SingleTextSelectQuestion extends Question {
+    /**
+     * type is the type of form field.
+     */
     type: QuestionType.SINGLE_TEXT_SELECT;
 
     /**
@@ -68,16 +97,27 @@ export interface SingleTextSelectQuestion extends Question {
      */
     choices: string[];
 
+    /**
+     * custom_choice is whether or not the form field has a custom choice.
+     */
     custom_choice: boolean;
 
+    /**
+     * default_choice is the default choice for the form field.
+     */
     defualt_choice?: number;
 
+    /**
+     * default_custom_choice is the default custom choice for the form field.
+     */
     defualt_custom_choice?:string;
 
 }
 
 export enum QuestionType {
-    // Enum for keeping track of question types.
+    /**
+     * Enum for keeping track of question types.
+     */
 
     NUMBER = "number",
     SINGLE_TEXT_SELECT = "single_text_select",
