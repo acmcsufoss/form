@@ -21,6 +21,16 @@ export interface Form {
     linked_discord_message?: DiscordMessage;
 }
 
+export interface ClassForm {
+/**
+ * Class for keeping track of a map of forms.
+ */
+
+/**
+ * TODO: make "data: dict[str, Form]" into typescript
+ */
+}
+
 /**
  * for keeping track of a Discord message.
  */
@@ -144,6 +154,78 @@ export interface NumberQuestion extends Question {
      * step is the step value for the number.
      */
     step?: number;
+}
+
+export interface TextQuestion extends Question {
+     /**
+     * type is the type of form field
+     */
+    type: QuestionType.TEXT;
+    /**
+     * min is the minimum value for the number.
+     */
+     min?: number;
+    /**
+     * max is the maximum value for the number.
+     */
+    max?: number;
+    /**
+     * default is the default value for the number.
+     */
+    default?: number;
+    /**
+     * placeholder is the placeholder value for the number;
+     */
+    placeholder?: string;
+    /**
+     * pattern is the regex pattern for the text.
+     */
+    pattern?:string;
+}
+
+export interface TextareaQuestion extends Question {
+    /**
+    * type is the type of form field
+    */
+   type: QuestionType.TEXTAREA;
+       /**
+     * min is the minimum value for the number.
+     */
+       min?: number;
+       /**
+        * max is the maximum value for the number.
+        */
+       max?: number;
+       /**
+        * default is the default value for the number.
+        */
+       default?: number;
+       /**
+        * placeholder is the placeholder value for the number;
+        */
+       placeholder?: string;
+}
+
+export interface Checkboxquestion extends Question {
+    /**
+    * type is the type of form field
+    */
+   type: QuestionType.CHECKBOX;
+   /**
+    * default is the default value for the checkbox.
+    */
+   default: boolean;
+}
+
+export interface Colorquestion extends Question {
+    /**
+    * type is the type of form field
+    */
+   type: QuestionType.COLOR;
+    /**
+    * default is the default value for the number.
+    */
+    default?: number;
 }
 
 export enum QuestionType {
