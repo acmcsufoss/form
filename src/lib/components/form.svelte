@@ -1,28 +1,30 @@
 <script lang="ts">
-    import type { Form } from "../form/form.ts";
-    import type { QuestionList } from "../form/form.ts";
-    import type { Question } from "../form/form.ts";
+    import type { Form, QuestionList, Question, TextQuestion,  TextareaQuestion, CheckboxQuestion, ColorQuestion, SingleTextSelectQuestion, NumberQuestion  } from "../form/form.js";
     import { QuestionType } from "../form/form.js";
-    
+    import CheckboxQuestion from "./CheckboxQuestion.svelte";
     // Placeholder for now before we start importing actual data
 
-    let question_1 : Question = {
+    let question_1 : CheckboxQuestion = {
         type: QuestionType.CHECKBOX,
 
-        name: "Day of week",
+        name: "Age Check",
 
-        content: "What is the day of the week?",
+        content: "Are you over 18 years old?",
         
-        required: false
+        required: false,
+
+        default: true
     }
-    let question_2 : Question = {
+    let question_2 : TextQuestion = {
         type: QuestionType.TEXT,
 
         name: "FRQ",
 
         content: "How do you feel about this form?",
 
-        required: false
+        required: false,
+
+        default: "Sample Text"
     }
 
     let questionList: QuestionList = {
@@ -42,9 +44,9 @@
 
 <form action="">
     {#each questionList.data as question}
-        <h2> {question.name}</h2>
-        <p> {question.content}</p>
-        
+        {#if question.type == QuestionType.CHECKBOX}
+            <CheckboxQuestion temp_question = {question}/>
+        {/if}
     {/each} 
 </form>
 
