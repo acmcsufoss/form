@@ -21,7 +21,7 @@ export interface Form {
     linked_discord_message?: DiscordMessage;
 }
 
-export interface ClassForm {
+export interface FormMap {
 /**
  * Class for keeping track of a map of forms.
  */
@@ -162,19 +162,19 @@ export interface TextQuestion extends Question {
      */
     type: QuestionType.TEXT;
     /**
-     * min is the minimum value for the number.
+     * min is the minimum length for the text.
      */
-     min?: number;
+     min_length?: number;
     /**
-     * max is the maximum value for the number.
+     * max is the maximum length for the text.
      */
-    max?: number;
+    max_length?: number;
     /**
-     * default is the default value for the number.
+     * default is the default value for the text.
      */
-    default?: number;
+    default?: string;
     /**
-     * placeholder is the placeholder value for the number;
+     * placeholder is the placeholder value for the text;
      */
     placeholder?: string;
     /**
@@ -189,19 +189,19 @@ export interface TextareaQuestion extends Question {
     */
    type: QuestionType.TEXTAREA;
        /**
-     * min is the minimum value for the number.
+     * min is the minimum value for the text area.
      */
-       min?: number;
+       min_length?: number;
        /**
-        * max is the maximum value for the number.
+        * max is the maximum value for the text area.
         */
-       max?: number;
+       max_length?: number;
        /**
-        * default is the default value for the number.
+        * default is the default value for the text area.
         */
-       default?: number;
+       default?: string;
        /**
-        * placeholder is the placeholder value for the number;
+        * placeholder is the placeholder value for the text area;
         */
        placeholder?: string;
 }
@@ -223,7 +223,7 @@ export interface Colorquestion extends Question {
     */
    type: QuestionType.COLOR;
     /**
-    * default is the default value for the number.
+    * default is the default value for the color input.
     */
     default?: number;
 }
