@@ -1,5 +1,7 @@
 // Reference:
 // https://github.com/acmcsufoss/form/blob/581e2cea7ed0b0b873c61b05cb5a9c4d9606f99b/form/form.py
+// ISSUE: Some of the variables are the wrong type
+// TODO: FIX COMMENTS AND VARIABLE NAMES AND TYPES
 
 /**
  * Form is a form.
@@ -21,14 +23,16 @@ export interface Form {
     linked_discord_message?: DiscordMessage;
 }
 
-export interface ClassForm {
 /**
  * Class for keeping track of a map of forms.
  */
+export interface FormMap {
 
-/**
- * TODO: make "data: dict[str, Form]" into typescript
- */
+    /**
+      * TODO: make "data: dict[str, Form]" into typescript
+      * idk if this works??
+      */
+    data: Map<string, Form>;
 }
 
 /**
@@ -156,10 +160,11 @@ export interface NumberQuestion extends Question {
     step?: number;
 }
 
+/**
+* type is the type of form field
+*/
 export interface TextQuestion extends Question {
-     /**
-     * type is the type of form field
-     */
+
     type: QuestionType.TEXT;
     /**
      * min is the minimum value for the number.
@@ -170,9 +175,9 @@ export interface TextQuestion extends Question {
      */
     max?: number;
     /**
-     * default is the default value for the number.
+     * default is the default value for the Text.
      */
-    default?: number;
+    default?: string;
     /**
      * placeholder is the placeholder value for the number;
      */
@@ -187,37 +192,37 @@ export interface TextareaQuestion extends Question {
     /**
     * type is the type of form field
     */
-   type: QuestionType.TEXTAREA;
-       /**
+    type: QuestionType.TEXTAREA;
+    /**
      * min is the minimum value for the number.
      */
-       min?: number;
-       /**
-        * max is the maximum value for the number.
-        */
-       max?: number;
-       /**
-        * default is the default value for the number.
-        */
-       default?: number;
-       /**
-        * placeholder is the placeholder value for the number;
-        */
-       placeholder?: string;
+    min?: number;
+    /**
+    * max is the maximum value for the number.
+    */
+    max?: number;
+    /**
+    * default is the default value for the number.
+    */
+    default?: number;
+    /**
+    * placeholder is the placeholder value for the number;
+    */
+    placeholder?: string;
 }
 
-export interface Checkboxquestion extends Question {
+export interface CheckboxQuestion extends Question {
     /**
     * type is the type of form field
     */
-   type: QuestionType.CHECKBOX;
-   /**
+    type: QuestionType.CHECKBOX;
+    /**
     * default is the default value for the checkbox.
     */
-   default: boolean;
+    default: boolean;
 }
 
-export interface Colorquestion extends Question {
+export interface ColorQuestion extends Question {
     /**
     * type is the type of form field
     */
