@@ -1,7 +1,8 @@
 
 <script lang="ts">
-    import type { Question } from "../form/form.js";
-    export let temp_question : Question;
+    import type { Question, CheckboxQuestion } from "../form/form.js";
+    export let temp_question : CheckboxQuestion;
 </script>
 
-<p>{temp_question.name}</p>
+<label for={temp_question.name}>{temp_question.content}</label>
+<input type="checkbox" bind:checked={temp_question.default}>
