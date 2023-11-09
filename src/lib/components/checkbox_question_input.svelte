@@ -5,9 +5,9 @@
     export let data : CheckboxQuestion = {
         type: QuestionType.CHECKBOX,
 
-        name: "Defualt Question",
+        name: "Default Question",
 
-        content: "Defualt?",
+        content: "Default?",
         
         required: false,
 
