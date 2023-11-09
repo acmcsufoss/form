@@ -67,7 +67,7 @@ export interface QuestionList {
     /**
      * data is the list of questions.
      */
-    data: Question[];
+    data: Array<CheckboxQuestion | SingleTextSelectQuestion | NumberQuestion | TextQuestion | TextareaQuestion | ColorQuestion>;
 
     /**
      * shuffled is whether or not the questions are shuffled.
