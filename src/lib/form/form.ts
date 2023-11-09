@@ -167,19 +167,19 @@ export interface TextQuestion extends Question {
 
     type: QuestionType.TEXT;
     /**
-     * min is the minimum value for the number.
+     * min is the minimum length for the text.
      */
-     min?: number;
+     min_length?: number;
     /**
-     * max is the maximum value for the number.
+     * max is the maximum length for the text.
      */
-    max?: number;
+    max_length?: number;
     /**
-     * default is the default value for the Text.
+     * default is the default value for the text.
      */
     default?: string;
     /**
-     * placeholder is the placeholder value for the number;
+     * placeholder is the placeholder value for the text;
      */
     placeholder?: string;
     /**
@@ -192,23 +192,23 @@ export interface TextareaQuestion extends Question {
     /**
     * type is the type of form field
     */
-    type: QuestionType.TEXTAREA;
-    /**
-     * min is the minimum value for the number.
+   type: QuestionType.TEXTAREA;
+       /**
+     * min is the minimum value for the text area.
      */
-    min?: number;
-    /**
-    * max is the maximum value for the number.
-    */
-    max?: number;
-    /**
-    * default is the default value for the number.
-    */
-    default?: number;
-    /**
-    * placeholder is the placeholder value for the number;
-    */
-    placeholder?: string;
+       min_length?: number;
+       /**
+        * max is the maximum value for the text area.
+        */
+       max_length?: number;
+       /**
+        * default is the default value for the text area.
+        */
+       default?: string;
+       /**
+        * placeholder is the placeholder value for the text area;
+        */
+       placeholder?: string;
 }
 
 export interface CheckboxQuestion extends Question {
@@ -228,7 +228,7 @@ export interface ColorQuestion extends Question {
     */
    type: QuestionType.COLOR;
     /**
-    * default is the default value for the number.
+    * default is the default value for the color input.
     */
     default?: number;
 }
