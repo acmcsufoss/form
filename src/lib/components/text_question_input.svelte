@@ -26,8 +26,8 @@ export let data : TextQuestion = {
 </script>
 
 <label for={data.name}>{data.content}</label>
-<input type="text" 
-maxlength={data.max_length}
-minlength={data.max_length}
-placeholder={data.placeholder}
-bind:value={data.default}>
+<input type="text"
+       max={data.max_length}
+       min={data.min_length}
+       placeholder={data.placeholder}
+       bind:value={data.default}>
