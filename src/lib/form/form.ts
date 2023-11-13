@@ -119,12 +119,12 @@ export interface SingleTextSelectQuestion extends Question {
     /**
      * default_choice is the default choice for the form field.
      */
-    defualt_choice?: number;
+    default_choice?: number;
 
     /**
      * default_custom_choice is the default custom choice for the form field.
      */
-    defualt_custom_choice?:string;
+    default_custom_choice?:string;
 
 }
 
