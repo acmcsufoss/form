@@ -6,7 +6,7 @@ export let data : TextQuestion = {
 
       type: QuestionType.TEXT,
 
-      name: "TextQuestion",
+      name: "TextQuestion Question",
 
       content: "Text?",
 

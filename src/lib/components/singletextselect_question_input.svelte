@@ -6,7 +6,7 @@
 
         type: QuestionType.SINGLE_TEXT_SELECT,
 
-        name: "SingleTextSelect",
+        name: "SingleTextSelect Question",
 
         content: "Select One",
 
