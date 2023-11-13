@@ -230,7 +230,7 @@ export interface ColorQuestion extends Question {
     /**
     * default is the default value for the color input.
     */
-    default?: number;
+    default?: string;
 }
 
 export enum QuestionType {

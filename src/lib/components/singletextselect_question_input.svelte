@@ -23,9 +23,8 @@
 </script>
 
 <label for={data.name}>{data.content}</label>
+<br>
 {#each data.choices as choice}
-<input type="radio" id={choice}><input/>
-<label for="{choice}"> {choice}</label>
-
-    
+    <input type="radio" name={data.name} id={choice}/>
+    <label for={choice}>{choice}</label>
 {/each}
