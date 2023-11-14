@@ -25,4 +25,4 @@
 </script>
 
 <label for={data.name}> {data.content} </label>
-<input type="number" bind:value={data.default}> 
+<input type="number" required={data.required} min={data.min} max={data.max} bind:value={data.default} placeholder={data.placeholder} step={data.step}> 

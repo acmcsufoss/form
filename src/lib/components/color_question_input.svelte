@@ -16,4 +16,4 @@
 
 
 <label for={data.name}>{data.content}</label>
-<input type="color" bind:value={data.default}/>
+<input type="color" required={data.required} bind:value={data.default}/>

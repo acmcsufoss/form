@@ -5,6 +5,7 @@
     import TextQuestionInput from "./text_question_input.svelte";
     import SingleTextSelectQuestionInput from "./singletextselect_question_input.svelte";
     import ColorQuestionInput from "./color_question_input.svelte";
+	import NumberQuestionInput from "./number_question_input.svelte";
     // Placeholder for now before we start importing actual data
 
     let question_1 : CheckboxQuestion = {
@@ -55,9 +56,24 @@
 
         default: "blue"
     }
+    let question_5 : NumberQuestion = {
+        type: QuestionType.NUMBER,
+
+        name: "Number Question",
+
+        content: "Pick a number",
+
+        required: false,
+
+        min:0,
+
+        max: 100,
+
+        placeholder: "select a number"
+    }
 
     let questionList: QuestionList = {
-        data: [question_1, question_2, question_3, question_4],
+        data: [question_1, question_2, question_3, question_4, question_5],
 
         shuffled: false
     }
@@ -81,7 +97,7 @@
         {:else if question.type === QuestionType.SINGLE_TEXT_SELECT}
             <SingleTextSelectQuestionInput data={question}/>
         {:else if question.type === QuestionType.NUMBER}
-            <!-- add question input here -->
+            <NumberQuestionInput data={question}/>
         {:else if question.type === QuestionType.COLOR}
             <ColorQuestionInput data={question}/>
         {:else if question.type === QuestionType.TEXTAREA}
