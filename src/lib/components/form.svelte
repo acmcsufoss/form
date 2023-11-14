@@ -6,6 +6,8 @@
     import SingleTextSelectQuestionInput from "./singletextselect_question_input.svelte";
     import ColorQuestionInput from "./color_question_input.svelte";
 	import NumberQuestionInput from "./number_question_input.svelte";
+    import TextAreaInput from "./textarea_question_input.svelte";
+	import TextareaQuestionInput from "./textarea_question_input.svelte";
     // Placeholder for now before we start importing actual data
 
     let question_1 : CheckboxQuestion = {
@@ -71,9 +73,27 @@
 
         placeholder: "select a number"
     }
+    let question_6 : TextareaQuestion = {
+        type: QuestionType.TEXTAREA,
+
+        name: "Text Area Question",
+
+        content: "text area?",
+
+        required: false,
+
+        min_length: 0,
+
+        max_length: 1000,
+
+        placeholder: "write here",
+
+        default: "",
+        
+    }
 
     let questionList: QuestionList = {
-        data: [question_1, question_2, question_3, question_4, question_5],
+        data: [question_1, question_2, question_3, question_4, question_5, question_6],
 
         shuffled: false
     }
@@ -101,7 +121,7 @@
         {:else if question.type === QuestionType.COLOR}
             <ColorQuestionInput data={question}/>
         {:else if question.type === QuestionType.TEXTAREA}
-            <!-- add question input here -->
+           <TextareaQuestionInput />
         {/if}
            <br>
     {/each} 

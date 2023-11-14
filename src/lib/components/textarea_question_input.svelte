@@ -12,7 +12,7 @@
         
         min_length: 0,
 
-        max_length: 0,
+        max_length: 1000,
 
         placeholder: "type here",
 
@@ -22,3 +22,9 @@
 </script>
 
 <label for={data.name}>{data.content}</label>
+<input type="text"
+       max={data.max_length}
+       min={data.min_length}
+       placeholder={data.placeholder}
+       required={data.required}
+       bind:value={data.default}>
