@@ -45,7 +45,7 @@
     }
 
     let questionList: QuestionList = {
-        data: [question_1, question_2],
+        data: [question_1, question_2, question_3],
 
         shuffled: false
     }
@@ -68,7 +68,13 @@
             <TextQuestionInput data={question}/>
         {:else if question.type === QuestionType.SINGLE_TEXT_SELECT}
             <SingleTextSelectQuestionInput data={question}/>
-           {/if}
+        {:else if question.type === QuestionType.NUMBER}
+            <!-- add question input here -->
+        {:else if question.type === QuestionType.COLOR}
+            <!-- add question input here -->
+        {:else if question.type === QuestionType.TEXTAREA}
+            <!-- add question input here -->
+        {/if}
            <br>
     {/each} 
 </form>
