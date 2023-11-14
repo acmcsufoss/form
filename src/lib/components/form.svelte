@@ -56,7 +56,7 @@
 
         required: false,
 
-        default: "blue"
+        default: "#000000"
     }
     let question_5 : NumberQuestion = {
         type: QuestionType.NUMBER,

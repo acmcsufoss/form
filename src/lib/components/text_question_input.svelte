@@ -30,4 +30,5 @@ export let data : TextQuestion = {
        max={data.max_length}
        min={data.min_length}
        placeholder={data.placeholder}
-       bind:value={data.default}>
+       bind:value={data.default}
+       pattern={data.pattern}>
