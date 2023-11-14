@@ -24,7 +24,8 @@
 
 <label for={data.name}>{data.content}</label>
 <br>
+<!-- TODO: Create functionality for defualt choice and custom choice -->
 {#each data.choices as choice}
-    <input type="radio" name={data.name} id={choice}/>
+    <input type="radio" required={data.required} name={data.name} id={choice}/>
     <label for={choice}>{choice}</label>
 {/each}

@@ -16,4 +16,4 @@
 </script>
 
 <label for={data.name}>{data.content}</label>
-<input type="checkbox" bind:checked={data.default}>
+<input type="checkbox" required={data.required} bind:checked={data.default}>
