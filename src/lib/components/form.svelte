@@ -53,7 +53,7 @@
 
         required: false,
 
-        default: 0
+        default: "blue"
     }
 
     let questionList: QuestionList = {

@@ -10,7 +10,7 @@
 
         required: false,
 
-        default: 0
+        default: "red"
     }
 </script>
 
