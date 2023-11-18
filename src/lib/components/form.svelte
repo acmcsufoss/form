@@ -110,6 +110,7 @@
 
 <form action="">
     {#each questionList.data as question}
+    <div class="question">
         {#if question.type === QuestionType.CHECKBOX}
             <CheckboxQuestionInput data={question}/>
         {:else if question.type === QuestionType.TEXT}
@@ -123,10 +124,40 @@
         {:else if question.type === QuestionType.TEXTAREA}
            <TextareaQuestionInput />
         {/if}
-           <br>
+    </div>
     {/each} 
 </form>
 
+<style>
+    /* uncomment the global to see css components */
+    /* 
+    :global(*) {
+        border-style: dotted;
+        border-color: red;
+    } */
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: aliceblue;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 400px;
+        font-family: sans-serif;
+    }
+    .question {
+        padding-top: 2vh;
+        padding-bottom: 2vh;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: white;
+        border-radius: 10px;
+    }
+</style>
 <!-- 
     TO DO: 
     Create Components for each question type.

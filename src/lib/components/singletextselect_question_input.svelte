@@ -22,8 +22,7 @@
     }
 </script>
 
-<label for={data.name}>{data.content}</label>
-<br>
+<label id={data.name} for={data.name}>{data.content}</label>
 <!-- TODO: Create functionality for defualt choice and custom choice -->
 {#each data.choices as choice}
     <input type="radio" required={data.required} name={data.name} id={choice}/>
