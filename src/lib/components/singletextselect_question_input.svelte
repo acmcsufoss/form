@@ -25,6 +25,23 @@
 <label id={data.name} for={data.name}>{data.content}</label>
 <!-- TODO: Create functionality for defualt choice and custom choice -->
 {#each data.choices as choice}
-    <input type="radio" required={data.required} name={data.name} id={choice}/>
-    <label for={choice}>{choice}</label>
+    <div class="choice">
+        <input type="radio" required={data.required} name={data.name} id={choice}/>
+        <label for={choice}>{choice}</label>
+    </div>
 {/each}
+
+<style>
+    .choice {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .choice input {
+        margin-right: 15px;
+    }
+    .choice label {
+        margin: 0;
+    }
+
+</style>

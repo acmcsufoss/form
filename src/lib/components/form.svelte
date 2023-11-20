@@ -122,7 +122,7 @@
         {:else if question.type === QuestionType.COLOR}
             <ColorQuestionInput data={question}/>
         {:else if question.type === QuestionType.TEXTAREA}
-           <TextareaQuestionInput />
+           <TextareaQuestionInput data={question} />
         {/if}
     </div>
     {/each} 
@@ -140,7 +140,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: aliceblue;
+
         margin-left: auto;
         margin-right: auto;
         max-width: 400px;
@@ -154,8 +154,19 @@
         margin-right: auto;
         margin-top: 10px;
         margin-bottom: 10px;
-        background-color: white;
+        background-color: #ffffff;
         border-radius: 10px;
+        border-color: #c5c8c9;
+        border-width: 1px;
+        border-style: solid;
+    }
+    :global(label) {
+        margin-left: 10px;
+        display: flex;
+    }
+    :global(input) {
+        margin-left: 10px;
+        display: flex; 
     }
 </style>
 <!-- 

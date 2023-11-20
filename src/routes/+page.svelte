@@ -7,3 +7,16 @@
 
 
 <Form></Form>
+
+<style>
+    h1 {
+        text-align: center;
+    }
+    p {
+        text-align: center;
+    }
+    :global(body){
+        background-color: #ebf8ff;
+    }
+
+</style>
