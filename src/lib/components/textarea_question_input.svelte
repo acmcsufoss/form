@@ -1,6 +1,16 @@
 <script lang="ts">
     import type { Question, TextareaQuestion } from "../form/form.js";
     import { QuestionType } from "../form/form.js";
+      /**
+       * funct for adjusting height of text area
+       */
+      let textarea_: HTMLTextAreaElement;
+      const textAreaAdjustHeight = (): void  => {
+            textarea_.style.height = "auto";
+            textarea_.style.height = textarea_.scrollHeight + "px";
+      };
+
+      // DEFUALT VALUES
     export let data : TextareaQuestion = {
         type: QuestionType.TEXTAREA,
 
@@ -22,33 +32,36 @@
 </script>
 
 <label class="Question-Header" for={data.name}>{data.content}</label>
-<input type="text"
-       max={data.max_length}
-       min={data.min_length}
+<textarea 
+       bind:this={textarea_}
+       on:input={textAreaAdjustHeight}
+       name={data.name}
+       maxlength={data.max_length}
+       minlength={data.min_length}
        placeholder={data.placeholder}
        required={data.required}
-       bind:value={data.default}>
+       bind:value={data.default}/>
 
 
 <style>
-    input {
+    textarea {
             width: 100%;
             box-sizing: border-box;
             padding-left: 10px;
             padding-right: 10px;
             padding-top: 5px;
             padding-bottom: 5px;
-            background-color: #ececec;
+            background-color: #ddd8d8;
             border-radius: 10px;
             border-width: 0;
             font-size: 11px;
       }
-      input::placeholder {
+      textarea::placeholder {
             font-style: italic;
             color: #1f2024;
             font-size: 11px;
       }
-      input:focus {
+      textarea:focus {
             outline-width: 1px;
             outline-color: chocolate;
       }

@@ -39,7 +39,7 @@ export let data : TextQuestion = {
             padding-right: 10px;
             padding-top: 5px;
             padding-bottom: 5px;
-            background-color: #ececec;
+            background-color: #ddd8d8;
             border-radius: 10px;
             border-width: 0;
             font-size: 11px;

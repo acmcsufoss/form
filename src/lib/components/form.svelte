@@ -136,6 +136,10 @@
         border-style: dotted;
         border-color: red;
     } */
+
+    :global(*) {
+        font-family: roboto;
+    }
     form {
         display: flex;
         flex-direction: column;
@@ -147,15 +151,15 @@
         font-family: sans-serif;
     }
     .question {
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
         padding-top: 20px;
         padding-bottom: 20px;
-        width: calc(100% - 20px);
+        width: calc(100% - 30px);
         margin-left: auto;
         margin-right: auto;
-        margin-top: 15px;
-        margin-bottom: 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
         background-color: #ffffff;
         border-radius: 10px;
         border-color: #c5c8c9;
@@ -163,7 +167,7 @@
         border-style: solid;
     }
     :global(.Question-Header) {
-        font-size: 15px;
+        font-size: 13px;
         font-weight: bold;
         margin-bottom: 10px;
     }

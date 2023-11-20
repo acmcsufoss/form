@@ -35,14 +35,27 @@
     .choice {
         display: flex;
         flex-direction: row;
+        justify-content: flex-start;
         align-items: center;
         margin-top: 10px;
     }
     .choice input {
-        margin-right: 15px;
+        margin-right: 5px;
+        margin-top: 0;
+        appearance: none;
+        background-color: #ddd8d8;
+        border-radius: 50%;
+        width: 17px;
+        height: 17px;
+    }
+    .choice input:checked {
+        background-color: #1f2024;
+        border-radius: 50%;
+        border: 3px solid #04a2ff;
     }
     .choice label {
         margin: 0;
+        font-size: 11px;
     }
 
 </style>
