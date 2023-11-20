@@ -15,5 +15,5 @@
 </script>
 
 
-<label for={data.name}>{data.content}</label>
+<label class="Question-Header" for={data.name}>{data.content}</label>
 <input type="color" required={data.required} bind:value={data.default}/>

@@ -15,5 +15,5 @@
     };
 </script>
 
-<label for={data.name}>{data.content}</label>
+<label class="Question-Header" for={data.name}>{data.content}</label>
 <input type="checkbox" required={data.required} bind:checked={data.default}>

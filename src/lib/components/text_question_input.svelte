@@ -25,10 +25,35 @@ export let data : TextQuestion = {
 };
 </script>
 
-<label for={data.name}>{data.content}</label>
+<label class="Question-Header" for={data.name}>{data.content}</label>
 <input type="text"
        max={data.max_length}
        min={data.min_length}
        placeholder={data.placeholder}
        bind:value={data.default}
        pattern={data.pattern}>
+
+<style>
+      input {
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            background-color: #ececec;
+            border-radius: 10px;
+            border-width: 0;
+            font-size: 11px;
+      }
+      input::placeholder {
+            font-style: italic;
+            color: #1f2024;
+            opacity: 0.9;
+            font-size: 11px;
+      }
+      input:focus {
+            outline-width: 1px;
+            outline-color: chocolate;
+      }
+
+
+</style>

@@ -21,10 +21,36 @@
     };
 </script>
 
-<label for={data.name}>{data.content}</label>
+<label class="Question-Header" for={data.name}>{data.content}</label>
 <input type="text"
        max={data.max_length}
        min={data.min_length}
        placeholder={data.placeholder}
        required={data.required}
        bind:value={data.default}>
+
+
+<style>
+    input {
+            width: 100%;
+            box-sizing: border-box;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            background-color: #ececec;
+            border-radius: 10px;
+            border-width: 0;
+            font-size: 11px;
+      }
+      input::placeholder {
+            font-style: italic;
+            color: #1f2024;
+            font-size: 11px;
+      }
+      input:focus {
+            outline-width: 1px;
+            outline-color: chocolate;
+      }
+
+</style>

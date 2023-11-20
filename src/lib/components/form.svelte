@@ -126,6 +126,7 @@
         {/if}
     </div>
     {/each} 
+    <button type="submit" form={currentForm.id}>Submit</button>
 </form>
 
 <style>
@@ -140,32 +141,36 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
         margin-left: auto;
         margin-right: auto;
         max-width: 400px;
         font-family: sans-serif;
     }
     .question {
-        padding-top: 2vh;
-        padding-bottom: 2vh;
-        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        width: calc(100% - 20px);
         margin-left: auto;
         margin-right: auto;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin-top: 15px;
+        margin-bottom: 15px;
         background-color: #ffffff;
         border-radius: 10px;
         border-color: #c5c8c9;
-        border-width: 1px;
+        border-width: 1.5px;
         border-style: solid;
     }
+    :global(.Question-Header) {
+        font-size: 15px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
     :global(label) {
-        margin-left: 10px;
         display: flex;
     }
     :global(input) {
-        margin-left: 10px;
         display: flex; 
     }
 </style>

@@ -22,7 +22,7 @@
     }
 </script>
 
-<label id={data.name} for={data.name}>{data.content}</label>
+<label class="Question-Header" id={data.name} for={data.name}>{data.content}</label>
 <!-- TODO: Create functionality for defualt choice and custom choice -->
 {#each data.choices as choice}
     <div class="choice">
@@ -36,6 +36,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        margin-top: 10px;
     }
     .choice input {
         margin-right: 15px;
