@@ -1,183 +1,139 @@
 <script lang="ts">
-    import type { Form, QuestionList, Question, TextQuestion,  TextareaQuestion, CheckboxQuestion, ColorQuestion, SingleTextSelectQuestion, NumberQuestion  } from "../form/form.js";
-    import { QuestionType } from "../form/form.js";
-    import CheckboxQuestionInput from "./checkbox_question_input.svelte";
-    import TextQuestionInput from "./text_question_input.svelte";
-    import SingleTextSelectQuestionInput from "./singletextselect_question_input.svelte";
-    import ColorQuestionInput from "./color_question_input.svelte";
-	import NumberQuestionInput from "./number_question_input.svelte";
-    import TextAreaInput from "./textarea_question_input.svelte";
-	import TextareaQuestionInput from "./textarea_question_input.svelte";
-    // Placeholder for now before we start importing actual data
+	import type {
+		Form,
+		QuestionList,
+		Question,
+		TextQuestion,
+		TextareaQuestion,
+		CheckboxQuestion,
+		ColorQuestion,
+		SingleTextSelectQuestion,
+		NumberQuestion
+	} from '../form/form.js';
+	import { QuestionType } from '../form/form.js';
+	import CheckboxQuestionInput from './checkbox_question_input.svelte';
+	import TextQuestionInput from './text_question_input.svelte';
+	import SingleTextSelectQuestionInput from './singletextselect_question_input.svelte';
+	import ColorQuestionInput from './color_question_input.svelte';
+	import NumberQuestionInput from './number_question_input.svelte';
+	import TextAreaInput from './textarea_question_input.svelte';
+	import TextareaQuestionInput from './textarea_question_input.svelte';
+	// Placeholder for now before we start importing actual data
 
-    let question_1 : CheckboxQuestion = {
-        type: QuestionType.CHECKBOX,
+	let question_1: CheckboxQuestion = {
+		type: QuestionType.CHECKBOX,
 
-        name: "Age Check",
+		name: 'Age Check',
 
-        content: "Are you over 18 years old?",
-        
-        required: false,
+		content: 'Are you over 18 years old?',
 
-        default: true
-    }
-    let question_2 : TextQuestion = {
-        type: QuestionType.TEXT,
+		required: false,
 
-        name: "FRQ",
+		default: true
+	};
+	let question_2: TextQuestion = {
+		type: QuestionType.TEXT,
 
-        content: "How do you feel about this form?",
+		name: 'FRQ',
 
-        required: false,
+		content: 'How do you feel about this form?',
 
-        default: "Sample Text"
-    }
-    let question_3 : SingleTextSelectQuestion = {
-        type: QuestionType.SINGLE_TEXT_SELECT,
+		required: false,
 
-        name: "multiple choice",
+		default: 'Sample Text'
+	};
+	let question_3: SingleTextSelectQuestion = {
+		type: QuestionType.SINGLE_TEXT_SELECT,
 
-        content: "please pick one",
+		name: 'multiple choice',
 
-        required: false,
+		content: 'please pick one',
 
-        custom_choice: false,
+		required: false,
 
-        choices: ["choice 1", "choice 2", "choice 3", "choice 4"],
+		custom_choice: false,
 
-        default_choice: 0
-    }
-    let question_4 : ColorQuestion = {
-        type: QuestionType.COLOR,
+		choices: ['choice 1', 'choice 2', 'choice 3', 'choice 4'],
 
-        name: "Color Question",
+		default_choice: 0
+	};
+	let question_4: ColorQuestion = {
+		type: QuestionType.COLOR,
 
-        content: "Pick a color",
+		name: 'Color Question',
 
-        required: false,
+		content: 'Pick a color',
 
-        default: "#000000"
-    }
-    let question_5 : NumberQuestion = {
-        type: QuestionType.NUMBER,
+		required: false,
 
-        name: "Number Question",
+		default: '#000000'
+	};
+	let question_5: NumberQuestion = {
+		type: QuestionType.NUMBER,
 
-        content: "Pick a number",
+		name: 'Number Question',
 
-        required: false,
+		content: 'Pick a number',
 
-        min:0,
+		required: false,
 
-        max: 100,
+		min: 0,
 
-        placeholder: "select a number"
-    }
-    let question_6 : TextareaQuestion = {
-        type: QuestionType.TEXTAREA,
+		max: 100,
 
-        name: "Text Area Question",
+		placeholder: 'select a number'
+	};
+	let question_6: TextareaQuestion = {
+		type: QuestionType.TEXTAREA,
 
-        content: "text area?",
+		name: 'Text Area Question',
 
-        required: false,
+		content: 'text area?',
 
-        min_length: 0,
+		required: false,
 
-        max_length: 1000,
+		min_length: 0,
 
-        placeholder: "write here",
+		max_length: 1000,
 
-        default: "",
-        
-    }
+		placeholder: 'write here',
 
-    let questionList: QuestionList = {
-        data: [question_1, question_2, question_3, question_4, question_5, question_6],
+		default: ''
+	};
 
-        shuffled: false
-    }
+	let questionList: QuestionList = {
+		data: [question_1, question_2, question_3, question_4, question_5, question_6],
 
-    let currentForm: Form = {
-        id : "20",
+		shuffled: false
+	};
 
-        questions: questionList
-    }
-    
+	let currentForm: Form = {
+		id: '20',
 
+		questions: questionList
+	};
 </script>
 
-
 <form action="">
-    {#each questionList.data as question}
-    <div class="question">
-        {#if question.type === QuestionType.CHECKBOX}
-            <CheckboxQuestionInput data={question}/>
-        {:else if question.type === QuestionType.TEXT}
-            <TextQuestionInput data={question}/>
-        {:else if question.type === QuestionType.SINGLE_TEXT_SELECT}
-            <SingleTextSelectQuestionInput data={question}/>
-        {:else if question.type === QuestionType.NUMBER}
-            <NumberQuestionInput data={question}/>
-        {:else if question.type === QuestionType.COLOR}
-            <ColorQuestionInput data={question}/>
-        {:else if question.type === QuestionType.TEXTAREA}
-           <TextareaQuestionInput data={question} />
-        {/if}
-    </div>
-    {/each} 
-    <button type="submit" form={currentForm.id}>Submit</button>
+	{#each questionList.data as question}
+		<div class="question">
+			{#if question.type === QuestionType.CHECKBOX}
+				<CheckboxQuestionInput data={question} />
+			{:else if question.type === QuestionType.TEXT}
+				<TextQuestionInput data={question} />
+			{:else if question.type === QuestionType.SINGLE_TEXT_SELECT}
+				<SingleTextSelectQuestionInput data={question} />
+			{:else if question.type === QuestionType.NUMBER}
+				<NumberQuestionInput data={question} />
+			{:else if question.type === QuestionType.COLOR}
+				<ColorQuestionInput data={question} />
+			{:else if question.type === QuestionType.TEXTAREA}
+				<TextareaQuestionInput data={question} />
+			{/if}
+		</div>
+	{/each}
+	<button type="submit" form={currentForm.id}>Submit</button>
 </form>
-
-<style>
-    /* uncomment the global to see css components */
-    /* 
-    :global(*) {
-        border-style: dotted;
-        border-color: red;
-    } */
-
-    :global(*) {
-        font-family: roboto;
-    }
-    form {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 400px;
-        font-family: sans-serif;
-    }
-    .question {
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        width: calc(100% - 30px);
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        background-color: #ffffff;
-        border-radius: 10px;
-        border-color: #c5c8c9;
-        border-width: 1.5px;
-        border-style: solid;
-    }
-    :global(.Question-Header) {
-        font-size: 13px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    :global(label) {
-        display: flex;
-    }
-    :global(input) {
-        display: flex; 
-    }
-</style>
 <!-- 
     TO DO: 
     Create Components for each question type.
@@ -185,3 +141,53 @@
     style the form
 
 -->
+
+<style>
+	/* uncomment the global to see css components */
+	/* 
+    :global(*) {
+        border-style: dotted;
+        border-color: red;
+    } */
+
+	:global(*) {
+		font-family: roboto;
+	}
+	form {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 400px;
+		font-family: sans-serif;
+	}
+	.question {
+		padding-left: 15px;
+		padding-right: 15px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		width: calc(100% - 30px);
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		background-color: #ffffff;
+		border-radius: 10px;
+		border-color: #c5c8c9;
+		border-width: 1.5px;
+		border-style: solid;
+	}
+	:global(.Question-Header) {
+		font-size: 13px;
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+	:global(label) {
+		display: flex;
+	}
+	:global(input) {
+		display: flex;
+	}
+</style>

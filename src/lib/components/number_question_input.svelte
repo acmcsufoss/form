@@ -1,28 +1,35 @@
 <script lang="ts">
-    import type { Question, NumberQuestion } from "$lib/form/form";
-    import { QuestionType } from "$lib/form/form";
+	import type { Question, NumberQuestion } from '$lib/form/form';
+	import { QuestionType } from '$lib/form/form';
 
-    export let data : NumberQuestion = {
-        type: QuestionType.NUMBER,
+	export let data: NumberQuestion = {
+		type: QuestionType.NUMBER,
 
-        name: "Defualt Number Question",
+		name: 'Defualt Number Question',
 
-        content: "Defualt Number?",
+		content: 'Defualt Number?',
 
-        required: false,
+		required: false,
 
-        min: 0,
+		min: 0,
 
-        max: 100,
+		max: 100,
 
-        default: 0,
+		default: 0,
 
-        placeholder: "Enter a number",
+		placeholder: 'Enter a number',
 
-        step: 1,
-
-    }
+		step: 1
+	};
 </script>
 
 <label class="Question-Header" for={data.name}> {data.content} </label>
-<input type="number" required={data.required} min={data.min} max={data.max} bind:value={data.default} placeholder={data.placeholder} step={data.step}> 
+<input
+	type="number"
+	required={data.required}
+	min={data.min}
+	max={data.max}
+	bind:value={data.default}
+	placeholder={data.placeholder}
+	step={data.step}
+/>
