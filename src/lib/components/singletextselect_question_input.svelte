@@ -39,7 +39,6 @@
 	}
 	.choice input {
 		margin-right: 5px;
-		margin-top: 0;
 		appearance: none;
 		background-color: #ddd8d8;
 		border-radius: 50%;

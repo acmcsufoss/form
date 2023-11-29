@@ -115,6 +115,21 @@
 </script>
 
 <form action="">
+	<div class="form-header">
+			<h1>form</h1>
+			<p class="form-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+				 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				   Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+				    sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			<hr>
+			<div class="form-information">
+				<p>Account: </p>
+				<p>Name: </p>
+				<p>Date: </p>
+			</div>
+
+	</div>
 	{#each questionList.data as question}
 		<div class="question">
 			{#if question.type === QuestionType.CHECKBOX}
@@ -143,6 +158,7 @@
 -->
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 	/* uncomment the global to see css components */
 	/* 
     :global(*) {
@@ -151,28 +167,53 @@
     } */
 
 	:global(*) {
-		font-family: roboto;
+		font-family: "Poppins";
+		font-size: 11px;
 	}
 	form {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		margin-left: auto;
-		margin-right: auto;
+		margin: 0 auto;
 		max-width: 400px;
-		font-family: sans-serif;
+	}
+	hr {
+		margin: 0;
+		margin-left: -15px;
+		width: 100%;
+		padding: 0px 15px;
+	}
+	.form-header {
+		padding: 15px 15px;
+		width: calc(100% - 30px);
+		margin: 10px auto;
+		background-color: #ffffff;
+		border-radius: 10px;
+		border-top: 7px solid #04a2ff;
+	}
+	.form-description {
+		padding-bottom: 7px;
+	}
+	.form-information {
+		padding-top: 7px;
+	}
+	h1 {
+		margin: 0;
+		text-align: left;
+		font-size: 28px;
+		font-weight: 600;
+	}
+	p {
+		margin: 0;
+		text-align: left;
+		font-size: 11px;
+		font-weight: 400;
 	}
 	.question {
-		padding-left: 15px;
-		padding-right: 15px;
-		padding-top: 20px;
-		padding-bottom: 20px;
+		padding: 20px 15px;
 		width: calc(100% - 30px);
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: 10px;
-		margin-bottom: 10px;
+		margin: 10px auto;
 		background-color: #ffffff;
 		border-radius: 10px;
 		border-color: #c5c8c9;
@@ -183,6 +224,7 @@
 		font-size: 13px;
 		font-weight: bold;
 		margin-bottom: 10px;
+		font-family: "Poppins";
 	}
 	:global(label) {
 		display: flex;
