@@ -217,7 +217,7 @@
 		background-color: #ffffff;
 		border-radius: 10px;
 		border-color: #c5c8c9;
-		border-width: 1.5px;
+		border-width: 0;
 		border-style: solid;
 	}
 	:global(.Question-Header) {
