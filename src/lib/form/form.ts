@@ -237,6 +237,34 @@ export interface ColorQuestion extends Question {
 	default?: string;
 }
 
+export interface AvialablityQuestion extends Question {
+	/**
+	 * type is the type of form field
+	 */
+	type: QuestionType.AVAILABILITY;
+	/**
+	 * default is the default value for the color input.
+	 * TODO: deafult type is probably wrong here
+	 */
+	default?: Date;
+
+	/**
+	 * min_start_date is the minimum start date for the availability question.
+	 */
+	min_start_date?: Date;
+
+	/**
+	 * max_start_date is the maximum start date for the availability question.
+	 */
+	max_end_date?: Date;
+
+	/**
+	 * Date ranges are the number of date inputs that the user can enter.
+	 */
+	max_date_ranges?: number;
+
+}
+
 export enum QuestionType {
 	/**
 	 * Enum for keeping track of question types.
@@ -247,5 +275,6 @@ export enum QuestionType {
 	TEXT = 'text',
 	TEXTAREA = 'textarea',
 	CHECKBOX = 'checkbox',
-	COLOR = 'color'
+	COLOR = 'color',
+	AVAILABILITY = 'datetime'
 }
