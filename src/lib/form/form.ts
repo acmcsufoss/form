@@ -492,6 +492,8 @@ export interface DatetimeQuestionValue extends QuestionValueBase {
 	value: Timestamp;
 }
 
+export const DEFAULT_MAX_DATE_RANGES = 10;
+
 export interface AvailablityQuestion extends QuestionBase {
 	/**
 	 * type is the type of question.
