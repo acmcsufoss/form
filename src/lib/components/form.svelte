@@ -116,19 +116,20 @@
 
 <form action="">
 	<div class="form-header">
-			<h1>form</h1>
-			<p class="form-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-				 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-				  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-				   Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-				    sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			<hr>
-			<div class="form-information">
-				<p>Account: </p>
-				<p>Name: </p>
-				<p>Date: </p>
-			</div>
-
+		<h1>form</h1>
+		<p class="form-description">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+			labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+			laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+			voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+			non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</p>
+		<hr />
+		<div class="form-information">
+			<p>Account:</p>
+			<p>Name:</p>
+			<p>Date:</p>
+		</div>
 	</div>
 	{#each questionList.data as question}
 		<div class="question">
@@ -149,6 +150,7 @@
 	{/each}
 	<button type="submit" form={currentForm.id}>Submit</button>
 </form>
+
 <!-- 
     TO DO: 
     Create Components for each question type.
@@ -167,7 +169,7 @@
     } */
 
 	:global(*) {
-		font-family: "Poppins";
+		font-family: 'Poppins';
 		font-size: 11px;
 	}
 	form {
@@ -224,7 +226,7 @@
 		font-size: 13px;
 		font-weight: bold;
 		margin-bottom: 10px;
-		font-family: "Poppins";
+		font-family: 'Poppins';
 	}
 	:global(label) {
 		display: flex;
