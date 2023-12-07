@@ -5,13 +5,13 @@
 		Question,
 		TextQuestion,
 		TextareaQuestion,
-		CheckboxQuestion,
+		BooleanQuestion,
 		ColorQuestion,
 		SingleTextSelectQuestion,
 		NumberQuestion
 	} from '../form/form.js';
 	import { QuestionType } from '../form/form.js';
-	import CheckboxQuestionInput from './checkbox_question_input.svelte';
+	import BooleanQuestionInput from './boolean_question_input.svelte';
 	import TextQuestionInput from './text_question_input.svelte';
 	import SingleTextSelectQuestionInput from './singletextselect_question_input.svelte';
 	import ColorQuestionInput from './color_question_input.svelte';
@@ -20,8 +20,8 @@
 	import TextareaQuestionInput from './textarea_question_input.svelte';
 	// Placeholder for now before we start importing actual data
 
-	let question_1: CheckboxQuestion = {
-		type: QuestionType.CHECKBOX,
+	let question_1: BooleanQuestion = {
+		type: QuestionType.BOOLEAN,
 
 		name: 'Age Check',
 
@@ -29,7 +29,9 @@
 
 		required: false,
 
-		default: true
+		default: true,
+
+		style: 'checkbox'
 	};
 	let question_2: TextQuestion = {
 		type: QuestionType.TEXT,
@@ -51,11 +53,11 @@
 
 		required: false,
 
-		custom_choice: false,
+		customChoice: false,
 
 		choices: ['choice 1', 'choice 2', 'choice 3', 'choice 4'],
 
-		default_choice: 0
+		defaultChoiceIndex: 0
 	};
 	let question_4: ColorQuestion = {
 		type: QuestionType.COLOR,
@@ -92,9 +94,9 @@
 
 		required: false,
 
-		min_length: 0,
+		minLength: 0,
 
-		max_length: 1000,
+		maxLength: 1000,
 
 		placeholder: 'write here',
 
@@ -133,8 +135,8 @@
 	</div>
 	{#each questionList.data as question}
 		<div class="question">
-			{#if question.type === QuestionType.CHECKBOX}
-				<CheckboxQuestionInput data={question} />
+			{#if question.type === QuestionType.BOOLEAN}
+				<BooleanQuestionInput data={question} />
 			{:else if question.type === QuestionType.TEXT}
 				<TextQuestionInput data={question} />
 			{:else if question.type === QuestionType.SINGLE_TEXT_SELECT}
