@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Question, TextareaQuestion } from '../form/form.js';
+	import type { TextareaQuestion } from '../form/form.js';
 	import { QuestionType } from '../form/form.js';
 	/**
 	 * funct for adjusting height of text area
@@ -20,9 +20,9 @@
 
 		required: false,
 
-		min_length: 0,
+		minLength: 0,
 
-		max_length: 1000,
+		maxLength: 1000,
 
 		placeholder: 'type here',
 
@@ -35,8 +35,8 @@
 	bind:this={textarea_}
 	on:input={textAreaAdjustHeight}
 	name={data.name}
-	maxlength={data.max_length}
-	minlength={data.min_length}
+	maxlength={data.maxLength}
+	minlength={data.minLength}
 	placeholder={data.placeholder}
 	required={data.required}
 	bind:value={data.default}

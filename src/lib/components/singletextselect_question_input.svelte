@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Question, SingleTextSelectQuestion } from '../form/form.js';
+	import type { SingleTextSelectQuestion } from '../form/form.js';
 	import { QuestionType } from '../form/form.js';
 	export let data: SingleTextSelectQuestion = {
 		type: QuestionType.SINGLE_TEXT_SELECT,
@@ -10,13 +10,13 @@
 
 		required: false,
 
-		choices: ['', '', ''],
+		choices: ['red', 'green', 'blue'],
 
-		custom_choice: true,
+		customChoice: true,
 
-		default_choice: 0,
+		defaultChoiceIndex: 0,
 
-		default_custom_choice: ''
+		defaultCustomChoice: ''
 	};
 </script>
 

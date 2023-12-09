@@ -142,10 +142,11 @@ export function parse(formSchema: Form, formData: FormData): QuestionValue[] {
 					name: question.name,
 					value
 				} satisfies AvailabilityQuestionValue);
+				break;
 			}
 
 			default: {
-				throw new Error(`unknown question type ${question.type}`);
+				throw new Error('unknown question type');
 			}
 		}
 	}

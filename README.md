@@ -1,38 +1,45 @@
-# create-svelte
+# form
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A platform managing authenticated Discord form submissions within Discord
+servers.
 
-## Creating a project
+<!-- ## Architecture
 
-If you're seeing this, you've probably already done this step. Congrats!
+[Insert architecture diagram here.] -->
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Development
 
-# create a new project in my-app
-npm create svelte@latest my-app
+### Installing project dependencies
+
+Install the LTS version of [Node.js](https://nodejs.org/en/) for your operating
+system.
+
+To install project dependencies or apply changes made to the `package.json`
+file, use the following command:
+
+```sh
+npm i
 ```
 
-## Developing
+### Running the project
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+To run the project, use the following command:
 
-```bash
+```sh
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+### Pre-commit suggestions
 
-To create a production version of your app:
+Before committing, run the following commands:
 
-```bash
-npm run build
-```
+- Run `npm run lint` to check for linting errors with ESLint ([config](.eslintrc.cjs))
+- Run `npm run format` to format the code with Prettier ([config](.prettierrc))
+- Run `npm run check` to check for Svelte Check errors.
+- Run `npm run build` to make sure the project builds successfully.
 
-You can preview the production build with `npm run preview`.
+Alternatively, run `npm run all` to run all of the above commands.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+---
+
+Maintained with ❤️ by [**@acmcsufoss**](https://oss.acmcsuf.com/)

@@ -2,21 +2,21 @@
 	import type {
 		Form,
 		QuestionList,
-		Question,
+		// Question,
 		TextQuestion,
 		TextareaQuestion,
 		BooleanQuestion,
 		ColorQuestion,
 		SingleTextSelectQuestion,
 		NumberQuestion
-	} from '../form/form.js';
-	import { QuestionType } from '../form/form.js';
+	} from '$lib/form';
+	import { QuestionType } from '$lib/form';
 	import BooleanQuestionInput from './boolean_question_input.svelte';
 	import TextQuestionInput from './text_question_input.svelte';
 	import SingleTextSelectQuestionInput from './singletextselect_question_input.svelte';
 	import ColorQuestionInput from './color_question_input.svelte';
 	import NumberQuestionInput from './number_question_input.svelte';
-	import TextAreaInput from './textarea_question_input.svelte';
+	// import TextAreaInput from './textarea_question_input.svelte';
 	import TextareaQuestionInput from './textarea_question_input.svelte';
 	// Placeholder for now before we start importing actual data
 

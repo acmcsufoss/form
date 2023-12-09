@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Question, ColorQuestion } from '$lib/form/form';
+	import type { ColorQuestion } from '$lib/form/form';
 	import { QuestionType } from '$lib/form/form';
 	export let data: ColorQuestion = {
 		type: QuestionType.COLOR,

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Question, TextQuestion } from '../form/form.js';
+	import type { TextQuestion } from '../form/form.js';
 	import { QuestionType } from '../form/form.js';
 	export let data: TextQuestion = {
 		type: QuestionType.TEXT,
@@ -10,9 +10,9 @@
 
 		required: false,
 
-		min_length: 0,
+		minLength: 0,
 
-		max_length: 100,
+		maxLength: 100,
 
 		default: '',
 
@@ -25,8 +25,8 @@
 <label class="Question-Header" for={data.name}>{data.content}</label>
 <input
 	type="text"
-	max={data.max_length}
-	min={data.min_length}
+	max={data.maxLength}
+	min={data.minLength}
 	placeholder={data.placeholder}
 	bind:value={data.default}
 	pattern={data.pattern}
