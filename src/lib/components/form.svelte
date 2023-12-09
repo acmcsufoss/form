@@ -13,7 +13,7 @@
 	import { QuestionType } from '$lib/form';
 	import BooleanQuestionInput from './boolean_question_input.svelte';
 	import TextQuestionInput from './text_question_input.svelte';
-	import SingleTextSelectQuestionInput from './singletextselect_question_input.svelte';
+	import SingleTextSelectQuestionInput from './single_text_select_question_input.svelte';
 	import ColorQuestionInput from './color_question_input.svelte';
 	import NumberQuestionInput from './number_question_input.svelte';
 	// import TextAreaInput from './textarea_question_input.svelte';
