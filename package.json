@@ -28,5 +28,9 @@
 		"typescript": "^5.0.0",
 		"vite": "^4.4.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@deno/kv": "^0.7.0",
+		"jose": "^5.1.3"
+	}
 }
