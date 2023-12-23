@@ -2,6 +2,7 @@ import type { Kv, KvKey } from '@deno/kv';
 import type * as store from '$lib/store';
 
 export enum KvCollection {
+	SESSIONS_BY_ID = 'sessions_by_id',
 	USERS_BY_DISCORD_USER_ID = 'users_by_discord_user_id'
 	// TODO: FORMS_BY_ID = "forms_by_id",
 	// TODO: SUBMISSIONS_BY_ID = "submissions_by_id",
