@@ -12,7 +12,6 @@
 		TimeQuestion,
 		DateQuestion,
 		DatetimeQuestion,
-		AvailabilityQuestionValue,
 		AvailablityQuestion
 	} from '$lib/form';
 	import { QuestionType } from '$lib/form';
