@@ -18,6 +18,10 @@
 	import NumberQuestionInput from './number_question_input.svelte';
 	// import TextAreaInput from './textarea_question_input.svelte';
 	import TextareaQuestionInput from './textarea_question_input.svelte';
+	import DateQuestionInput from './date_question_input.svelte';
+	import AvailabilityQuestionInput from './availability_question_input.svelte';
+	import DatetimeQuestionImput from './datetime_question_imput.svelte';
+	import TimeQuestionInput from './time_question_input.svelte';
 	// Placeholder for now before we start importing actual data
 
 	let question_1: BooleanQuestion = {
@@ -147,6 +151,14 @@
 				<ColorQuestionInput data={question} />
 			{:else if question.type === QuestionType.TEXTAREA}
 				<TextareaQuestionInput data={question} />
+			{:else if question.type === QuestionType.DATE}
+				<DateQuestionInput data={question} />
+			{:else if question.type === QuestionType.AVAILABILITY}
+				<AvailabilityQuestionInput data={question} />
+			{:else if question.type === QuestionType.DATETIME}
+				<DatetimeQuestionImput data={question} />
+			{:else if question.type === QuestionType.TIME}
+				<TimeQuestionInput data={question} />
 			{/if}
 		</div>
 	{/each}
