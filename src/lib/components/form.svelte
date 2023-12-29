@@ -8,7 +8,10 @@
 		BooleanQuestion,
 		ColorQuestion,
 		SingleTextSelectQuestion,
-		NumberQuestion
+		NumberQuestion,
+		TimeQuestion,
+		DateQuestion,
+		DatetimeQuestion
 	} from '$lib/form';
 	import { QuestionType } from '$lib/form';
 	import BooleanQuestionInput from './boolean_question_input.svelte';
@@ -107,8 +110,55 @@
 		default: ''
 	};
 
+	let question_7: TimeQuestion = {
+		type: QuestionType.TIME,
+
+		name: 'Time Question',
+
+		content: 'What Time is it?',
+
+		required: false,
+
+        min: 0,
+
+        max: 0,
+
+        default: 0.00,
+	};
+
+	let question_8: DateQuestion = {
+		type: QuestionType.DATE,
+
+		name: 'Date Question',
+
+		content: 'What is the current date?',
+
+		required: false,
+
+        min: 0,
+
+        max: 0,
+
+        default: 0.00,
+	};
+
+	let question_9: DatetimeQuestion = {
+		type: QuestionType.DATETIME,
+
+		name: 'Datetime Question',
+
+		content: 'What is the current date and time?',
+
+		required: false,
+
+		min: 0,
+
+		max: 0,
+
+		default: 0.00,
+	};
 	let questionList: QuestionList = {
-		data: [question_1, question_2, question_3, question_4, question_5, question_6],
+		data: [question_1, question_2, question_3, question_4, question_5, question_6, question_7, question_8, question_9],
 
 		shuffled: false
 	};
