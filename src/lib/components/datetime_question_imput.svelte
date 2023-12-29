@@ -19,7 +19,7 @@ export let data: DatetimeQuestion = {
 </script>
 <label class="Question-Header" for={data.name}>{data.content}</label>
 <input
-	type="datetime"
+	type="datetime-local"
 	required={data.required}
 	bind:value={data.default}
 	min={data.min}
