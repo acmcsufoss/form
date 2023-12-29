@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { TimeQuestion } from '../form/form.js';
-    import { QuestionType } from '../form/form.js';
+	import type { TimeQuestion } from '../form/form.js';
+	import { QuestionType } from '../form/form.js';
 
-export let data: TimeQuestion = {
+	export let data: TimeQuestion = {
 		type: QuestionType.TIME,
 
 		name: 'Time Question',
@@ -11,19 +11,19 @@ export let data: TimeQuestion = {
 
 		required: false,
 
-        min: 0,
+		min: 0,
 
-        max: 0,
+		max: 0,
 
-        default: 0.00,
+		default: 0.0
 	};
-
 </script>
+
 <label class="Question-Header" for={data.name}>{data.content}</label>
 <input
 	type="time"
 	required={data.required}
 	bind:value={data.default}
-    min={data.min}
+	min={data.min}
 	max={data.max}
 />

@@ -11,7 +11,9 @@
 		NumberQuestion,
 		TimeQuestion,
 		DateQuestion,
-		DatetimeQuestion
+		DatetimeQuestion,
+		AvailabilityQuestionValue,
+		AvailablityQuestion
 	} from '$lib/form';
 	import { QuestionType } from '$lib/form';
 	import BooleanQuestionInput from './boolean_question_input.svelte';
@@ -119,11 +121,11 @@
 
 		required: false,
 
-        min: 0,
+		min: 0,
 
-        max: 0,
+		max: 0,
 
-        default: 0.00,
+		default: 0.0
 	};
 
 	let question_8: DateQuestion = {
@@ -135,11 +137,11 @@
 
 		required: false,
 
-        min: 0,
+		min: 0,
 
-        max: 0,
+		max: 0,
 
-        default: 0.00,
+		default: 0.0
 	};
 
 	let question_9: DatetimeQuestion = {
@@ -155,10 +157,32 @@
 
 		max: 0,
 
-		default: 0.00,
+		default: 0.0
+	};
+	let question_10: AvailablityQuestion = {
+		type: QuestionType.AVAILABILITY,
+
+		name: 'Datetime Question',
+
+		content: 'When are you availibile?',
+
+		required: false,
+
+		maxDateRanges: 5
 	};
 	let questionList: QuestionList = {
-		data: [question_1, question_2, question_3, question_4, question_5, question_6, question_7, question_8, question_9],
+		data: [
+			question_1,
+			question_2,
+			question_3,
+			question_4,
+			question_5,
+			question_6,
+			question_7,
+			question_8,
+			question_9,
+			question_10
+		],
 
 		shuffled: false
 	};

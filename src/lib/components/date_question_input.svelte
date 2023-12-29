@@ -1,23 +1,22 @@
 <script lang="ts">
-    import type { DateQuestion } from '../form/form.js';
-    import { QuestionType } from '../form/form.js';
+	import type { DateQuestion } from '../form/form.js';
+	import { QuestionType } from '../form/form.js';
 
-    export let data: DateQuestion = {
-        type: QuestionType.DATE,
+	export let data: DateQuestion = {
+		type: QuestionType.DATE,
 
-        name: 'Date Question',
-        
-        default: 0.00,
+		name: 'Date Question',
 
-        min: 0.00,
+		default: 0.0,
 
-        max: 24.00,
+		min: 0.0,
 
-        content: '',
+		max: 24.0,
 
-        required: false
+		content: '',
 
-    }
+		required: false
+	};
 </script>
 
 <label class="Question-Header" for={data.name}>{data.content}</label>
