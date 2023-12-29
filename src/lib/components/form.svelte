@@ -163,7 +163,7 @@
 
 		name: 'Datetime Question',
 
-		content: 'When are you availibile?',
+		content: 'When are you availabile?',
 
 		required: false,
 

@@ -5,7 +5,7 @@
 	export let data: AvailablityQuestion = {
 		type: QuestionType.AVAILABILITY,
 
-		name: 'Availibility Question',
+		name: 'Availability Question',
 
 		required: false,
 
