@@ -8,7 +8,11 @@
 		BooleanQuestion,
 		ColorQuestion,
 		SingleTextSelectQuestion,
-		NumberQuestion
+		NumberQuestion,
+		TimeQuestion,
+		DateQuestion,
+		DatetimeQuestion,
+		AvailablityQuestion
 	} from '$lib/form';
 	import { QuestionType } from '$lib/form';
 	import BooleanQuestionInput from './boolean_question_input.svelte';
@@ -18,6 +22,10 @@
 	import NumberQuestionInput from './number_question_input.svelte';
 	// import TextAreaInput from './textarea_question_input.svelte';
 	import TextareaQuestionInput from './textarea_question_input.svelte';
+	import DateQuestionInput from './date_question_input.svelte';
+	import AvailabilityQuestionInput from './availability_question_input.svelte';
+	import DatetimeQuestionImput from './datetime_question_imput.svelte';
+	import TimeQuestionInput from './time_question_input.svelte';
 	// Placeholder for now before we start importing actual data
 
 	let question_1: BooleanQuestion = {
@@ -51,7 +59,7 @@
 
 		content: 'please pick one',
 
-		required: false,
+		required: true,
 
 		customChoice: false,
 
@@ -77,7 +85,7 @@
 
 		content: 'Pick a number',
 
-		required: false,
+		required: true,
 
 		min: 0,
 
@@ -92,7 +100,7 @@
 
 		content: 'text area?',
 
-		required: false,
+		required: true,
 
 		minLength: 0,
 
@@ -103,8 +111,77 @@
 		default: ''
 	};
 
+	let question_7: TimeQuestion = {
+		type: QuestionType.TIME,
+
+		name: 'Time Question',
+
+		content: 'What Time is it?',
+
+		required: true,
+
+		min: 0,
+
+		max: 0,
+
+		default: 0.0
+	};
+
+	let question_8: DateQuestion = {
+		type: QuestionType.DATE,
+
+		name: 'Date Question',
+
+		content: 'What is the current date?',
+
+		required: false,
+
+		min: 0,
+
+		max: 0,
+
+		default: 0.0
+	};
+
+	let question_9: DatetimeQuestion = {
+		type: QuestionType.DATETIME,
+
+		name: 'Datetime Question',
+
+		content: 'What is the current date and time?',
+
+		required: false,
+
+		min: 0,
+
+		max: 0,
+
+		default: 0.0
+	};
+	let question_10: AvailablityQuestion = {
+		type: QuestionType.AVAILABILITY,
+
+		name: 'Datetime Question',
+
+		content: 'When are you availabile?',
+
+		required: false,
+
+		maxDateRanges: 5
+	};
 	let questionList: QuestionList = {
-		data: [question_1, question_2, question_3, question_4, question_5, question_6],
+		data: [
+			question_1,
+			question_2,
+			question_3,
+			question_4,
+			question_5,
+			question_6,
+			question_7,
+			question_8,
+			question_9,
+			question_10
+		],
 
 		shuffled: false
 	};
@@ -147,10 +224,19 @@
 				<ColorQuestionInput data={question} />
 			{:else if question.type === QuestionType.TEXTAREA}
 				<TextareaQuestionInput data={question} />
+			{:else if question.type === QuestionType.DATE}
+				<DateQuestionInput data={question} />
+			{:else if question.type === QuestionType.AVAILABILITY}
+				<AvailabilityQuestionInput data={question} />
+			{:else if question.type === QuestionType.DATETIME}
+				<DatetimeQuestionImput data={question} />
+			{:else if question.type === QuestionType.TIME}
+				<TimeQuestionInput data={question} />
 			{/if}
 		</div>
 	{/each}
-	<button type="submit" form={currentForm.id}>Submit</button>
+	<input type="hidden" value={currentForm.id} />
+	<input type="submit" value="Sumbit" />
 </form>
 
 <!-- 

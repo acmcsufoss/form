@@ -19,7 +19,7 @@
 
 <label class="Question-Header" for={data.name}>{data.content}</label>
 {#if data.style === 'radio'}
-	<input type="radio" required={data.required} bind:value={data.default} />
+	<input name={data.name} type="radio" required={data.required} bind:value={data.default} />
 {:else}
-	<input type="checkbox" required={data.required} bind:value={data.default} />
+	<input name={data.name} type="checkbox" required={data.required} bind:value={data.default} />
 {/if}
