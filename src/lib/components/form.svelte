@@ -59,7 +59,7 @@
 
 		content: 'please pick one',
 
-		required: false,
+		required: true,
 
 		customChoice: false,
 
@@ -85,7 +85,7 @@
 
 		content: 'Pick a number',
 
-		required: false,
+		required: true,
 
 		min: 0,
 
@@ -100,7 +100,7 @@
 
 		content: 'text area?',
 
-		required: false,
+		required: true,
 
 		minLength: 0,
 
@@ -118,7 +118,7 @@
 
 		content: 'What Time is it?',
 
-		required: false,
+		required: true,
 
 		min: 0,
 
@@ -235,7 +235,8 @@
 			{/if}
 		</div>
 	{/each}
-	<button type="submit" form={currentForm.id}>Submit</button>
+	<input type="hidden" value={currentForm.id} />
+	<input type="submit" value="Sumbit" />
 </form>
 
 <!-- 

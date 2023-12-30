@@ -20,6 +20,7 @@
 
 <label class="Question-Header" for={data.name}>{data.content}</label>
 <input
+	name={data.name}
 	type="datetime-local"
 	required={data.required}
 	bind:value={data.default}

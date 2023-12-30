@@ -21,20 +21,18 @@
 
 <label class="Question-Header" for={data.name}>{data.content}</label>
 <div class="datetime-range">
-	{#each Array(data.maxDateRanges) as _}
+	{#each Array(data.maxDateRanges) as _, i}
 		<div class="datetime-range-input">
 			<input
 				type="datetime-local"
-				id="start"
-				name="start"
+				name={'start' + i}
 				min={data.minStartDatetime}
 				max={data.maxEndDatetime}
 			/>
 			<p>----</p>
 			<input
 				type="datetime-local"
-				id="end"
-				name="end"
+				name={'end' + i}
 				min={data.minStartDatetime}
 				max={data.maxEndDatetime}
 			/>

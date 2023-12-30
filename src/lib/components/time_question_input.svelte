@@ -21,6 +21,7 @@
 
 <label class="Question-Header" for={data.name}>{data.content}</label>
 <input
+	name={data.name}
 	type="time"
 	required={data.required}
 	bind:value={data.default}
