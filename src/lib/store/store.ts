@@ -1,14 +1,21 @@
-export interface GetUserByDiscordUserIDRequest {
-	discordUserID: string;
-}
+export type ID = string;
 
 export interface User {
-	id: string;
-	discordUserID: string;
+	id: ID;
+	discordUserID: ID;
+	discordUsername: string;
+	discordAvatar: string;
+}
+
+export interface CreateUserRequest {
+	sessionID: ID;
+	discordUserID: ID;
 	discordUsername: string;
 	discordAvatar: string;
 }
 
 export interface Store {
-	getUserByDiscordUserID: (r: GetUserByDiscordUserIDRequest) => Promise<User>;
+	getUserByDiscordUserID: (id: ID) => Promise<User | null>;
+	getUserBySessionID: (id: ID) => Promise<User | null>;
+	createUser(r: CreateUserRequest): Promise<User>;
 }

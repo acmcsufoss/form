@@ -1,72 +1,63 @@
 import type { RequestHandler } from './$types';
-import * as jose from 'jose';
-import { openKv } from '@deno/kv';
-import { KvStore } from '$lib/store/kv';
 import {
 	DISCORD_REDIRECT_URI,
 	DISCORD_CLIENT_ID,
-	DISCORD_CLIENT_SECRET,
-	JWT_SECRET
+	DISCORD_CLIENT_SECRET
 } from '$env/static/private';
-import { makeOAuth2URL, exchangeCode, getDiscordUser, refreshToken } from '$lib/discord/oauth2';
+import { SESSION_ID_COOKIE_NAME } from '$lib/session';
+import { s } from '$lib/resources/store';
+import { makeOAuth2URL, getDiscordUserFromCode } from '$lib/discord/oauth2';
 
-async function init() {
-	const kv = await openKv('./db.kv');
-	const s = new KvStore(kv);
-	const jwtSecret = new TextEncoder().encode(JWT_SECRET);
-	return { kv, s, jwtSecret };
-}
-
-async function signJWT(
-	payload: jose.JWTPayload,
-	secret: jose.KeyLike | Uint8Array
-): Promise<string> {
-	return await new jose.SignJWT(payload)
-		.setProtectedHeader({ alg: 'HS256' })
-		.setIssuedAt()
-		.setExpirationTime('2h')
-		.sign(secret);
-}
-
-export const GET: RequestHandler = async ({ url }) => {
-	// Initialize resources.
-	const { s, jwtSecret } = await init();
-
-	// Initialize headers.
-	const headers = new Headers();
+export const GET: RequestHandler = async ({ url, locals }) => {
+	// Check if user is already logged in.
+	if (locals.user) {
+		return makeRedirect(url.searchParams.get('destination') || '/');
+	}
 
 	// Check if the user has a code.
 	const code = url.searchParams.get('code');
-	if (code) {
-		// Exchange code for token.
-		const accessTokenResponse1 = await exchangeCode({
-			clientID: DISCORD_CLIENT_ID,
-			clientSecret: DISCORD_CLIENT_SECRET,
-			code,
-			redirectURI: DISCORD_REDIRECT_URI
-		});
-		console.log(accessTokenResponse1);
-
-		// Refresh token if expired.
-		if (accessTokenResponse1.expires_in <= 0) {
-			const accessTokenResponse2 = await refreshToken({
-				clientID: DISCORD_CLIENT_ID,
-				clientSecret: DISCORD_CLIENT_SECRET,
-				refreshToken: accessTokenResponse1.refresh_token
-			});
-			console.log(accessTokenResponse2);
-		}
-
-		// Get user info from Discord.
-		const discordUser = await getDiscordUser(accessTokenResponse1.access_token);
-
-		// Check if user exists in database. Otherwise, check if user is in the guild.
-		const user = await s.getUserByDiscordUserID({ discordUserID: discordUser.id });
-
-		// TODO: Set JWT cookie with access token.
+	if (!code) {
+		// Redirect to Discord OAuth2 URL.
+		return makeRedirect(makeOAuth2URL(DISCORD_CLIENT_ID, DISCORD_REDIRECT_URI));
 	}
 
-	// Redirect to Discord OAuth2 URL.
-	headers.set('Location', makeOAuth2URL(DISCORD_CLIENT_ID, DISCORD_REDIRECT_URI));
-	return new Response(null, { status: 302, headers });
+	// Get Discord user from code.
+	const discordUser = await getDiscordUserFromCode({
+		code,
+		clientID: DISCORD_CLIENT_ID,
+		clientSecret: DISCORD_CLIENT_SECRET,
+		redirectURI: DISCORD_REDIRECT_URI
+	});
+	if (!discordUser) {
+		throw new Error('Failed to get user from code.');
+	}
+
+	// Make a session ID.
+	const sessionID = crypto.randomUUID(); // TODO: Hash Discord user ID + secret token.
+
+	// If user does not exist, create user.
+	const user = await s.getUserByDiscordUserID(discordUser.id);
+	if (!user) {
+		await s.createUser({
+			sessionID,
+			discordUserID: discordUser.id,
+			discordUsername: discordUser.username,
+			discordAvatar: discordUser.avatar
+		});
+	}
+
+	// Set session cookie with 1 week expiry.
+	const headers = new Headers();
+	headers.set(
+		'Set-Cookie',
+		`${SESSION_ID_COOKIE_NAME}=${sessionID}; HttpOnly; Max-Age=${60 * 60 * 24 * 7}`
+	);
+
+	// Redirect the user to their destination.
+	return makeRedirect(url.searchParams.get('destination') || '/', headers);
 };
+
+function makeRedirect(destination: string, headers = new Headers()) {
+	headers.set('Location', destination);
+	return new Response(null, { status: 302, headers });
+}

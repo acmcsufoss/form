@@ -125,3 +125,11 @@ export async function getDiscordUser(accessToken: string, apiURL = API_URL): Pro
 
 	return await response.json();
 }
+
+export async function getDiscordUserFromCode(r: AccessTokenRequest): Promise<DiscordUser> {
+	// Exchange code for token.
+	const accessTokenResponse = await exchangeCode(r);
+
+	// Get user info from Discord.
+	return await getDiscordUser(accessTokenResponse.access_token);
+}
