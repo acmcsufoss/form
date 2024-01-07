@@ -13,13 +13,37 @@ export class KvStore implements store.Store {
 	constructor(private readonly kv: Kv, private readonly kvNamespace: KvKey = []) {}
 
 	public async getUserByDiscordUserID(id: string) {
-		const user = await this.kv.get<store.User>(this.k(KvCollection.USERS_BY_DISCORD_USER_ID, id));
-		return user.value;
+		const userResult = await this.kv.get<store.User>(this.k(KvCollection.USERS_BY_DISCORD_USER_ID, id));
+		return userResult.value;
 	}
 
 	public async getUserBySessionID(id: string): Promise<store.User | null> {
-		const user = await this.kv.get<store.User>(this.k(KvCollection.USERS_BY_SESSION_ID, id));
-		return user.value;
+		const userResult = await this.kv.get<store.User>(this.k(KvCollection.USERS_BY_SESSION_ID, id));
+		return userResult.value;
+	}
+
+	public async createSession(r: store.CreateSessionRequest): Promise<store.User> {
+		const usersByDiscordUserIDKey = this.k(KvCollection.USERS_BY_DISCORD_USER_ID, r.discordUserID);
+		const userResult = await this.kv.get<store.User>(usersByDiscordUserIDKey);
+		if (!userResult.value) {
+			throw new Error(`User not found for discordUserID: ${r.discordUserID}`);
+		}
+
+		const updatedUser = {
+			...userResult.value,
+			discordUsername: r.discordUsername,
+			discordAvatar: r.discordAvatar
+		};
+
+		const usersBySessionIDKey = this.k(KvCollection.USERS_BY_SESSION_ID, r.sessionID);
+		await this.kv
+			.atomic()
+			.check(userResult)
+			.set(usersByDiscordUserIDKey, updatedUser)
+			.set(usersBySessionIDKey, updatedUser)
+			.commit();
+
+			return updatedUser;
 	}
 
 	public async createUser(r: store.CreateUserRequest): Promise<store.User> {

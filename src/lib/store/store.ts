@@ -14,8 +14,16 @@ export interface CreateUserRequest {
 	discordAvatar: string;
 }
 
+export interface CreateSessionRequest {
+	sessionID: ID;
+	discordUserID: ID;
+	discordUsername: string;
+	discordAvatar: string;
+}
+
 export interface Store {
 	getUserByDiscordUserID: (id: ID) => Promise<User | null>;
 	getUserBySessionID: (id: ID) => Promise<User | null>;
 	createUser(r: CreateUserRequest): Promise<User>;
+	createSession(r: CreateSessionRequest): Promise<User>;
 }
