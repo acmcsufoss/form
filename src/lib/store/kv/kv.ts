@@ -41,7 +41,7 @@ export class KvStore implements store.Store {
 			.set(usersBySessionIDKey, user)
 			.commit();
 
-		throw new Error('Method not implemented.');
+		return user;
 	}
 
 	private k(...key: KvKey) {

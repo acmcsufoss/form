@@ -38,7 +38,9 @@ export async function exchangeCode(
 			redirect_uri: r.redirectURI
 		}),
 		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'Accept-Encoding': 'application/x-www-form-urlencoded',
+			Authorization: makeAuthorizationHeader(r.clientID, r.clientSecret)
 		}
 	});
 	if (!response.ok) {
@@ -65,8 +67,6 @@ export async function refreshToken(
 			refresh_token: r.refreshToken
 		}),
 		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded',
-			'Accept-Encoding': 'application/x-www-form-urlencoded',
 			Authorization: makeAuthorizationHeader(r.clientID, r.clientSecret)
 		}
 	});
@@ -91,7 +91,6 @@ export async function revokeToken(r: RevokeTokenRequest, apiURL = API_URL): Prom
 			token_type_hint: 'access_token'
 		}),
 		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded',
 			Authorization: makeAuthorizationHeader(r.clientID, r.clientSecret)
 		}
 	});
