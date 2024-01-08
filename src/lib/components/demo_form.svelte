@@ -1,5 +1,15 @@
 <script lang="ts">
-	import type { Form } from '$lib/form';
+	import type {
+		Form,
+		QuestionList,
+		// Question,
+		TextQuestion,
+		TextareaQuestion,
+		BooleanQuestion,
+		ColorQuestion,
+		SingleTextSelectQuestion,
+		NumberQuestion
+	} from '$lib/form';
 	import { QuestionType } from '$lib/form';
 	import BooleanQuestionInput from './boolean_question_input.svelte';
 	import TextQuestionInput from './text_question_input.svelte';
@@ -8,8 +18,102 @@
 	import NumberQuestionInput from './number_question_input.svelte';
 	// import TextAreaInput from './textarea_question_input.svelte';
 	import TextareaQuestionInput from './textarea_question_input.svelte';
+	// Placeholder for now before we start importing actual data
 
-	export let data: Form;
+	let question_1: BooleanQuestion = {
+		type: QuestionType.BOOLEAN,
+
+		name: 'Age Check',
+
+		content: 'Are you over 18 years old?',
+
+		required: false,
+
+		default: true,
+
+		style: 'checkbox'
+	};
+	let question_2: TextQuestion = {
+		type: QuestionType.TEXT,
+
+		name: 'FRQ',
+
+		content: 'How do you feel about this form?',
+
+		required: false,
+
+		default: 'Sample Text'
+	};
+	let question_3: SingleTextSelectQuestion = {
+		type: QuestionType.SINGLE_TEXT_SELECT,
+
+		name: 'multiple choice',
+
+		content: 'please pick one',
+
+		required: false,
+
+		customChoice: false,
+
+		choices: ['choice 1', 'choice 2', 'choice 3', 'choice 4'],
+
+		defaultChoiceIndex: 0
+	};
+	let question_4: ColorQuestion = {
+		type: QuestionType.COLOR,
+
+		name: 'Color Question',
+
+		content: 'Pick a color',
+
+		required: false,
+
+		default: '#000000'
+	};
+	let question_5: NumberQuestion = {
+		type: QuestionType.NUMBER,
+
+		name: 'Number Question',
+
+		content: 'Pick a number',
+
+		required: false,
+
+		min: 0,
+
+		max: 100,
+
+		placeholder: 'select a number'
+	};
+	let question_6: TextareaQuestion = {
+		type: QuestionType.TEXTAREA,
+
+		name: 'Text Area Question',
+
+		content: 'text area?',
+
+		required: false,
+
+		minLength: 0,
+
+		maxLength: 1000,
+
+		placeholder: 'write here',
+
+		default: ''
+	};
+
+	let questionList: QuestionList = {
+		data: [question_1, question_2, question_3, question_4, question_5, question_6],
+
+		shuffled: false
+	};
+
+	let currentForm: Form = {
+		id: '20',
+
+		questions: questionList
+	};
 </script>
 
 <form action="">

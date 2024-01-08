@@ -1,15 +1,16 @@
 <script>
-	import Form from '$lib/components/form.svelte';
+	import DemoForm from '$lib/components/demo_form.svelte';
 </script>
 
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1>Something has happened!</h1>
 
-<Form />
+<DemoForm />
 
 <style>
 	p {
 		text-align: center;
 	}
+
 	:global(body) {
 		background-color: #ebf8ff;
 	}

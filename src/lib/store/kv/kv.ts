@@ -13,7 +13,9 @@ export class KvStore implements store.Store {
 	constructor(private readonly kv: Kv, private readonly kvNamespace: KvKey = []) {}
 
 	public async getUserByDiscordUserID(id: string) {
-		const userResult = await this.kv.get<store.User>(this.k(KvCollection.USERS_BY_DISCORD_USER_ID, id));
+		const userResult = await this.kv.get<store.User>(
+			this.k(KvCollection.USERS_BY_DISCORD_USER_ID, id)
+		);
 		return userResult.value;
 	}
 
@@ -43,7 +45,7 @@ export class KvStore implements store.Store {
 			.set(usersBySessionIDKey, updatedUser)
 			.commit();
 
-			return updatedUser;
+		return updatedUser;
 	}
 
 	public async createUser(r: store.CreateUserRequest): Promise<store.User> {

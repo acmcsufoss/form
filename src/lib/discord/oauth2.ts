@@ -1,11 +1,19 @@
 export const API_URL = 'https://discord.com/api';
 
-export function makeOAuth2URL(clientID: string, redirectURI: string, apiURL = API_URL) {
-	const url = new URL(`${apiURL}/oauth2/authorize`);
-	url.searchParams.set('client_id', clientID);
+export interface DiscordOAuth2URLData {
+	clientID: string;
+	redirectURI: string;
+	state?: string;
+	apiURL?: string;
+}
+
+export function makeOAuth2URL(data: DiscordOAuth2URLData) {
+	const url = new URL(`${data.apiURL || API_URL}/oauth2/authorize`);
+	url.searchParams.set('client_id', data.clientID);
 	url.searchParams.set('response_type', 'code');
-	url.searchParams.set('redirect_uri', redirectURI);
+	url.searchParams.set('redirect_uri', data.redirectURI);
 	url.searchParams.set('scope', 'identify');
+	url.searchParams.set('state', data.state || '');
 	return url.toString();
 }
 
@@ -48,57 +56,6 @@ export async function exchangeCode(
 	}
 
 	return await response.json();
-}
-
-export interface RefreshTokenRequest {
-	clientID: string;
-	clientSecret: string;
-	refreshToken: string;
-}
-
-export async function refreshToken(
-	r: RefreshTokenRequest,
-	apiURL = API_URL
-): Promise<AccessTokenResponse> {
-	const response = await fetch(`${apiURL}/oauth2/token`, {
-		method: 'POST',
-		body: new URLSearchParams({
-			grant_type: 'refresh_token',
-			refresh_token: r.refreshToken
-		}),
-		headers: {
-			Authorization: makeAuthorizationHeader(r.clientID, r.clientSecret)
-		}
-	});
-	if (!response.ok) {
-		throw new Error(response.statusText);
-	}
-
-	return await response.json();
-}
-
-export interface RevokeTokenRequest {
-	clientID: string;
-	clientSecret: string;
-	token: string;
-}
-
-export async function revokeToken(r: RevokeTokenRequest, apiURL = API_URL): Promise<void> {
-	const response = await fetch(`${apiURL}/oauth2/token/revoke`, {
-		method: 'POST',
-		body: new URLSearchParams({
-			token: r.token,
-			token_type_hint: 'access_token'
-		}),
-		headers: {
-			Authorization: makeAuthorizationHeader(r.clientID, r.clientSecret)
-		}
-	});
-	if (!response.ok) {
-		throw new Error(response.statusText);
-	}
-
-	return;
 }
 
 export function makeAuthorizationHeader(clientID: string, clientSecret: string) {

@@ -9,16 +9,24 @@ import { s } from '$lib/resources/store';
 import { makeOAuth2URL, getDiscordUserFromCode } from '$lib/discord/oauth2';
 
 export const GET: RequestHandler = async ({ url, locals }) => {
+	// Decode the state.
+	const state = JSON.parse(url.searchParams.get('state') || '{}');
+
 	// Check if user is already logged in.
 	if (locals.user) {
-		return makeRedirect(url.searchParams.get('destination') || '/');
+		return makeRedirect(state.destination || '/');
 	}
 
 	// Check if the user has a code.
 	const code = url.searchParams.get('code');
 	if (!code) {
 		// Redirect to Discord OAuth2 URL.
-		return makeRedirect(makeOAuth2URL(DISCORD_CLIENT_ID, DISCORD_REDIRECT_URI));
+		return makeRedirect(
+			makeOAuth2URL({
+				clientID: DISCORD_CLIENT_ID,
+				redirectURI: DISCORD_REDIRECT_URI
+			})
+		);
 	}
 
 	// Get Discord user from code.
@@ -54,7 +62,7 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 	);
 
 	// Redirect the user to their destination.
-	return makeRedirect(url.searchParams.get('destination') || '/', headers);
+	return makeRedirect(state.destination || '/', headers);
 };
 
 function makeRedirect(destination: string, headers = new Headers()) {
