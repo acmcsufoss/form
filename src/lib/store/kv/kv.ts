@@ -91,7 +91,7 @@ export class KvStore implements store.Store {
 
 	public async getUserBySessionID(id: string): Promise<store.User | null> {
 		const userKey = this.k(KvCollection.USERS_BY_SESSION_ID, id);
-		const userResult = await this.kv.get<store.User>(	userKey);
+		const userResult = await this.kv.get<store.User>(userKey);
 		return userResult.value;
 	}
 

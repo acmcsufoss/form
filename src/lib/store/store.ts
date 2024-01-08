@@ -43,8 +43,8 @@ export interface Store {
 	createSession(r: CreateSessionRequest): Promise<User>;
 	createSubmission(submission: Submission): Promise<Submission>;
 	createUser(r: CreateUserRequest): Promise<User>;
-	getFormByID: (id: ID) => Promise<Form | null>;
-	getSubmissionByID: (id: ID) => Promise<Submission | null>;
-	getUserByDiscordUserID: (id: ID) => Promise<User | null>;
-	getUserBySessionID: (id: ID) => Promise<User | null>;
+	getFormByID(id: ID): Promise<Form | null>;
+	getSubmissionByID(id: ID): Promise<Submission | null>;
+	getUserByDiscordUserID(id: ID): Promise<User | null>;
+	getUserBySessionID(id: ID): Promise<User | null>;
 }
