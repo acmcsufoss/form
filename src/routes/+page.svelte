@@ -2,7 +2,7 @@
 	import DemoForm from '$lib/components/demo_form.svelte';
 </script>
 
-<h1>Something has happened!</h1>
+<p>Something has happened!</p>
 
 <DemoForm />
 

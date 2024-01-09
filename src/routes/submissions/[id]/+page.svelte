@@ -4,7 +4,6 @@
 	export let data: PageData;
 </script>
 
-{data.user.discordUsername}
 
 {#if data.submission}
 	<!-- <Submission data={data.submission} /> -->

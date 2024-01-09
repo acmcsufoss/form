@@ -180,7 +180,7 @@ export interface QuestionBase {
 	/**
 	 * required is whether or not the form field is required.
 	 */
-	required: boolean;
+	required?: boolean;
 }
 
 /**
