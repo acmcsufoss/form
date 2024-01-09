@@ -19,6 +19,17 @@ export interface Form {
 	id: ID;
 
 	/**
+	 * title is the title of the form.
+	 */
+	title?: string;
+
+	/**
+	 * description is the markdown description of the form. This is displayed
+	 * in the Discord message.
+	 */
+	description?: string;
+
+	/**
 	 * questions is the list of questions for the form.
 	 */
 	questions: QuestionList;
@@ -29,10 +40,41 @@ export interface Form {
 	message?: DiscordMessage;
 
 	/**
-	 * allowMultipleSubmissions is whether or not the form allows multiple
+	 * schedule is the schedule for the form.
+	 *
+	 * If undefined, the form is always open and immediately posted to Discord when created.
+	 */
+	schedule?: FormSchedule;
+
+	/**
+	 * allowsMultipleSubmissions is whether or not the form allows multiple
 	 * submissions. Defaults to false.
 	 */
-	allowMultipleSubmissions?: boolean;
+	allowsMultipleSubmissions?: boolean;
+
+	/**
+	 * anonymized is whether or not the form is anonymized. Defaults to false.
+	 */
+	anonymized?: boolean;
+}
+
+/**
+ * FormSchedule is the schedule for a form.
+ */
+export interface FormSchedule {
+	/**
+	 * startDatetime is the start time for the form.
+	 *
+	 * This is also the time that the form will be posted to Discord.
+	 */
+	startDatetime: Timestamp;
+
+	/**
+	 * endDatetime is the end time for the form.
+	 *
+	 * This is when the form will be closed and may be edited.
+	 */
+	endDatetime: Timestamp | null;
 }
 
 /**
@@ -45,11 +87,6 @@ export interface DiscordMessage {
 	id?: ID;
 
 	/**
-	 * content is the content of the Discord message.
-	 */
-	content?: string;
-
-	/**
 	 * channelID is the ID of the Discord channel that the message is in.
 	 */
 	channelID: ID;
@@ -58,11 +95,6 @@ export interface DiscordMessage {
 	 * threadID is the ID of the Discord thread that the message is in.
 	 */
 	threadID?: ID;
-
-	/**
-	 * timestamp is the Discord message timestamp.
-	 */
-	timestamp: Timestamp;
 }
 
 /**

@@ -1,35 +1,39 @@
 <script lang="ts">
-	import type { Form } from '$lib/form';
+	import type { User, Form } from '$lib/store';
 	import { QuestionType } from '$lib/form';
 	import BooleanQuestionInput from './boolean_question_input.svelte';
-	import TextQuestionInput from './text_question_input.svelte';
-	import SingleTextSelectQuestionInput from './single_text_select_question_input.svelte';
 	import ColorQuestionInput from './color_question_input.svelte';
 	import NumberQuestionInput from './number_question_input.svelte';
-	// import TextAreaInput from './textarea_question_input.svelte';
+	import SingleTextSelectQuestionInput from './single_text_select_question_input.svelte';
+	import TextQuestionInput from './text_question_input.svelte';
 	import TextareaQuestionInput from './textarea_question_input.svelte';
 
+	export let action: string;
+	export let method: string;
 	export let data: Form;
+	export let user: User;
+
+	if (data.questions.shuffled) {
+		data.questions.data = data.questions.data.sort(() => Math.random() - 0.5);
+	}
 </script>
 
-<form action="">
+<form {action} {method}>
 	<div class="form-header">
-		<h1>form</h1>
-		<p class="form-description">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-			labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-			laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-			voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-			non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</p>
+		<h1>{data.title}</h1>
+		<p class="form-description">{data.description}</p>
 		<hr />
 		<div class="form-information">
-			<p>Account:</p>
-			<p>Name:</p>
-			<p>Date:</p>
+			<p>Account: {user.discordUsername}</p>
+			{#if data.schedule?.startDatetime}
+				<p>Opened at: {data.schedule?.startDatetime}</p>
+			{/if}
+			{#if data.schedule?.endDatetime}
+				<p>Opened until: {data.schedule?.endDatetime}</p>
+			{/if}
 		</div>
 	</div>
-	{#each questionList.data as question}
+	{#each data.questions.data as question}
 		<div class="question">
 			{#if question.type === QuestionType.BOOLEAN}
 				<BooleanQuestionInput data={question} />
@@ -46,7 +50,7 @@
 			{/if}
 		</div>
 	{/each}
-	<button type="submit" form={currentForm.id}>Submit</button>
+	<button type="submit">Submit</button>
 </form>
 
 <!-- 
