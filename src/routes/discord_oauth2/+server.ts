@@ -2,11 +2,14 @@ import type { RequestHandler } from './$types';
 import {
 	DISCORD_REDIRECT_URI,
 	DISCORD_CLIENT_ID,
-	DISCORD_CLIENT_SECRET
+	DISCORD_CLIENT_SECRET,
+	DISCORD_GUILD_ID,
+	DISCORD_ROLE_ID,
+	DISCORD_BOT_TOKEN
 } from '$env/static/private';
-import { SESSION_ID_COOKIE_NAME } from '$lib/session';
+import { SESSION_ID_COOKIE_NAME } from '$lib/oauth2';
 import { s } from '$lib/resources/store';
-import { makeOAuth2URL, getDiscordUserFromCode } from '$lib/discord/oauth2';
+import { makeOAuth2URL, getDiscordUserFromCode, checkGuildMemberHasRole } from '$lib/discord';
 
 export const GET: RequestHandler = async ({ url, locals }) => {
 	// Decode the state.
@@ -40,8 +43,21 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 		throw new Error('Failed to get user from code.');
 	}
 
+	// Check if user has the required role.
+	if (DISCORD_GUILD_ID && DISCORD_ROLE_ID) {
+		const hasRole = await checkGuildMemberHasRole({
+			botToken: DISCORD_BOT_TOKEN,
+			guildID: DISCORD_GUILD_ID,
+			roleID: DISCORD_ROLE_ID,
+			userID: discordUser.id
+		});
+		if (!hasRole) {
+			throw new Error('User does not have the required role.');
+		}
+	}
+
 	// Make a session ID.
-	const sessionID = crypto.randomUUID(); // TODO: Hash Discord user ID + secret token.
+	const sessionID = crypto.randomUUID();
 
 	// If user does not exist, create user.
 	const user = await s.getUserByDiscordUserID(discordUser.id);

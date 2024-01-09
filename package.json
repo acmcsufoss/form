@@ -30,6 +30,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@deno/kv": "^0.7.0"
+		"@deno/kv": "^0.7.0",
+		"discord-api-types": "^0.37.67",
+		"export-to-csv": "^1.2.2"
 	}
 }

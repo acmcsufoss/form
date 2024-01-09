@@ -1,4 +1,64 @@
+import type { APIGuildMember, RESTPostAPIChannelMessageJSONBody } from 'discord-api-types/v10';
+
 export const API_URL = 'https://discord.com/api';
+
+export interface GetGuildMemberRequest {
+	guildID: string;
+	userID: string;
+	botToken: string;
+}
+
+function makeGetGuildMemberURL(r: GetGuildMemberRequest, apiURL = API_URL): string {
+	return `${apiURL}/guilds/${r.guildID}/members/${r.userID}`;
+}
+
+export async function getGuildMember(r: GetGuildMemberRequest): Promise<APIGuildMember> {
+	const response = await fetch(makeGetGuildMemberURL(r), {
+		headers: {
+			Authorization: `Bearer ${r.botToken}`
+		}
+	});
+	if (!response.ok) {
+		throw new Error(`Failed to get guild member: ${response.statusText}`);
+	}
+
+	return await response.json();
+}
+
+export interface CheckGuildMemberHasRoleRequest extends GetGuildMemberRequest {
+	roleID: string;
+}
+
+export async function checkGuildMemberHasRole(r: CheckGuildMemberHasRoleRequest): Promise<boolean> {
+	const member = await getGuildMember(r);
+	return member.roles.includes(r.roleID);
+}
+
+export interface CreateMessageRequest {
+	body: RESTPostAPIChannelMessageJSONBody;
+	channelID: string;
+	botToken: string;
+}
+
+function makeCreateMessageURL(r: CreateMessageRequest, apiURL = API_URL): string {
+	return `${apiURL}/channels/${r.channelID}/messages`;
+}
+
+// https://discord.com/developers/docs/resources/channel#create-message
+export async function createMessage(r: CreateMessageRequest): Promise<APIGuildMember> {
+	const response = await fetch(makeCreateMessageURL(r), {
+		method: 'POST',
+		headers: {
+			Authorization: `Bearer ${r.botToken}`
+		},
+		body: JSON.stringify(r.body)
+	});
+	if (!response.ok) {
+		throw new Error(`Failed to create message: ${response.statusText}`);
+	}
+
+	return await response.json();
+}
 
 export interface DiscordOAuth2URLData {
 	clientID: string;

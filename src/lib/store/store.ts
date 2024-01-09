@@ -8,13 +8,12 @@ export interface Submission {
 	id: ID;
 	formID: ID;
 	userID: ID;
-
 	data: Record<string, unknown>;
 
 	/**
-	 * submissionDatetime is the submission time in milliseconds since the Unix epoch.
+	 * submittedAt is the submission timestamp in milliseconds since the Unix epoch.
 	 */
-	submitDatetime: number;
+	submittedAt: number;
 }
 
 export interface User {
@@ -24,12 +23,16 @@ export interface User {
 	discordAvatar: string;
 }
 
+export type CreateFormRequest = Form;
+
 export interface CreateSessionRequest {
 	sessionID: ID;
 	discordUserID: ID;
 	discordUsername: string;
 	discordAvatar: string;
 }
+
+export type CreateSubmissionRequest = Submission;
 
 export interface CreateUserRequest {
 	sessionID: ID;
@@ -39,12 +42,17 @@ export interface CreateUserRequest {
 }
 
 export interface Store {
-	createForm(form: Form): Promise<Form>;
+	createForm(r: CreateFormRequest): Promise<Form>;
 	createSession(r: CreateSessionRequest): Promise<User>;
-	createSubmission(submission: Submission): Promise<Submission>;
+	createSubmission(r: CreateSubmissionRequest): Promise<Submission>;
 	createUser(r: CreateUserRequest): Promise<User>;
+	deleteFormByID(id: ID): Promise<void>;
+	deleteSessionByID(id: ID): Promise<void>;
+	deleteSubmissionByID(id: ID): Promise<void>;
 	getFormByID(id: ID): Promise<Form | null>;
+	getForms(): Promise<Form[]>;
 	getSubmissionByID(id: ID): Promise<Submission | null>;
+	getSubmissionsByFormID(id: ID): Promise<Submission[]>;
 	getUserByDiscordUserID(id: ID): Promise<User | null>;
 	getUserBySessionID(id: ID): Promise<User | null>;
 }
