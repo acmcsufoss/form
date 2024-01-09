@@ -25,6 +25,7 @@
 
 <label class="Question-Header" for={data.name}> {data.content} </label>
 <input
+	name={data.name}
 	type="number"
 	required={data.required}
 	min={data.min}

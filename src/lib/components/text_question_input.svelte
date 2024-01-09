@@ -6,6 +6,7 @@
 
 <label class="Question-Header" for={data.name}>{data.content}</label>
 <input
+	name={data.name}
 	type="text"
 	max={data.maxLength}
 	min={data.minLength}

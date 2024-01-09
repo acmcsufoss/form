@@ -15,4 +15,4 @@
 </script>
 
 <label class="Question-Header" for={data.name}>{data.content}</label>
-<input type="color" required={data.required} bind:value={data.default} />
+<input name={data.name} type="color" required={data.required} bind:value={data.default} />
