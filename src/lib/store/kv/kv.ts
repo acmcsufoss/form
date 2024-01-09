@@ -101,8 +101,13 @@ export class KvStore implements store.Store {
 			throw new Error(`Submission not found for id: ${id}`);
 		}
 
-		const submissionsByFormIDKey = this.k(KvCollection.SUBMISSIONS_BY_FORM_ID, submissionResult.value.formID, id);
-		await this.kv.atomic()
+		const submissionsByFormIDKey = this.k(
+			KvCollection.SUBMISSIONS_BY_FORM_ID,
+			submissionResult.value.formID,
+			id
+		);
+		await this.kv
+			.atomic()
 			.check(submissionResult)
 			.delete(submissionsByIDKey)
 			.delete(submissionsByFormIDKey)
