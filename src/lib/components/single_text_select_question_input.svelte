@@ -1,27 +1,11 @@
 <script lang="ts">
-	import type { SingleTextSelectQuestion } from '../form/form.js';
-	import { QuestionType } from '../form/form.js';
-	export let data: SingleTextSelectQuestion = {
-		type: QuestionType.SINGLE_TEXT_SELECT,
+	import type { SingleTextSelectQuestion } from '$lib/form';
 
-		name: 'SingleTextSelect Question',
-
-		content: 'Select One',
-
-		required: false,
-
-		choices: ['red', 'green', 'blue'],
-
-		customChoice: true,
-
-		defaultChoiceIndex: 0,
-
-		defaultCustomChoice: ''
-	};
+	export let data: SingleTextSelectQuestion;
 </script>
 
 <label class="Question-Header" id={data.name} for={data.name}>{data.content}</label>
-<!-- TODO: Create functionality for defualt choice and custom choice -->
+<!-- TODO: Create functionality for default choice and custom choice -->
 {#each data.choices as choice}
 	<div class="choice">
 		<input type="radio" required={data.required} name={data.name} id={choice} />

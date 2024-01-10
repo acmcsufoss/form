@@ -4,7 +4,6 @@
 	export let data: PageData;
 </script>
 
-
 {#if data.submission}
 	<!-- <Submission data={data.submission} /> -->
 	<code>{'<Submission />'}</code>

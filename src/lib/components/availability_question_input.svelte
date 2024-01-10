@@ -1,22 +1,7 @@
 <script lang="ts">
-	import type { AvailablityQuestion } from '$lib/form/form';
-	import { QuestionType } from '$lib/form/form';
+	import type { AvailablityQuestion } from '$lib/form';
 
-	export let data: AvailablityQuestion = {
-		type: QuestionType.AVAILABILITY,
-
-		name: 'Availability Question',
-
-		required: false,
-
-		content: 'choose',
-
-		minStartDatetime: 0,
-
-		maxDateRanges: 5,
-
-		maxEndDatetime: 0
-	};
+	export let data: AvailablityQuestion;
 </script>
 
 <label class="Question-Header" for={data.name}>{data.content}</label>

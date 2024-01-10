@@ -29,7 +29,7 @@
 	minlength={data.minLength}
 	placeholder={data.placeholder}
 	required={data.required}
-	bind:value={data.default}
+	value={data.default}
 />
 
 <style>

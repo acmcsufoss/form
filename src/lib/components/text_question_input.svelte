@@ -11,7 +11,7 @@
 	max={data.maxLength}
 	min={data.minLength}
 	placeholder={data.placeholder}
-	bind:value={data.default}
+	value={data.default}
 	pattern={data.pattern}
 />
 

@@ -3,8 +3,6 @@ import * as exportToCSV from 'export-to-csv';
 import { s } from '$lib/resources/store';
 import type { Submission } from '$lib/store';
 
-// TODO: Rename to /forms/:id/submissions.csv
-
 export const GET: RequestHandler = async ({ params }) => {
 	const submissions = await s.getSubmissionsByFormID(params.id);
 	const csv = submissionsToCSV(submissions);

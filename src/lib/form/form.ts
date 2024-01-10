@@ -110,7 +110,8 @@ export type Question =
 	| DateQuestion
 	| TimeQuestion
 	| DatetimeQuestion
-	| AvailablityQuestion;
+	| AvailablityQuestion
+	| TimezoneQuestion;
 
 /**
  * QuestionValue is the value of a question.
@@ -125,7 +126,8 @@ export type QuestionValue =
 	| DateQuestionValue
 	| TimeQuestionValue
 	| DatetimeQuestionValue
-	| AvailabilityQuestionValue;
+	| AvailabilityQuestionValue
+	| TimezoneQuestionValue;
 
 /**
  * QuestionList is a list of questions.
@@ -155,7 +157,8 @@ export enum QuestionType {
 	DATE = 'date',
 	TIME = 'time',
 	DATETIME = 'datetime',
-	AVAILABILITY = 'availability'
+	AVAILABILITY = 'availability',
+	TIMEZONE = 'timezone'
 }
 
 /**
@@ -566,4 +569,34 @@ export interface AvailabilityQuestionValue extends QuestionValueBase {
 	 * value is the list of date ranges.
 	 */
 	value: [Timestamp, Timestamp][];
+}
+
+/**
+ * TimezoneQuestion is a timezone selection.
+ */
+export interface TimezoneQuestion extends QuestionBase {
+	/**
+	 * type is the type of question.
+	 */
+	type: QuestionType.TIMEZONE;
+
+	/**
+	 * default is the default value for the timezone question.
+	 */
+	default?: TimezoneQuestionValue['value'];
+}
+
+/**
+ * TimezoneQuestionValue is a timezone.
+ */
+export interface TimezoneQuestionValue extends QuestionValueBase {
+	/**
+	 * type is the type of question.
+	 */
+	type: QuestionType.TIMEZONE;
+
+	/**
+	 * value is the timezone ID.
+	 */
+	value: string;
 }

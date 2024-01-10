@@ -10,13 +10,13 @@
 
 <div class="form-list">
 	{#if data.forms.length > 0}
-	<ul>
-		{#each data.forms as form}
-		<a href="/forms/{form.id}">{form.title}</a>
-	{/each}
-	</ul>
+		<ul>
+			{#each data.forms as form}
+				<a href="/forms/{form.id}">{form.title}</a>
+			{/each}
+		</ul>
 	{:else}
-	<a href="/forms/new">Create form</a>
+		<a href="/forms/new">Create form</a>
 	{/if}
 </div>
 
