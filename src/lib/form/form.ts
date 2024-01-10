@@ -4,10 +4,11 @@
 export type ID = string;
 
 /**
- * Timestamp is a Unix timestamp. It is the number of milliseconds since
- * January 1, 1970, 00:00:00 UTC.
+ * Timestamp is a local timestamp. A date is represented as a string
+ * in the format YYYY-MM-DD. A datetime is represented as a string in the
+ * format YYYY-MM-DDTHH:MM:SS.
  */
-export type Timestamp = number;
+export type Timestamp = string;
 
 /**
  * Form is a form.
@@ -63,18 +64,23 @@ export interface Form {
  */
 export interface FormSchedule {
 	/**
-	 * startDatetime is the start time for the form.
+	 * startDate is the start time for the form.
 	 *
 	 * This is also the time that the form will be posted to Discord.
 	 */
-	startDatetime: Timestamp;
+	startDate: Timestamp;
 
 	/**
-	 * endDatetime is the end time for the form.
+	 * endDate is the end time for the form.
 	 *
 	 * This is when the form will be closed and may be edited.
 	 */
-	endDatetime: Timestamp | null;
+	endDate: Timestamp | null;
+
+	/**
+	 * timezone is the timezone ID for the form. Defaults to UTC/GMT.
+	 */
+	timezone?: string;
 }
 
 /**
@@ -379,14 +385,14 @@ export interface BooleanQuestion extends QuestionBase {
 	type: QuestionType.BOOLEAN;
 
 	/**
-	 * style is the style of the boolean question.
+	 * style is the style of the boolean question. Defaults to checkbox.
 	 */
-	style: 'checkbox' | 'radio';
+	style?: 'checkbox' | 'radio';
 
 	/**
-	 * default is the default value for the boolean question.
+	 * default is the default value for the boolean question. Defaults to false.
 	 */
-	default: boolean;
+	default?: boolean;
 }
 
 export interface BooleanQuestionValue extends QuestionValueBase {
@@ -541,14 +547,14 @@ export interface AvailablityQuestion extends QuestionBase {
 	default?: AvailabilityQuestionValue['value'];
 
 	/**
-	 * minStartDatetime is the minimum start date for the availability question.
+	 * minStartDate is the minimum start date for the availability question.
 	 */
-	minStartDatetime?: Timestamp;
+	minStartDate?: Timestamp;
 
 	/**
-	 * maxEndDatetime is the maximum start date for the availability question.
+	 * maxEndDate is the maximum start date for the availability question.
 	 */
-	maxEndDatetime?: Timestamp;
+	maxEndDate?: Timestamp;
 
 	/**
 	 * maxDateRanges is the number of date input pairs that the user can enter.
@@ -597,6 +603,44 @@ export interface TimezoneQuestionValue extends QuestionValueBase {
 
 	/**
 	 * value is the timezone ID.
+	 */
+	value: string;
+}
+
+/**
+ * SelectQuestion is a select question with a list of options.
+ */
+export interface SelectQuestion extends QuestionBase {
+	/**
+	 * type is the type of question.
+	 */
+	type: QuestionType;
+
+	/**
+	 * options is the list of options for the select question.
+	 */
+	options: {
+		value: string;
+		content: string;
+	}[];
+
+	/**
+	 * default is the default value for the select question.
+	 */
+	default?: string;
+}
+
+/**
+ * SelectQuestionValue is a select question value.
+ */
+export interface SelectQuestionValue extends QuestionValueBase {
+	/**
+	 * type is the type of question.
+	 */
+	type: QuestionType;
+
+	/**
+	 * value is the value of the question.
 	 */
 	value: string;
 }

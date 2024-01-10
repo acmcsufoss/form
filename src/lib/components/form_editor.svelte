@@ -49,12 +49,37 @@
 		}}
 	/>
 
-	<!-- TODO:
-description
-schedule
-anonymized
-allowsMultipleSubmissions
-message -->
+	<QuestionInput
+		data={{
+			type: QuestionType.TIMEZONE,
+			name: 'schedule.timezone',
+			content: 'Timezone (default: UTC/GMT)'
+		}}
+	/>
+
+	<QuestionInput
+		data={{
+			type: QuestionType.BOOLEAN,
+			name: 'anonymized',
+			content: 'Anonymized'
+		}}
+	/>
+
+	<QuestionInput
+		data={{
+			type: QuestionType.BOOLEAN,
+			name: 'allowsMultipleSubmissions',
+			content: 'Allows multiple submissions'
+		}}
+	/>
+
+	<!-- Message -->
+
+	/** * id is the ID of the Discord message that the form is linked to (if any). */ id?: ID; /** *
+	channelID is the ID of the Discord channel that the message is in. */ channelID: ID; /** *
+	threadID is the ID of the Discord thread that the message is in. */ threadID?: ID;
+
+	<!-- Questions -->
 
 	<button type="submit">Submit</button>
 </form>

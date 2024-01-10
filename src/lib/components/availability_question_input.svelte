@@ -11,16 +11,11 @@
 			<input
 				type="datetime-local"
 				name={'start' + i}
-				min={data.minStartDatetime}
-				max={data.maxEndDatetime}
+				min={data.minStartDate}
+				max={data.maxEndDate}
 			/>
 			<p>----</p>
-			<input
-				type="datetime-local"
-				name={'end' + i}
-				min={data.minStartDatetime}
-				max={data.maxEndDatetime}
-			/>
+			<input type="datetime-local" name={'end' + i} min={data.minStartDate} max={data.maxEndDate} />
 		</div>
 	{/each}
 </div>

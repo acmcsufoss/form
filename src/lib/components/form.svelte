@@ -19,11 +19,11 @@
 		<hr />
 		<div class="form-information">
 			<p>Account: {user.discordUsername}</p>
-			{#if data.schedule?.startDatetime}
-				<p>Opened at: {data.schedule?.startDatetime}</p>
+			{#if data.schedule?.startDate}
+				<p>Opened at: {data.schedule?.startDate}</p>
 			{/if}
-			{#if data.schedule?.endDatetime}
-				<p>Opened until: {data.schedule?.endDatetime}</p>
+			{#if data.schedule?.endDate}
+				<p>Opened until: {data.schedule?.endDate}</p>
 			{/if}
 		</div>
 	</div>
