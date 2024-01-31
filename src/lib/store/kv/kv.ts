@@ -12,7 +12,7 @@ export enum KvCollection {
 export class KvStore implements store.Store {
 	constructor(private readonly kv: Kv, private readonly kvNamespace: KvKey = []) {}
 	public async getForms(): Promise<store.Form[]> {
-		const prefix = this.k(KvCollection.FORMS_BY_ID);
+		const prefix = this.key(KvCollection.FORMS_BY_ID);
 		const forms: store.Form[] = [];
 		for await (const entry of this.kv.list<store.Form>({ prefix })) {
 			forms.push(entry.value);
@@ -22,31 +22,31 @@ export class KvStore implements store.Store {
 	}
 
 	public async getFormByID(id: string): Promise<store.Form | null> {
-		const formKey = this.k(KvCollection.FORMS_BY_ID, id);
+		const formKey = this.key(KvCollection.FORMS_BY_ID, id);
 		const formResult = await this.kv.get<store.Form>(formKey);
 		return formResult.value;
 	}
 
 	public async getUserByDiscordUserID(id: string) {
-		const userKey = this.k(KvCollection.USERS_BY_DISCORD_USER_ID, id);
+		const userKey = this.key(KvCollection.USERS_BY_DISCORD_USER_ID, id);
 		const userResult = await this.kv.get<store.User>(userKey);
 		return userResult.value;
 	}
 
 	public async getUserBySessionID(id: string): Promise<store.User | null> {
-		const userKey = this.k(KvCollection.USERS_BY_SESSION_ID, id);
+		const userKey = this.key(KvCollection.USERS_BY_SESSION_ID, id);
 		const userResult = await this.kv.get<store.User>(userKey);
 		return userResult.value;
 	}
 
 	public async getSubmissionByID(id: string): Promise<store.Submission | null> {
-		const submissionKey = this.k(KvCollection.SUBMISSIONS_BY_ID, id);
+		const submissionKey = this.key(KvCollection.SUBMISSIONS_BY_ID, id);
 		const submissionResult = await this.kv.get<store.Submission>(submissionKey);
 		return submissionResult.value;
 	}
 
 	public async getSubmissionsByFormID(id: string): Promise<store.Submission[]> {
-		const prefix = this.k(KvCollection.SUBMISSIONS_BY_FORM_ID);
+		const prefix = this.key(KvCollection.SUBMISSIONS_BY_FORM_ID);
 		const submissions: store.Submission[] = [];
 		for await (const entry of this.kv.list<store.Submission>({ prefix })) {
 			submissions.push(entry.value);
@@ -56,7 +56,7 @@ export class KvStore implements store.Store {
 	}
 
 	public async createForm(r: store.CreateFormRequest): Promise<store.Form> {
-		const formKey = this.k(KvCollection.FORMS_BY_ID, r.id);
+		const formKey = this.key(KvCollection.FORMS_BY_ID, r.id);
 		await this.kv.set(formKey, r);
 		return r;
 	}
@@ -70,8 +70,11 @@ export class KvStore implements store.Store {
 			discordAvatar: r.discordAvatar
 		};
 
-		const usersByDiscordUserIDKey = this.k(KvCollection.USERS_BY_DISCORD_USER_ID, r.discordUserID);
-		const usersBySessionIDKey = this.k(KvCollection.USERS_BY_SESSION_ID, r.sessionID);
+		const usersByDiscordUserIDKey = this.key(
+			KvCollection.USERS_BY_DISCORD_USER_ID,
+			r.discordUserID
+		);
+		const usersBySessionIDKey = this.key(KvCollection.USERS_BY_SESSION_ID, r.sessionID);
 		await this.kv
 			.atomic()
 			.check({ key: usersByDiscordUserIDKey, versionstamp: null })
@@ -83,7 +86,10 @@ export class KvStore implements store.Store {
 	}
 
 	public async createSession(r: store.CreateSessionRequest): Promise<store.User> {
-		const usersByDiscordUserIDKey = this.k(KvCollection.USERS_BY_DISCORD_USER_ID, r.discordUserID);
+		const usersByDiscordUserIDKey = this.key(
+			KvCollection.USERS_BY_DISCORD_USER_ID,
+			r.discordUserID
+		);
 		const userResult = await this.kv.get<store.User>(usersByDiscordUserIDKey);
 		if (!userResult.value) {
 			throw new Error(`User not found for discordUserID: ${r.discordUserID}`);
@@ -95,7 +101,7 @@ export class KvStore implements store.Store {
 			discordAvatar: r.discordAvatar
 		};
 
-		const usersBySessionIDKey = this.k(KvCollection.USERS_BY_SESSION_ID, r.sessionID);
+		const usersBySessionIDKey = this.key(KvCollection.USERS_BY_SESSION_ID, r.sessionID);
 		await this.kv
 			.atomic()
 			.check(userResult)
@@ -107,8 +113,8 @@ export class KvStore implements store.Store {
 	}
 
 	public async createSubmission(r: store.CreateSubmissionRequest): Promise<store.Submission> {
-		const submissionsByIDKey = this.k(KvCollection.SUBMISSIONS_BY_ID, r.id);
-		const submissionsByFormIDKey = this.k(KvCollection.SUBMISSIONS_BY_FORM_ID, r.formID, r.id);
+		const submissionsByIDKey = this.key(KvCollection.SUBMISSIONS_BY_ID, r.id);
+		const submissionsByFormIDKey = this.key(KvCollection.SUBMISSIONS_BY_FORM_ID, r.formID, r.id);
 		// https://docs.deno.com/kv/manual/secondary_indexes#non-unique-indexes-one-to-many
 		await this.kv
 			.atomic()
@@ -121,11 +127,11 @@ export class KvStore implements store.Store {
 	}
 
 	public async deleteFormByID(id: string): Promise<void> {
-		const formKey = this.k(KvCollection.FORMS_BY_ID, id);
+		const formKey = this.key(KvCollection.FORMS_BY_ID, id);
 		const submissions = await this.getSubmissionsByFormID(id);
 		const op = this.kv.atomic().delete(formKey);
 		for (const submission of submissions) {
-			const submissionKey = this.k(KvCollection.SUBMISSIONS_BY_ID, submission.id);
+			const submissionKey = this.key(KvCollection.SUBMISSIONS_BY_ID, submission.id);
 			op.delete(submissionKey);
 		}
 
@@ -133,18 +139,18 @@ export class KvStore implements store.Store {
 	}
 
 	public async deleteSessionByID(id: string): Promise<void> {
-		const usersBySessionIDKey = this.k(KvCollection.USERS_BY_SESSION_ID, id);
+		const usersBySessionIDKey = this.key(KvCollection.USERS_BY_SESSION_ID, id);
 		await this.kv.delete(usersBySessionIDKey);
 	}
 
 	public async deleteSubmissionByID(id: string): Promise<void> {
-		const submissionsByIDKey = this.k(KvCollection.SUBMISSIONS_BY_ID, id);
+		const submissionsByIDKey = this.key(KvCollection.SUBMISSIONS_BY_ID, id);
 		const submissionResult = await this.kv.get<store.Submission>(submissionsByIDKey);
 		if (!submissionResult.value) {
 			throw new Error(`Submission not found for id: ${id}`);
 		}
 
-		const submissionsByFormIDKey = this.k(
+		const submissionsByFormIDKey = this.key(
 			KvCollection.SUBMISSIONS_BY_FORM_ID,
 			submissionResult.value.formID,
 			id
@@ -157,7 +163,7 @@ export class KvStore implements store.Store {
 			.commit();
 	}
 
-	private k(...key: KvKey) {
+	private key(...key: KvKey) {
 		return [...this.kvNamespace, ...key];
 	}
 }
