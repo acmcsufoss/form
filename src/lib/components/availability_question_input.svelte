@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AvailablityQuestion } from '$lib/form/form';
+	import type { AvailablityQuestion, AvailabilityQuestionValue } from '$lib/form/form';
 	import { QuestionType } from '$lib/form/form';
 
 	export let data: AvailablityQuestion = {
@@ -11,12 +11,14 @@
 
 		content: 'choose',
 
-		minStartDatetime: 0,
-
 		maxDateRanges: 5,
 
 		maxEndDatetime: 0
 	};
+
+	let startTimes = Array(data.maxDateRanges).fill('');
+	let endTimes = Array(data.maxDateRanges).fill('');
+	
 </script>
 
 <label class="Question-Header" for={data.name}>{data.content}</label>
@@ -27,14 +29,16 @@
 				type="datetime-local"
 				name={'start' + i}
 				min={data.minStartDatetime}
-				max={data.maxEndDatetime}
+				max={endTimes[i] !== '' ? endTimes[i] : data.maxEndDatetime}
+				bind:value={startTimes[i]}
 			/>
 			<p>----</p>
 			<input
 				type="datetime-local"
 				name={'end' + i}
-				min={data.minStartDatetime}
+				min={startTimes[i] !== '' ? startTimes[i] : data.minStartDatetime}
 				max={data.maxEndDatetime}
+				bind:value={endTimes[i]}
 			/>
 		</div>
 	{/each}
