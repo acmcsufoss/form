@@ -12,8 +12,10 @@ export interface Submission {
 
 	/**
 	 * submittedAt is the submission timestamp in milliseconds since the Unix epoch.
+	 *
+	 * If submittedAt is null, the submission is a draft.
 	 */
-	submittedAt: number;
+	submittedAt: number | null;
 }
 
 export interface User {

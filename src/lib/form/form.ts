@@ -1,7 +1,5 @@
-/**
- * ID is a unique identifier.
- */
-export type ID = string;
+import type { ID } from './id';
+import type { FormPermissions } from './permissions';
 
 /**
  * Timestamp is a local timestamp. A date is represented as a string
@@ -18,6 +16,11 @@ export interface Form {
 	 *  id is the form ID.
 	 */
 	id: ID;
+
+	/**
+	 * permissions is the permissions data for the form.
+	 */
+	permissions: FormPermissions;
 
 	/**
 	 * title is the title of the form.
@@ -54,7 +57,9 @@ export interface Form {
 	allowsMultipleSubmissions?: boolean;
 
 	/**
-	 * anonymized is whether or not the form is anonymized. Defaults to false.
+	 * anonymized is whether or not the form's submissions are anonymized.
+	 *
+	 * Defaults to false.
 	 */
 	anonymized?: boolean;
 }

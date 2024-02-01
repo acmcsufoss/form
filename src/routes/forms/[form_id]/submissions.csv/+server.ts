@@ -4,7 +4,7 @@ import { s } from '$lib/resources/store';
 import type { Submission } from '$lib/store';
 
 export const GET: RequestHandler = async ({ params }) => {
-	const submissions = await s.getSubmissionsByFormID(params.id);
+	const submissions = await s.getSubmissionsByFormID(params.form_id);
 	const csv = submissionsToCSV(submissions);
 	return new Response(csv, {
 		headers: {

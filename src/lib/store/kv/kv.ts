@@ -11,6 +11,7 @@ export enum KvCollection {
 
 export class KvStore implements store.Store {
 	constructor(private readonly kv: Kv, private readonly kvNamespace: KvKey = []) {}
+
 	public async getForms(): Promise<store.Form[]> {
 		const prefix = this.key(KvCollection.FORMS_BY_ID);
 		const forms: store.Form[] = [];
@@ -46,7 +47,7 @@ export class KvStore implements store.Store {
 	}
 
 	public async getSubmissionsByFormID(id: string): Promise<store.Submission[]> {
-		const prefix = this.key(KvCollection.SUBMISSIONS_BY_FORM_ID);
+		const prefix = this.key(KvCollection.SUBMISSIONS_BY_FORM_ID, id);
 		const submissions: store.Submission[] = [];
 		for await (const entry of this.kv.list<store.Submission>({ prefix })) {
 			submissions.push(entry.value);

@@ -1,6 +1,6 @@
+import type { ID } from './id';
 import type {
 	Form,
-	ID,
 	QuestionValue,
 	TextQuestionValue,
 	TextareaQuestionValue,

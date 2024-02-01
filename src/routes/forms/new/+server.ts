@@ -1,6 +1,7 @@
 import type { RequestHandler } from './$types';
 import { ulid } from 'ulid';
 import { s } from '$lib/resources/store';
+import { makeFormURL } from '$lib/urls';
 
 export const GET: RequestHandler = async () => {
 	// Create a new empty form.
@@ -10,7 +11,7 @@ export const GET: RequestHandler = async () => {
 	return new Response(null, {
 		status: 303,
 		headers: {
-			Location: `/forms/${form.id}`
+			Location: makeFormURL(form.id)
 		}
 	});
 };

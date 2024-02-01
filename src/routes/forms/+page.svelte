@@ -2,6 +2,7 @@
 
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { makeFormNewURL, makeFormURL } from '$lib/urls';
 
 	export let data: PageData;
 </script>
@@ -12,12 +13,12 @@
 	{#if data.forms.length > 0}
 		<ul>
 			{#each data.forms as form}
-				<a href="/forms/{form.id}">{form.title}</a>
+				<a href={makeFormURL(form.id)}>{form.title}</a>
 			{/each}
 		</ul>
 	{:else}
-		<a href="/forms/new">Create form</a>
+		<a href={makeFormNewURL()}>Create a form</a>
 	{/if}
 </div>
 
-<a href="/forms/new">Create form</a>
+<a href={makeFormNewURL()}>Create a form</a>
