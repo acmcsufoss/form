@@ -2,11 +2,14 @@
 	import DemoForm from '$lib/components/demo_form.svelte';
 </script>
 
-<p>Something has happened!</p>
+<h1>Demo form</h1>
+
+<p>Welcome to <a href="https://github.com/acmcsufoss/form">Form</a>!</p>
 
 <DemoForm />
 
 <style>
+	h1,
 	p {
 		text-align: center;
 	}
