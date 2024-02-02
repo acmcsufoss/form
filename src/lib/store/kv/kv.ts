@@ -76,12 +76,17 @@ export class KvStore implements store.Store {
 			r.discordUserID
 		);
 		const usersBySessionIDKey = this.key(KvCollection.USERS_BY_SESSION_ID, r.sessionID);
-		await this.kv
+		const result = await this.kv
 			.atomic()
-			.check({ key: usersByDiscordUserIDKey, versionstamp: null })
+			// I thought this check was necessary, but it causes an error.
+			// .check({ key: usersByDiscordUserIDKey, versionstamp: null })
 			.set(usersByDiscordUserIDKey, user)
 			.set(usersBySessionIDKey, user)
 			.commit();
+		console.log({ result });
+		if (!result.ok) {
+			throw new Error('Failed to create user.');
+		}
 
 		return user;
 	}
@@ -103,12 +108,15 @@ export class KvStore implements store.Store {
 		};
 
 		const usersBySessionIDKey = this.key(KvCollection.USERS_BY_SESSION_ID, r.sessionID);
-		await this.kv
+		const result = await this.kv
 			.atomic()
 			.check(userResult)
 			.set(usersByDiscordUserIDKey, updatedUser)
 			.set(usersBySessionIDKey, updatedUser)
 			.commit();
+		if (!result.ok) {
+			throw new Error('Failed to create session.');
+		}
 
 		return updatedUser;
 	}
@@ -117,12 +125,15 @@ export class KvStore implements store.Store {
 		const submissionsByIDKey = this.key(KvCollection.SUBMISSIONS_BY_ID, r.id);
 		const submissionsByFormIDKey = this.key(KvCollection.SUBMISSIONS_BY_FORM_ID, r.formID, r.id);
 		// https://docs.deno.com/kv/manual/secondary_indexes#non-unique-indexes-one-to-many
-		await this.kv
+		const result = await this.kv
 			.atomic()
 			.check({ key: submissionsByIDKey, versionstamp: null })
 			.set(submissionsByIDKey, r)
 			.set(submissionsByFormIDKey, r)
 			.commit();
+		if (!result.ok) {
+			throw new Error('Failed to create submission.');
+		}
 
 		return r;
 	}
@@ -136,7 +147,10 @@ export class KvStore implements store.Store {
 			op.delete(submissionKey);
 		}
 
-		await op.commit();
+		const result = await op.commit();
+		if (!result.ok) {
+			throw new Error('Failed to delete form.');
+		}
 	}
 
 	public async deleteSessionByID(id: string): Promise<void> {
@@ -156,12 +170,15 @@ export class KvStore implements store.Store {
 			submissionResult.value.formID,
 			id
 		);
-		await this.kv
+		const result = await this.kv
 			.atomic()
 			.check(submissionResult)
 			.delete(submissionsByIDKey)
 			.delete(submissionsByFormIDKey)
 			.commit();
+		if (!result.ok) {
+			throw new Error('Failed to delete submission.');
+		}
 	}
 
 	private key(...key: KvKey) {

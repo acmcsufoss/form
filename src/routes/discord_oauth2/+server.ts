@@ -1,4 +1,5 @@
 import type { RequestHandler } from './$types';
+import type { CreateUserRequest } from '$lib/store';
 import {
 	DISCORD_REDIRECT_URI,
 	DISCORD_CLIENT_ID,
@@ -9,15 +10,21 @@ import {
 } from '$env/static/private';
 import { SESSION_ID_COOKIE_NAME } from '$lib/oauth2';
 import { s } from '$lib/resources/store';
-import { makeOAuth2URL, getDiscordUserFromCode, checkGuildMemberHasRole } from '$lib/discord';
+import {
+	makeOAuth2URL,
+	getDiscordUserFromCode,
+	checkGuildMemberHasRole,
+	type DiscordUser
+} from '$lib/discord';
 
 export const GET: RequestHandler = async ({ url, locals }) => {
 	// Decode the state.
 	const state = JSON.parse(url.searchParams.get('state') || '{}');
+	const redirect = makeRedirect(state.destination || '/');
 
 	// Check if user is already logged in.
 	if (locals.user) {
-		return makeRedirect(state.destination || '/');
+		return redirect;
 	}
 
 	// Check if the user has a code.
@@ -60,26 +67,32 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 	const sessionID = crypto.randomUUID();
 
 	// If user does not exist, create user.
-	const user = await s.getUserByDiscordUserID(discordUser.id);
+	let user = await s.getUserByDiscordUserID(discordUser.id);
 	if (!user) {
-		await s.createUser({
-			sessionID,
-			discordUserID: discordUser.id,
-			discordUsername: discordUser.username,
-			discordAvatar: discordUser.avatar
-		});
+		user = await s.createUser(fromDiscordUser(sessionID, discordUser));
 	}
 
 	// Set session cookie with 1 week expiry.
-	const headers = new Headers();
-	headers.set(
+	// Redirect the user to their destination.
+	redirect.headers.set(
 		'Set-Cookie',
 		`${SESSION_ID_COOKIE_NAME}=${sessionID}; HttpOnly; Max-Age=${60 * 60 * 24 * 7}`
 	);
-
-	// Redirect the user to their destination.
-	return makeRedirect(state.destination || '/', headers);
+	console.log({
+		sessionID,
+		user
+	});
+	return redirect;
 };
+
+function fromDiscordUser(sessionID: string, discordUser: DiscordUser): CreateUserRequest {
+	return {
+		sessionID,
+		discordUserID: discordUser.id,
+		discordUsername: discordUser.username,
+		discordAvatar: discordUser.avatar
+	};
+}
 
 function makeRedirect(destination: string, headers = new Headers()) {
 	headers.set('Location', destination);
