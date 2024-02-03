@@ -19,9 +19,9 @@
 
 <fieldset>
 	<legend>{data.content}</legend>
-{#if data.style === 'radio'}
-	<input name={data.name} type="radio" required={data.required} bind:value={data.default} />
-{:else}
-	<input name={data.name} type="checkbox" required={data.required} bind:value={data.default} />
-{/if}
+	{#if data.style === 'radio'}
+		<input name={data.name} type="radio" required={data.required} bind:value={data.default} />
+	{:else}
+		<input name={data.name} type="checkbox" required={data.required} bind:value={data.default} />
+	{/if}
 </fieldset>

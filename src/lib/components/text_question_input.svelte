@@ -22,19 +22,19 @@
 	};
 </script>
 
-
 <fieldset>
 	<legend>{data.content}</legend>
-<input
-	name={data.name}
-	type="text"
-	max={data.maxLength}
-	min={data.minLength}
-	placeholder={data.placeholder}
-	bind:value={data.default}
-	pattern={data.pattern}
-/>
+	<input
+		name={data.name}
+		type="text"
+		max={data.maxLength}
+		min={data.minLength}
+		placeholder={data.placeholder}
+		bind:value={data.default}
+		pattern={data.pattern}
+	/>
 </fieldset>
+
 <style>
 	input {
 		padding-left: 10px;

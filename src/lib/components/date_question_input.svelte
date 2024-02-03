@@ -19,15 +19,14 @@
 	};
 </script>
 
-
 <fieldset>
 	<legend>{data.content}</legend>
-<input
-	name={data.name}
-	type="date"
-	required={data.required}
-	min={data.min}
-	max={data.max}
-	bind:value={data.default}
-/>
+	<input
+		name={data.name}
+		type="date"
+		required={data.required}
+		min={data.min}
+		max={data.max}
+		bind:value={data.default}
+	/>
 </fieldset>

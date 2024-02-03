@@ -18,15 +18,14 @@
 	};
 </script>
 
-
 <fieldset>
 	<legend>{data.content}</legend>
-<input
-	name={data.name}
-	type="datetime-local"
-	required={data.required}
-	bind:value={data.default}
-	min={data.min}
-	max={data.max}
-/>
+	<input
+		name={data.name}
+		type="datetime-local"
+		required={data.required}
+		bind:value={data.default}
+		min={data.min}
+		max={data.max}
+	/>
 </fieldset>

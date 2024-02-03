@@ -18,32 +18,31 @@
 
 	let startTimes = Array(data.maxDateRanges).fill('');
 	let endTimes = Array(data.maxDateRanges).fill('');
-	
 </script>
 
 <fieldset>
 	<legend>{data.content}</legend>
-<div class="datetime-range">
-	{#each Array(data.maxDateRanges) as _, i}
-		<div class="datetime-range-input">
-			<input
-				type="datetime-local"
-				name={'start' + i}
-				min={data.minStartDatetime}
-				max={endTimes[i] !== '' ? endTimes[i] : data.maxEndDatetime}
-				bind:value={startTimes[i]}
-			/>
-			<p>----</p>
-			<input
-				type="datetime-local"
-				name={'end' + i}
-				min={startTimes[i] !== '' ? startTimes[i] : data.minStartDatetime}
-				max={data.maxEndDatetime}
-				bind:value={endTimes[i]}
-			/>
-		</div>
-	{/each}
-</div>
+	<div class="datetime-range">
+		{#each Array(data.maxDateRanges) as _, i}
+			<div class="datetime-range-input">
+				<input
+					type="datetime-local"
+					name={'start' + i}
+					min={data.minStartDatetime}
+					max={endTimes[i] !== '' ? endTimes[i] : data.maxEndDatetime}
+					bind:value={startTimes[i]}
+				/>
+				<p>----</p>
+				<input
+					type="datetime-local"
+					name={'end' + i}
+					min={startTimes[i] !== '' ? startTimes[i] : data.minStartDatetime}
+					max={data.maxEndDatetime}
+					bind:value={endTimes[i]}
+				/>
+			</div>
+		{/each}
+	</div>
 </fieldset>
 
 <style>

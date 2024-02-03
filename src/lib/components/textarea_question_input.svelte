@@ -30,20 +30,20 @@
 	};
 </script>
 
-
 <fieldset>
 	<legend>{data.content}</legend>
-<textarea
-	bind:this={textarea_}
-	on:input={textAreaAdjustHeight}
-	name={data.name}
-	maxlength={data.maxLength}
-	minlength={data.minLength}
-	placeholder={data.placeholder}
-	required={data.required}
-	bind:value={data.default}
-/>
+	<textarea
+		bind:this={textarea_}
+		on:input={textAreaAdjustHeight}
+		name={data.name}
+		maxlength={data.maxLength}
+		minlength={data.minLength}
+		placeholder={data.placeholder}
+		required={data.required}
+		bind:value={data.default}
+	/>
 </fieldset>
+
 <style>
 	textarea {
 		max-width: 100%;

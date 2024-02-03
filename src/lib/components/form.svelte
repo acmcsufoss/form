@@ -274,12 +274,12 @@
 		width: 100%;
 		padding: 0px 15px;
 	}
-	:global(fieldset){
+	:global(fieldset) {
 		border: none;
 		margin: 0px;
 		padding: 0px;
 	}
-	:global(legend){
+	:global(legend) {
 		font-size: 13px;
 		font-weight: bold;
 		margin-bottom: 10px;

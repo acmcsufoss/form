@@ -20,17 +20,17 @@
 	};
 </script>
 
-
 <fieldset>
 	<legend>{data.content}</legend>
-<!-- TODO: Create functionality for defualt choice and custom choice -->
-{#each data.choices as choice}
-	<div class="choice">
-		<input type="radio" required={data.required} name={data.name} id={choice} />
-		<label for={choice}>{choice}</label>
-	</div>
-{/each}
+	<!-- TODO: Create functionality for defualt choice and custom choice -->
+	{#each data.choices as choice}
+		<div class="choice">
+			<input type="radio" required={data.required} name={data.name} id={choice} />
+			<label for={choice}>{choice}</label>
+		</div>
+	{/each}
 </fieldset>
+
 <style>
 	.choice {
 		display: flex;

@@ -16,5 +16,5 @@
 
 <fieldset>
 	<legend>{data.content}</legend>
-<input name={data.name} type="color" required={data.required} bind:value={data.default} />
+	<input name={data.name} type="color" required={data.required} bind:value={data.default} />
 </fieldset>
