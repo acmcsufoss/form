@@ -46,6 +46,7 @@
 </fieldset>
 <style>
 	textarea {
+		max-width: 100%;
 		width: 100%;
 		box-sizing: border-box;
 		padding-left: 10px;
