@@ -4,7 +4,7 @@ import type { ID } from './id';
  * UserIDs is a map of user IDs to empty objects to use as a set for
  * fast lookups.
  */
-export type UserIDs = Record<ID, {}>;
+export type UserIDs = Record<ID, never>;
 
 /**
  * Permissions is a map of permission types to a set of user IDs.

@@ -83,7 +83,6 @@ export class KvStore implements store.Store {
 			.set(usersByDiscordUserIDKey, user)
 			.set(usersBySessionIDKey, user)
 			.commit();
-		console.log({ result });
 		if (!result.ok) {
 			throw new Error('Failed to create user.');
 		}

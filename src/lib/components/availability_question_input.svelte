@@ -2,11 +2,13 @@
 	import type { AvailablityQuestion } from '$lib/form';
 
 	export let data: AvailablityQuestion;
+
+	const ranges = Array.from({ length: data.maxDateRanges ?? 5 }, (_, i) => i);
 </script>
 
 <label class="Question-Header" for={data.name}>{data.content}</label>
 <div class="datetime-range">
-	{#each Array(data.maxDateRanges) as _, i}
+	{#each ranges as i (i)}
 		<div class="datetime-range-input">
 			<input
 				type="datetime-local"

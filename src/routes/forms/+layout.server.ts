@@ -1,5 +1,4 @@
 import type { LayoutServerLoad } from './$types';
-import { s } from '$lib/resources/store';
 import { redirect } from '@sveltejs/kit';
 import { makeOAuth2URL } from '$lib/oauth2';
 

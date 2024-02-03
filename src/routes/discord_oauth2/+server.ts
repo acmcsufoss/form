@@ -78,10 +78,6 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 		'Set-Cookie',
 		`${SESSION_ID_COOKIE_NAME}=${sessionID}; HttpOnly; Max-Age=${60 * 60 * 24 * 7}`
 	);
-	console.log({
-		sessionID,
-		user
-	});
 	return redirect;
 };
 

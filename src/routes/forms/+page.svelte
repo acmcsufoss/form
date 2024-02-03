@@ -13,11 +13,9 @@
 	{#if data.forms.length > 0}
 		<ul>
 			{#each data.forms as form}
-				<a href={makeFormURL(form.id)}>{form.title}</a>
+				<a href={makeFormURL(form.id)} title={JSON.stringify(form)}>{form.title}</a>
 			{/each}
 		</ul>
-	{:else}
-		<a href={makeFormNewURL()}>Create a form</a>
 	{/if}
 </div>
 

@@ -9,7 +9,6 @@ export const load: LayoutServerLoad = async ({ cookies, locals }) => {
 	}
 
 	const user = await s.getUserBySessionID(session);
-	console.log({ session, user });
 	if (!user) {
 		return;
 	}
