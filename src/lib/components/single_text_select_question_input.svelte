@@ -20,7 +20,9 @@
 	};
 </script>
 
-<label class="Question-Header" id={data.name} for={data.name}>{data.content}</label>
+
+<fieldset>
+	<legend>{data.content}</legend>
 <!-- TODO: Create functionality for defualt choice and custom choice -->
 {#each data.choices as choice}
 	<div class="choice">
@@ -28,7 +30,7 @@
 		<label for={choice}>{choice}</label>
 	</div>
 {/each}
-
+</fieldset>
 <style>
 	.choice {
 		display: flex;

@@ -22,7 +22,9 @@
 	};
 </script>
 
-<label class="Question-Header" for={data.name}>{data.content}</label>
+
+<fieldset>
+	<legend>{data.content}</legend>
 <input
 	name={data.name}
 	type="text"
@@ -32,7 +34,7 @@
 	bind:value={data.default}
 	pattern={data.pattern}
 />
-
+</fieldset>
 <style>
 	input {
 		padding-left: 10px;

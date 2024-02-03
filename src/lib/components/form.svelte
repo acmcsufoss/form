@@ -274,6 +274,17 @@
 		width: 100%;
 		padding: 0px 15px;
 	}
+	:global(fieldset){
+		border: none;
+		margin: 0px;
+		padding: 0px;
+	}
+	:global(legend){
+		font-size: 13px;
+		font-weight: bold;
+		margin-bottom: 10px;
+		font-family: 'Poppins';
+	}
 	.form-header {
 		padding: 15px 15px;
 		width: calc(100% - 30px);
@@ -309,12 +320,6 @@
 		border-color: #c5c8c9;
 		border-width: 0;
 		border-style: solid;
-	}
-	:global(.Question-Header) {
-		font-size: 13px;
-		font-weight: bold;
-		margin-bottom: 10px;
-		font-family: 'Poppins';
 	}
 	:global(label) {
 		display: flex;

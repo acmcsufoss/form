@@ -30,7 +30,9 @@
 	};
 </script>
 
-<label class="Question-Header" for={data.name}>{data.content}</label>
+
+<fieldset>
+	<legend>{data.content}</legend>
 <textarea
 	bind:this={textarea_}
 	on:input={textAreaAdjustHeight}
@@ -41,7 +43,7 @@
 	required={data.required}
 	bind:value={data.default}
 />
-
+</fieldset>
 <style>
 	textarea {
 		width: 100%;

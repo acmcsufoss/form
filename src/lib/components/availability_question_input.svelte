@@ -19,7 +19,8 @@
 	};
 </script>
 
-<label class="Question-Header" for={data.name}>{data.content}</label>
+<fieldset>
+	<legend>{data.content}</legend>
 <div class="datetime-range">
 	{#each Array(data.maxDateRanges) as _, i}
 		<div class="datetime-range-input">
@@ -39,6 +40,7 @@
 		</div>
 	{/each}
 </div>
+</fieldset>
 
 <style>
 	.datetime-range {

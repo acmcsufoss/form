@@ -14,5 +14,7 @@
 	};
 </script>
 
-<label class="Question-Header" for={data.name}>{data.content}</label>
+<fieldset>
+	<legend>{data.content}</legend>
 <input name={data.name} type="color" required={data.required} bind:value={data.default} />
+</fieldset>
