@@ -106,6 +106,8 @@ export interface DiscordMessage {
 	 * threadID is the ID of the Discord thread that the message is in.
 	 */
 	threadID?: ID;
+
+	// TODO: Add guild ID to target specific guild.
 }
 
 /**
