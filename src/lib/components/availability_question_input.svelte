@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { AvailablityQuestion, AvailabilityQuestionValue } from '$lib/form/form';
 	import { QuestionType } from '$lib/form/form';
-
+	import type { Timestamp } from '$lib/form/form';
 	export let data: AvailablityQuestion = {
 		type: QuestionType.AVAILABILITY,
 
@@ -15,9 +15,13 @@
 
 		maxEndDatetime: 0
 	};
+	let input_value: AvailabilityQuestionValue = {
+		name: data.name,
 
-	let startTimes = Array(data.maxDateRanges).fill('');
-	let endTimes = Array(data.maxDateRanges).fill('');
+		type: QuestionType.AVAILABILITY,
+		
+		value: data.default || Array.from({ length: data.maxDateRanges }, () => [0, 0])
+	};
 </script>
 
 <fieldset>
@@ -29,16 +33,16 @@
 					type="datetime-local"
 					name={'start' + i}
 					min={data.minStartDatetime}
-					max={endTimes[i] !== '' ? endTimes[i] : data.maxEndDatetime}
-					bind:value={startTimes[i]}
+					max={input_value.value[i][1] !== undefined ? input_value.value[i][1] : data.maxEndDatetime}
+					bind:value={input_value.value[i][0]}
 				/>
 				<p>----</p>
 				<input
 					type="datetime-local"
 					name={'end' + i}
-					min={startTimes[i] !== '' ? startTimes[i] : data.minStartDatetime}
+					min={input_value.value[i][0] !== undefined ? input_value.value[i][0] : data.minStartDatetime}
 					max={data.maxEndDatetime}
-					bind:value={endTimes[i]}
+					bind:value={input_value.value[i][1]}
 				/>
 			</div>
 		{/each}
