@@ -19,7 +19,7 @@
 		name: data.name,
 
 		type: QuestionType.AVAILABILITY,
-		
+
 		value: data.default || Array.from({ length: data.maxDateRanges || 1 }, () => [0, 0])
 	};
 </script>
@@ -40,7 +40,9 @@
 				<input
 					type="datetime-local"
 					name={'end' + i}
-					min={input_data.value[i][0] !== undefined ? input_data.value[i][0] : data.minStartDatetime}
+					min={input_data.value[i][0] !== undefined
+						? input_data.value[i][0]
+						: data.minStartDatetime}
 					max={data.maxEndDatetime}
 					bind:value={input_data.value[i][1]}
 				/>
