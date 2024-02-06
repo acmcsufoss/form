@@ -15,7 +15,7 @@
 
 		maxEndDatetime: 0
 	};
-	let input_value: AvailabilityQuestionValue = {
+	let input_data: AvailabilityQuestionValue = {
 		name: data.name,
 
 		type: QuestionType.AVAILABILITY,
@@ -33,16 +33,16 @@
 					type="datetime-local"
 					name={'start' + i}
 					min={data.minStartDatetime}
-					max={input_value.value[i][1] !== undefined ? input_value.value[i][1] : data.maxEndDatetime}
-					bind:value={input_value.value[i][0]}
+					max={input_data.value[i][1] !== undefined ? input_data.value[i][1] : data.maxEndDatetime}
+					bind:value={input_data.value[i][0]}
 				/>
 				<p>----</p>
 				<input
 					type="datetime-local"
 					name={'end' + i}
-					min={input_value.value[i][0] !== undefined ? input_value.value[i][0] : data.minStartDatetime}
+					min={input_data.value[i][0] !== undefined ? input_data.value[i][0] : data.minStartDatetime}
 					max={data.maxEndDatetime}
-					bind:value={input_value.value[i][1]}
+					bind:value={input_data.value[i][1]}
 				/>
 			</div>
 		{/each}

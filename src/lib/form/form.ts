@@ -193,7 +193,7 @@ export interface SingleTextSelectQuestion extends QuestionBase {
 	defaultCustomChoice?: string;
 }
 
-export interface SingleTextSelectQuestionValue {
+export interface SingleTextSelectQuestionValue extends QuestionValueBase{
 	/**
 	 * type is the type of question.
 	 */
