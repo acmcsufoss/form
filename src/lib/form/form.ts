@@ -124,7 +124,8 @@ export type Question =
 	| TimeQuestion
 	| DatetimeQuestion
 	| AvailablityQuestion
-	| TimezoneQuestion;
+	| TimezoneQuestion
+	| SelectQuestion;
 
 /**
  * QuestionValue is the value of a question.
@@ -171,7 +172,8 @@ export enum QuestionType {
 	TIME = 'time',
 	DATETIME = 'datetime',
 	AVAILABILITY = 'availability',
-	TIMEZONE = 'timezone'
+	TIMEZONE = 'timezone',
+	SELECT = 'select'
 }
 
 /**
@@ -621,7 +623,7 @@ export interface SelectQuestion extends QuestionBase {
 	/**
 	 * type is the type of question.
 	 */
-	type: QuestionType;
+	type: QuestionType.SELECT;
 
 	/**
 	 * options is the list of options for the select question.
@@ -644,7 +646,7 @@ export interface SelectQuestionValue extends QuestionValueBase {
 	/**
 	 * type is the type of question.
 	 */
-	type: QuestionType;
+	type: QuestionType.SELECT;
 
 	/**
 	 * value is the value of the question.

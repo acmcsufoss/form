@@ -13,6 +13,7 @@ export const GET: RequestHandler = async ({ params }) => {
 	});
 };
 
+// TODO: Submissions to JSON.
 function submissionsToCSV(submissions: Submission[]): string {
 	const config = exportToCSV.mkConfig({ useKeysAsHeaders: true });
 	const data = exportToCSV.generateCsv(config)(

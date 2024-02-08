@@ -6,6 +6,8 @@
 	export let action: string;
 	export let method: string;
 	export let data: Form;
+
+	// TODO: Add discord data: channels, threads, guilds, roles.
 </script>
 
 <form {action} {method}>
@@ -74,6 +76,18 @@
 	/>
 
 	<!-- Message -->
+
+	<QuestionInput
+		data={{
+			type: QuestionType.SELECT,
+			name: 'message.channelID',
+			content: 'Discord channel ID',
+			options: data.channels.map((channel) => ({
+				value: channel.id,
+				content: channel.name
+			}))
+		}}
+	/>
 
 	/** * id is the ID of the Discord message that the form is linked to (if any). */ id?: ID; /** *
 	channelID is the ID of the Discord channel that the message is in. */ channelID: ID; /** *

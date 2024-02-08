@@ -11,6 +11,7 @@
 	import TextQuestionInput from './text_question_input.svelte';
 	import TextareaQuestionInput from './textarea_question_input.svelte';
 	import TimeQuestionInput from './time_question_input.svelte';
+	import SelectQuestionInput from './select_question_input.svelte';
 
 	export let data: Question;
 </script>
@@ -36,6 +37,8 @@
 		<DatetimeQuestionImput {data} />
 	{:else if data.type === QuestionType.TIME}
 		<TimeQuestionInput {data} />
+	{:else if data.type === QuestionType.SELECT}
+		<SelectQuestionInput {data} />
 	{/if}
 </div>
 
