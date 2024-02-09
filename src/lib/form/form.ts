@@ -1,5 +1,4 @@
 import type { ID } from './id';
-import type { FormPermissions } from './permissions';
 
 /**
  * Timestamp is a local timestamp. A date is represented as a string
@@ -19,8 +18,10 @@ export interface Form {
 
 	/**
 	 * permissions is the permissions data for the form.
+	 *
+	 * Status: Future work.
 	 */
-	permissions: FormPermissions;
+	// permissions: FormPermissions;
 
 	/**
 	 * title is the title of the form.
@@ -197,6 +198,8 @@ export interface QuestionBase {
 
 	/**
 	 * required is whether or not the form field is required.
+	 *
+	 * By default, form fields are not required.
 	 */
 	required?: boolean;
 }
@@ -216,6 +219,9 @@ export interface QuestionValueBase {
 	name: string;
 }
 
+/**
+ * SingleTextSelectQuestion is a traditional multiple choice question.
+ */
 export interface SingleTextSelectQuestion extends QuestionBase {
 	/**
 	 * type is the type of question.
@@ -224,26 +230,29 @@ export interface SingleTextSelectQuestion extends QuestionBase {
 
 	/**
 	 * choices is the list of choices for the question.
+	 *
+	 * TODO: Update to choices: { value: string; content: string; }[].
+	 * This will allow for custom choice values. Replace choiceIndex with value.
 	 */
 	choices: string[];
 
 	/**
 	 * customChoice is whether or not the form field has a custom choice.
 	 */
-	customChoice: boolean;
+	allowCustomChoice: boolean;
 
 	/**
-	 * defaultChoiceIndex is the default choice index for the question.
+	 * choiceIndex is the value choice index for the question. A value of -1 for custom choice index.
 	 */
-	defaultChoiceIndex?: number;
+	choiceIndex?: number;
 
 	/**
-	 * defaultCustomChoice is the default custom choice for the form field.
+	 * DefaultCustomChoice is the value custom choice for the form field.
 	 */
-	defaultCustomChoice?: string;
+	customChoice?: string;
 }
 
-export interface SingleTextSelectQuestionValue {
+export interface SingleTextSelectQuestionValue extends QuestionValueBase {
 	/**
 	 * type is the type of question.
 	 */
@@ -277,9 +286,9 @@ export interface NumberQuestion extends QuestionBase {
 	step?: number;
 
 	/**
-	 * default is the default value for the number.
+	 * value is the value for the number.
 	 */
-	default?: number;
+	value?: number;
 
 	/**
 	 * placeholder is the placeholder value for the number;
@@ -316,9 +325,9 @@ export interface TextQuestion extends QuestionBase {
 	maxLength?: number;
 
 	/**
-	 * default is the default value for the text.
+	 * value is the value for the text.
 	 */
-	default?: string;
+	value?: string;
 
 	/**
 	 * placeholder is the placeholder value for the text;
@@ -365,9 +374,9 @@ export interface TextareaQuestion extends QuestionBase {
 	maxLength?: number;
 
 	/**
-	 * default is the default value for the text area.
+	 * value is the value for the text area.
 	 */
-	default?: string;
+	value?: string;
 
 	/**
 	 * placeholder is the placeholder value for the text area;
@@ -399,9 +408,9 @@ export interface BooleanQuestion extends QuestionBase {
 	style?: 'checkbox' | 'radio';
 
 	/**
-	 * default is the default value for the boolean question. Defaults to false.
+	 * value is the value for the boolean question.
 	 */
-	default?: boolean;
+	value?: boolean;
 }
 
 export interface BooleanQuestionValue extends QuestionValueBase {
@@ -423,9 +432,9 @@ export interface ColorQuestion extends QuestionBase {
 	type: QuestionType.COLOR;
 
 	/**
-	 * default is the default value for the color input.
+	 * value is the value value for the color input.
 	 */
-	default?: string;
+	value?: string;
 }
 
 export interface ColorQuestionValue extends QuestionValueBase {
@@ -447,9 +456,9 @@ export interface DateQuestion extends QuestionBase {
 	type: QuestionType.DATE;
 
 	/**
-	 * default is the default value for the date input.
+	 * value is the value for the date input.
 	 */
-	default?: Timestamp;
+	value?: Timestamp;
 
 	/**
 	 * min is the minimum value for the date input.
@@ -481,9 +490,9 @@ export interface TimeQuestion extends QuestionBase {
 	type: QuestionType.TIME;
 
 	/**
-	 * default is the default value for the time input.
+	 * value is the value value for the time input.
 	 */
-	default?: Timestamp;
+	value?: Timestamp;
 
 	/**
 	 * min is the minimum value for the time input.
@@ -515,9 +524,9 @@ export interface DatetimeQuestion extends QuestionBase {
 	type: QuestionType.DATETIME;
 
 	/**
-	 * default is the default value for the datetime input.
+	 * value is the value for the datetime input.
 	 */
-	default?: Timestamp;
+	value?: Timestamp;
 
 	/**
 	 * min is the minimum value for the datetime input.
@@ -542,7 +551,7 @@ export interface DatetimeQuestionValue extends QuestionValueBase {
 	value: Timestamp;
 }
 
-export const DEFAULT_MAX_DATE_RANGES = 10;
+export const DEFAULT_MAX_DATE_RANGES = 1;
 
 export interface AvailablityQuestion extends QuestionBase {
 	/**
@@ -551,24 +560,24 @@ export interface AvailablityQuestion extends QuestionBase {
 	type: QuestionType.AVAILABILITY;
 
 	/**
-	 * default is the default value for the availability question.
+	 * value is the value value for the availability question.
 	 */
-	default?: AvailabilityQuestionValue['value'];
+	value?: AvailabilityQuestionValue['value'];
 
 	/**
-	 * minStartDate is the minimum start date for the availability question.
+	 * minStartDatetime is the minimum start date for the availability question.
 	 */
-	minStartDate?: Timestamp;
+	minStartDatetime?: Timestamp;
 
 	/**
-	 * maxEndDate is the maximum start date for the availability question.
+	 * maxEndDatetime is the maximum start date for the availability question.
 	 */
-	maxEndDate?: Timestamp;
+	maxEndDatetime?: Timestamp;
 
 	/**
-	 * maxDateRanges is the number of date input pairs that the user can enter.
+	 * maxDatetimeRanges is the number of date input pairs that the user can enter.
 	 */
-	maxDateRanges?: number;
+	maxDatetimeRanges?: number;
 }
 
 /**

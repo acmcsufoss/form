@@ -4,12 +4,14 @@
 	export let data: DatetimeQuestion;
 </script>
 
-<label class="Question-Header" for={data.name}>{data.content}</label>
-<input
-	name={data.name}
-	type="datetime-local"
-	required={data.required}
-	value={data.default}
-	min={data.min}
-	max={data.max}
-/>
+<fieldset>
+	<legend>{data.content}</legend>
+	<input
+		name={data.name}
+		type="datetime-local"
+		required={data.required}
+		value={data.value}
+		min={data.min}
+		max={data.max}
+	/>
+</fieldset>

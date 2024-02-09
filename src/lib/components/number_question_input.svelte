@@ -4,14 +4,16 @@
 	export let data: NumberQuestion;
 </script>
 
-<label class="Question-Header" for={data.name}> {data.content} </label>
-<input
-	name={data.name}
-	type="number"
-	required={data.required}
-	min={data.min}
-	max={data.max}
-	value={data.default}
-	placeholder={data.placeholder}
-	step={data.step}
-/>
+<fieldset>
+	<legend>{data.content}</legend>
+	<input
+		name={data.name}
+		type="number"
+		required={data.required}
+		min={data.min}
+		max={data.max}
+		bind:value={data.value}
+		placeholder={data.placeholder}
+		step={data.step}
+	/>
+</fieldset>

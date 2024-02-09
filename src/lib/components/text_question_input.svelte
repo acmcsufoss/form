@@ -4,23 +4,22 @@
 	export let data: TextQuestion;
 </script>
 
-<label class="Question-Header" for={data.name}>{data.content}</label>
-<input
-	name={data.name}
-	type="text"
-	max={data.maxLength}
-	min={data.minLength}
-	placeholder={data.placeholder}
-	value={data.default}
-	pattern={data.pattern}
-/>
+<fieldset>
+	<legend>{data.content}</legend>
+	<input
+		name={data.name}
+		type="text"
+		max={data.maxLength}
+		min={data.minLength}
+		placeholder={data.placeholder}
+		bind:value={data.value}
+		pattern={data.pattern}
+	/>
+</fieldset>
 
 <style>
 	input {
-		padding-left: 10px;
-		padding-right: 10px;
-		padding-top: 5px;
-		padding-bottom: 5px;
+		padding: 5px 10px;
 		background-color: #ddd8d8;
 		border-radius: 10px;
 		border-width: 0;

@@ -35,6 +35,19 @@
 </form>
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+	/* uncomment the global to see css components */
+
+	/* :global(*) {
+        border-style: dotted;
+        border-color: red;
+    } */
+
+	:global(*) {
+		font-family: 'Poppins';
+		font-size: 11px;
+	}
+
 	form {
 		display: flex;
 		flex-direction: column;
@@ -49,6 +62,22 @@
 		margin-left: -15px;
 		width: 100%;
 		padding: 0px 15px;
+	}
+
+	:global(fieldset) {
+		border: none;
+		min-width: 0;
+		margin: 0px;
+		padding: 0px;
+		max-width: 100%;
+		width: 100%;
+		display: block;
+	}
+	:global(legend) {
+		font-size: 13px;
+		font-weight: bold;
+		margin-bottom: 10px;
+		font-family: 'Poppins';
 	}
 
 	.form-header {
@@ -87,6 +116,17 @@
 		font-weight: bold;
 		margin-bottom: 10px;
 		font-family: 'Poppins';
+	}
+
+	:global(.question) {
+		padding: 20px 15px;
+		width: calc(100% - 30px);
+		margin: 10px auto;
+		background-color: #ffffff;
+		border-radius: 10px;
+		border-color: #c5c8c9;
+		border-width: 0;
+		border-style: solid;
 	}
 
 	:global(label) {

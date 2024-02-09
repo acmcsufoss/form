@@ -4,9 +4,11 @@
 	export let data: BooleanQuestion;
 </script>
 
-<label class="Question-Header" for={data.name}>{data.content}</label>
-{#if data.style === 'radio'}
-	<input name={data.name} type="radio" required={data.required} checked={data.default} />
-{:else}
-	<input name={data.name} type="checkbox" required={data.required} checked={data.default} />
-{/if}
+<fieldset>
+	<legend>{data.content}</legend>
+	{#if data.style === 'radio'}
+		<input name={data.name} type="radio" required={data.required} value={data.value} />
+	{:else}
+		<input name={data.name} type="checkbox" required={data.required} value={data.value} />
+	{/if}
+</fieldset>

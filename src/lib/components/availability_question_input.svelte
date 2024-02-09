@@ -2,25 +2,32 @@
 	import type { AvailablityQuestion } from '$lib/form';
 
 	export let data: AvailablityQuestion;
-
-	const ranges = Array.from({ length: data.maxDateRanges ?? 5 }, (_, i) => i);
 </script>
 
-<label class="Question-Header" for={data.name}>{data.content}</label>
-<div class="datetime-range">
-	{#each ranges as i (i)}
-		<div class="datetime-range-input">
-			<input
-				type="datetime-local"
-				name={'start' + i}
-				min={data.minStartDate}
-				max={data.maxEndDate}
-			/>
-			<p>----</p>
-			<input type="datetime-local" name={'end' + i} min={data.minStartDate} max={data.maxEndDate} />
-		</div>
-	{/each}
-</div>
+<fieldset>
+	<legend>{data.content}</legend>
+	<div class="datetime-range">
+		{#each Array.from({ length: data.maxDatetimeRanges ?? 1 }, (_, i) => i) as i}
+			<div class="datetime-range-input">
+				<input
+					type="datetime-local"
+					name="{data.name}-{i}-start"
+					min={data.minStartDatetime}
+					max={data.maxEndDatetime}
+					value={data.value?.[i][0]}
+				/>
+				<p>----</p>
+				<input
+					type="datetime-local"
+					name="{data.name}-{i}-end"
+					min={data.minStartDatetime}
+					max={data.maxEndDatetime}
+					value={data.value?.[i][1]}
+				/>
+			</div>
+		{/each}
+	</div>
+</fieldset>
 
 <style>
 	.datetime-range {
