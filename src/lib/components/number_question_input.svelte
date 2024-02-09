@@ -15,7 +15,7 @@
 
 		max: 100,
 
-		default: 0,
+		value: 0,
 
 		placeholder: 'Enter a number',
 
@@ -31,7 +31,7 @@
 		required={data.required}
 		min={data.min}
 		max={data.max}
-		bind:value={data.default}
+		bind:value={data.value}
 		placeholder={data.placeholder}
 		step={data.step}
 	/>

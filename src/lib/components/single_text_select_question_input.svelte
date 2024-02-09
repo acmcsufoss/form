@@ -12,11 +12,11 @@
 
 		choices: ['red', 'green', 'blue'],
 
-		customChoice: true,
+		allowCustomChoice: true,
 
-		defaultChoiceIndex: 0,
+		choiceIndex: 0,
 
-		defaultCustomChoice: ''
+		customChoice: ''
 	};
 </script>
 

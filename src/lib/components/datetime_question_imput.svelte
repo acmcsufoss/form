@@ -10,7 +10,7 @@
 
 		content: 'date and time',
 
-		default: 0,
+		value: 0,
 
 		min: 0,
 
@@ -24,7 +24,7 @@
 		name={data.name}
 		type="datetime-local"
 		required={data.required}
-		bind:value={data.default}
+		bind:value={data.value}
 		min={data.min}
 		max={data.max}
 	/>

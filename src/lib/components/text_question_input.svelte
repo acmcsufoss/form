@@ -14,7 +14,7 @@
 
 		maxLength: 100,
 
-		default: '',
+		value: '',
 
 		placeholder: 'type here',
 
@@ -30,7 +30,7 @@
 		max={data.maxLength}
 		min={data.minLength}
 		placeholder={data.placeholder}
-		bind:value={data.default}
+		bind:value={data.value}
 		pattern={data.pattern}
 	/>
 </fieldset>

@@ -15,7 +15,7 @@
 
 		max: 0,
 
-		default: 0.0
+		value: 0.0
 	};
 </script>
 
@@ -25,7 +25,7 @@
 		name={data.name}
 		type="time"
 		required={data.required}
-		bind:value={data.default}
+		bind:value={data.value}
 		min={data.min}
 		max={data.max}
 	/>

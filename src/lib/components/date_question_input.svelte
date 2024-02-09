@@ -7,7 +7,7 @@
 
 		name: 'Date Question',
 
-		default: 0.0,
+		value: 0.0,
 
 		min: 0.0,
 
@@ -27,6 +27,6 @@
 		required={data.required}
 		min={data.min}
 		max={data.max}
-		bind:value={data.default}
+		bind:value={data.value}
 	/>
 </fieldset>

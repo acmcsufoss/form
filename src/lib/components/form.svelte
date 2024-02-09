@@ -37,7 +37,7 @@
 
 		required: false,
 
-		default: true,
+		value: true,
 
 		style: 'checkbox'
 	};
@@ -50,7 +50,7 @@
 
 		required: false,
 
-		default: 'Sample Text'
+		value: 'Sample Text'
 	};
 	let question_3: SingleTextSelectQuestion = {
 		type: QuestionType.SINGLE_TEXT_SELECT,
@@ -61,11 +61,11 @@
 
 		required: true,
 
-		customChoice: false,
+		allowCustomChoice: false,
 
 		choices: ['choice 1', 'choice 2', 'choice 3', 'choice 4'],
 
-		defaultChoiceIndex: 0
+		choiceIndex: 0
 	};
 	let question_4: ColorQuestion = {
 		type: QuestionType.COLOR,
@@ -76,7 +76,7 @@
 
 		required: false,
 
-		default: '#000000'
+		value: '#000000'
 	};
 	let question_5: NumberQuestion = {
 		type: QuestionType.NUMBER,
@@ -108,7 +108,7 @@
 
 		placeholder: 'write here',
 
-		default: ''
+		value: ''
 	};
 
 	let question_7: TimeQuestion = {
@@ -124,7 +124,7 @@
 
 		max: 0,
 
-		default: 0.0
+		value: 0.0
 	};
 
 	let question_8: DateQuestion = {
@@ -140,7 +140,7 @@
 
 		max: 0,
 
-		default: 0.0
+		value: 0.0
 	};
 
 	let question_9: DatetimeQuestion = {
@@ -156,7 +156,7 @@
 
 		max: 0,
 
-		default: 0.0
+		value: 0.0
 	};
 	let question_10: AvailablityQuestion = {
 		type: QuestionType.AVAILABILITY,

@@ -26,7 +26,7 @@
 
 		placeholder: 'type here',
 
-		default: ''
+		value: ''
 	};
 </script>
 
@@ -40,7 +40,7 @@
 		minlength={data.minLength}
 		placeholder={data.placeholder}
 		required={data.required}
-		bind:value={data.default}
+		bind:value={data.value}
 	/>
 </fieldset>
 

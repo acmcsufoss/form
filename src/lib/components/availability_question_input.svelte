@@ -20,7 +20,7 @@
 
 		type: QuestionType.AVAILABILITY,
 
-		value: data.default || Array.from({ length: data.maxDateRanges || 1 }, () => [0, 0])
+		value: data.value || Array.from({ length: data.maxDateRanges || 1 }, () => [0, 0])
 	};
 </script>
 
