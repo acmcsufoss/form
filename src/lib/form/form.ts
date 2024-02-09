@@ -183,7 +183,7 @@ export interface SingleTextSelectQuestion extends QuestionBase {
 	allowCustomChoice: boolean;
 
 	/**
-	 * choiceIndex is the value choice index for the question.
+	 * choiceIndex is the value choice index for the question. A value of -1 for custom choice index.
 	 */
 	choiceIndex?: number;
 

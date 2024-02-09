@@ -65,7 +65,7 @@
 
 		choices: ['choice 1', 'choice 2', 'choice 3', 'choice 4'],
 
-		choiceIndex: 0
+		choiceIndex: -1
 	};
 	let question_4: ColorQuestion = {
 		type: QuestionType.COLOR,
