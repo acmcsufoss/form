@@ -77,7 +77,7 @@
 
 	<!-- Message -->
 
-	<QuestionInput
+	<!-- <QuestionInput
 		data={{
 			type: QuestionType.SELECT,
 			name: 'message.channelID',
@@ -87,7 +87,7 @@
 				content: channel.name
 			}))
 		}}
-	/>
+	/> -->
 
 	/** * id is the ID of the Discord message that the form is linked to (if any). */ id?: ID; /** *
 	channelID is the ID of the Discord channel that the message is in. */ channelID: ID; /** *

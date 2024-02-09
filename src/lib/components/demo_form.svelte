@@ -2,7 +2,6 @@
 	import type {
 		Form,
 		QuestionList,
-		// Question,
 		TextQuestion,
 		TextareaQuestion,
 		BooleanQuestion,
@@ -16,104 +15,69 @@
 	import SingleTextSelectQuestionInput from './single_text_select_question_input.svelte';
 	import ColorQuestionInput from './color_question_input.svelte';
 	import NumberQuestionInput from './number_question_input.svelte';
-	// import TextAreaInput from './textarea_question_input.svelte';
 	import TextareaQuestionInput from './textarea_question_input.svelte';
-	// Placeholder for now before we start importing actual data
 
-	let question_1: BooleanQuestion = {
+	let question01: BooleanQuestion = {
 		type: QuestionType.BOOLEAN,
-
 		name: 'Age Check',
-
 		content: 'Are you over 18 years old?',
-
 		required: false,
-
-		default: true,
-
+		value: true,
 		style: 'checkbox'
 	};
-	let question_2: TextQuestion = {
+	let question02: TextQuestion = {
 		type: QuestionType.TEXT,
-
 		name: 'FRQ',
-
 		content: 'How do you feel about this form?',
-
 		required: false,
-
-		default: 'Sample Text'
+		value: 'Sample Text'
 	};
-	let question_3: SingleTextSelectQuestion = {
+	let question03: SingleTextSelectQuestion = {
 		type: QuestionType.SINGLE_TEXT_SELECT,
-
 		name: 'multiple choice',
-
 		content: 'please pick one',
-
 		required: false,
-
-		customChoice: false,
-
-		choices: ['choice 1', 'choice 2', 'choice 3', 'choice 4'],
-
-		defaultChoiceIndex: 0
+		allowCustomChoice: false,
+		choices: ['choice 1', 'choice 2', 'choice 3', 'choice 4']
 	};
-	let question_4: ColorQuestion = {
+	let question04: ColorQuestion = {
 		type: QuestionType.COLOR,
-
 		name: 'Color Question',
-
 		content: 'Pick a color',
-
 		required: false,
-
-		default: '#000000'
+		value: '#000000'
 	};
-	let question_5: NumberQuestion = {
+	let question05: NumberQuestion = {
 		type: QuestionType.NUMBER,
-
 		name: 'Number Question',
-
 		content: 'Pick a number',
-
 		required: false,
-
 		min: 0,
-
 		max: 100,
-
 		placeholder: 'select a number'
 	};
-	let question_6: TextareaQuestion = {
+	let question06: TextareaQuestion = {
 		type: QuestionType.TEXTAREA,
-
 		name: 'Text Area Question',
-
 		content: 'text area?',
-
 		required: false,
-
 		minLength: 0,
-
-		maxLength: 1000,
-
+		maxLength: 1_000,
 		placeholder: 'write here',
-
-		default: ''
+		value: ''
 	};
 
 	let questionList: QuestionList = {
-		data: [question_1, question_2, question_3, question_4, question_5, question_6],
-
+		data: [question01, question02, question03, question04, question05, question06],
 		shuffled: false
 	};
 
 	let currentForm: Form = {
 		id: '20',
-
 		questions: questionList
 	};
+
+	//
 </script>
 
 <form action="">

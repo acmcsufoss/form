@@ -123,7 +123,7 @@ export function parse(formSchema: Form, formData: FormData): QuestionValue[] {
 
 			case QuestionType.AVAILABILITY: {
 				const value: AvailabilityQuestionValue['value'] = Array.from(
-					{ length: question.maxDateRanges ?? DEFAULT_MAX_DATE_RANGES },
+					{ length: question.maxDatetimeRanges ?? DEFAULT_MAX_DATE_RANGES },
 					(_, i) => {
 						const startDateFormValue = formData.get(`${question.name}-${i}-start`);
 						const endDateFormValue = formData.get(`${question.name}-${i}-end`);

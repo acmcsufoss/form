@@ -35,6 +35,8 @@
 </form>
 
 <style>
+	/* TODO: Fix. Reference: https://github.com/acmcsufoss/form/blob/71e0b113927c8e064229e63931f964a98f6e3f1d/src/lib/components/form.svelte */
+
 	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 	/* uncomment the global to see css components */
 
