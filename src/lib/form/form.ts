@@ -180,20 +180,20 @@ export interface SingleTextSelectQuestion extends QuestionBase {
 	/**
 	 * customChoice is whether or not the form field has a custom choice.
 	 */
-	customChoice: boolean;
+	allowCustomChoice: boolean;
 
 	/**
-	 * defaultChoiceIndex is the default choice index for the question.
+	 * choiceIndex is the value choice index for the question. A value of -1 for custom choice index.
 	 */
-	defaultChoiceIndex?: number;
+	choiceIndex?: number;
 
 	/**
-	 * defaultCustomChoice is the default custom choice for the form field.
+	 * DefaultCustomChoice is the value custom choice for the form field.
 	 */
-	defaultCustomChoice?: string;
+	customChoice?: string;
 }
 
-export interface SingleTextSelectQuestionValue {
+export interface SingleTextSelectQuestionValue extends QuestionValueBase {
 	/**
 	 * type is the type of question.
 	 */
@@ -227,9 +227,9 @@ export interface NumberQuestion extends QuestionBase {
 	step?: number;
 
 	/**
-	 * default is the default value for the number.
+	 * value is the value for the number.
 	 */
-	default?: number;
+	value?: number;
 
 	/**
 	 * placeholder is the placeholder value for the number;
@@ -266,9 +266,9 @@ export interface TextQuestion extends QuestionBase {
 	maxLength?: number;
 
 	/**
-	 * default is the default value for the text.
+	 * value is the value for the text.
 	 */
-	default?: string;
+	value?: string;
 
 	/**
 	 * placeholder is the placeholder value for the text;
@@ -315,9 +315,9 @@ export interface TextareaQuestion extends QuestionBase {
 	maxLength?: number;
 
 	/**
-	 * default is the default value for the text area.
+	 * value is the value for the text area.
 	 */
-	default?: string;
+	value?: string;
 
 	/**
 	 * placeholder is the placeholder value for the text area;
@@ -349,9 +349,9 @@ export interface BooleanQuestion extends QuestionBase {
 	style: 'checkbox' | 'radio';
 
 	/**
-	 * default is the default value for the boolean question.
+	 * value is the value for the boolean question.
 	 */
-	default: boolean;
+	value: boolean;
 }
 
 export interface BooleanQuestionValue extends QuestionValueBase {
@@ -373,9 +373,9 @@ export interface ColorQuestion extends QuestionBase {
 	type: QuestionType.COLOR;
 
 	/**
-	 * default is the default value for the color input.
+	 * value is the value value for the color input.
 	 */
-	default?: string;
+	value?: string;
 }
 
 export interface ColorQuestionValue extends QuestionValueBase {
@@ -397,9 +397,9 @@ export interface DateQuestion extends QuestionBase {
 	type: QuestionType.DATE;
 
 	/**
-	 * default is the default value for the date input.
+	 * value is the value for the date input.
 	 */
-	default?: Timestamp;
+	value?: Timestamp;
 
 	/**
 	 * min is the minimum value for the date input.
@@ -431,9 +431,9 @@ export interface TimeQuestion extends QuestionBase {
 	type: QuestionType.TIME;
 
 	/**
-	 * default is the default value for the time input.
+	 * value is the value value for the time input.
 	 */
-	default?: Timestamp;
+	value?: Timestamp;
 
 	/**
 	 * min is the minimum value for the time input.
@@ -465,9 +465,9 @@ export interface DatetimeQuestion extends QuestionBase {
 	type: QuestionType.DATETIME;
 
 	/**
-	 * default is the default value for the datetime input.
+	 * value is the value for the datetime input.
 	 */
-	default?: Timestamp;
+	value?: Timestamp;
 
 	/**
 	 * min is the minimum value for the datetime input.
@@ -501,9 +501,9 @@ export interface AvailablityQuestion extends QuestionBase {
 	type: QuestionType.AVAILABILITY;
 
 	/**
-	 * default is the default value for the availability question.
+	 * value is the value value for the availability question.
 	 */
-	default?: AvailabilityQuestionValue['value'];
+	value?: AvailabilityQuestionValue['value'];
 
 	/**
 	 * minStartDatetime is the minimum start date for the availability question.

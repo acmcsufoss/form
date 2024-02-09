@@ -8,7 +8,11 @@
 		BooleanQuestion,
 		ColorQuestion,
 		SingleTextSelectQuestion,
-		NumberQuestion
+		NumberQuestion,
+		TimeQuestion,
+		DateQuestion,
+		DatetimeQuestion,
+		AvailablityQuestion
 	} from '$lib/form';
 	import { QuestionType } from '$lib/form';
 	import BooleanQuestionInput from './boolean_question_input.svelte';
@@ -18,6 +22,10 @@
 	import NumberQuestionInput from './number_question_input.svelte';
 	// import TextAreaInput from './textarea_question_input.svelte';
 	import TextareaQuestionInput from './textarea_question_input.svelte';
+	import DateQuestionInput from './date_question_input.svelte';
+	import AvailabilityQuestionInput from './availability_question_input.svelte';
+	import DatetimeQuestionImput from './datetime_question_imput.svelte';
+	import TimeQuestionInput from './time_question_input.svelte';
 	// Placeholder for now before we start importing actual data
 
 	let question_1: BooleanQuestion = {
@@ -29,7 +37,7 @@
 
 		required: false,
 
-		default: true,
+		value: true,
 
 		style: 'checkbox'
 	};
@@ -42,7 +50,7 @@
 
 		required: false,
 
-		default: 'Sample Text'
+		value: 'Sample Text'
 	};
 	let question_3: SingleTextSelectQuestion = {
 		type: QuestionType.SINGLE_TEXT_SELECT,
@@ -51,13 +59,13 @@
 
 		content: 'please pick one',
 
-		required: false,
+		required: true,
 
-		customChoice: false,
+		allowCustomChoice: true,
 
 		choices: ['choice 1', 'choice 2', 'choice 3', 'choice 4'],
 
-		defaultChoiceIndex: 0
+		choiceIndex: -1
 	};
 	let question_4: ColorQuestion = {
 		type: QuestionType.COLOR,
@@ -68,7 +76,7 @@
 
 		required: false,
 
-		default: '#000000'
+		value: '#000000'
 	};
 	let question_5: NumberQuestion = {
 		type: QuestionType.NUMBER,
@@ -77,7 +85,7 @@
 
 		content: 'Pick a number',
 
-		required: false,
+		required: true,
 
 		min: 0,
 
@@ -92,7 +100,7 @@
 
 		content: 'text area?',
 
-		required: false,
+		required: true,
 
 		minLength: 0,
 
@@ -100,11 +108,80 @@
 
 		placeholder: 'write here',
 
-		default: ''
+		value: ''
 	};
 
+	let question_7: TimeQuestion = {
+		type: QuestionType.TIME,
+
+		name: 'Time Question',
+
+		content: 'What Time is it?',
+
+		required: true,
+
+		min: 0,
+
+		max: 0,
+
+		value: 0.0
+	};
+
+	let question_8: DateQuestion = {
+		type: QuestionType.DATE,
+
+		name: 'Date Question',
+
+		content: 'What is the current date?',
+
+		required: false,
+
+		min: 0,
+
+		max: 0,
+
+		value: 0.0
+	};
+
+	let question_9: DatetimeQuestion = {
+		type: QuestionType.DATETIME,
+
+		name: 'Datetime Question',
+
+		content: 'What is the current date and time?',
+
+		required: false,
+
+		min: 0,
+
+		max: 0,
+
+		value: 0.0
+	};
+	let question_10: AvailablityQuestion = {
+		type: QuestionType.AVAILABILITY,
+
+		name: 'Datetime Question',
+
+		content: 'When are you availabile?',
+
+		required: false,
+
+		maxDateRanges: 5
+	};
 	let questionList: QuestionList = {
-		data: [question_1, question_2, question_3, question_4, question_5, question_6],
+		data: [
+			question_1,
+			question_2,
+			question_3,
+			question_4,
+			question_5,
+			question_6,
+			question_7,
+			question_8,
+			question_9,
+			question_10
+		],
 
 		shuffled: false
 	};
@@ -147,10 +224,19 @@
 				<ColorQuestionInput data={question} />
 			{:else if question.type === QuestionType.TEXTAREA}
 				<TextareaQuestionInput data={question} />
+			{:else if question.type === QuestionType.DATE}
+				<DateQuestionInput data={question} />
+			{:else if question.type === QuestionType.AVAILABILITY}
+				<AvailabilityQuestionInput data={question} />
+			{:else if question.type === QuestionType.DATETIME}
+				<DatetimeQuestionImput data={question} />
+			{:else if question.type === QuestionType.TIME}
+				<TimeQuestionInput data={question} />
 			{/if}
 		</div>
 	{/each}
-	<button type="submit" form={currentForm.id}>Submit</button>
+	<input type="hidden" value={currentForm.id} />
+	<input type="submit" value="Sumbit" />
 </form>
 
 <!-- 
@@ -164,8 +250,8 @@
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 	/* uncomment the global to see css components */
-	/* 
-    :global(*) {
+
+	/* :global(*) {
         border-style: dotted;
         border-color: red;
     } */
@@ -187,6 +273,21 @@
 		margin-left: -15px;
 		width: 100%;
 		padding: 0px 15px;
+	}
+	:global(fieldset) {
+		border: none;
+		min-width: 0;
+		margin: 0px;
+		padding: 0px;
+		max-width: 100%;
+		width: 100%;
+		display: block;
+	}
+	:global(legend) {
+		font-size: 13px;
+		font-weight: bold;
+		margin-bottom: 10px;
+		font-family: 'Poppins';
 	}
 	.form-header {
 		padding: 15px 15px;
@@ -223,12 +324,6 @@
 		border-color: #c5c8c9;
 		border-width: 0;
 		border-style: solid;
-	}
-	:global(.Question-Header) {
-		font-size: 13px;
-		font-weight: bold;
-		margin-bottom: 10px;
-		font-family: 'Poppins';
 	}
 	:global(label) {
 		display: flex;

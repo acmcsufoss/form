@@ -10,9 +10,11 @@
 
 		required: false,
 
-		default: '#FFFFFF'
+		value: '#FFFFFF'
 	};
 </script>
 
-<label class="Question-Header" for={data.name}>{data.content}</label>
-<input type="color" required={data.required} bind:value={data.default} />
+<fieldset>
+	<legend>{data.content}</legend>
+	<input name={data.name} type="color" required={data.required} bind:value={data.value} />
+</fieldset>

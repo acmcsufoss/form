@@ -12,22 +12,44 @@
 
 		choices: ['red', 'green', 'blue'],
 
-		customChoice: true,
+		allowCustomChoice: true,
 
-		defaultChoiceIndex: 0,
+		choiceIndex: 0,
 
-		defaultCustomChoice: ''
+		customChoice: ''
 	};
 </script>
 
-<label class="Question-Header" id={data.name} for={data.name}>{data.content}</label>
-<!-- TODO: Create functionality for defualt choice and custom choice -->
-{#each data.choices as choice}
-	<div class="choice">
-		<input type="radio" required={data.required} name={data.name} id={choice} />
-		<label for={choice}>{choice}</label>
-	</div>
-{/each}
+<fieldset>
+	<legend>{data.content}</legend>
+	<!-- TODO: Create functionality for defualt choice and custom choice -->
+	{#each data.choices as choice, i}
+		<div class="choice">
+			<input
+				type="radio"
+				required={data.required}
+				name={data.name}
+				id={choice}
+				checked={data.choiceIndex !== undefined && i === data.choiceIndex}
+			/>
+			<label for={choice}>{choice}</label>
+		</div>
+	{/each}
+	{#if data.allowCustomChoice}
+		<div class="choice">
+			<input
+				type="radio"
+				required={data.required}
+				name={data.name}
+				id="custom"
+				checked={data.choiceIndex === -1}
+			/>
+			<label for="custom">
+				<input name={data.name} id="custom-choice" type="text" bind:value={data.customChoice} />
+			</label>
+		</div>
+	{/if}
+</fieldset>
 
 <style>
 	.choice {
@@ -53,5 +75,16 @@
 	.choice label {
 		margin: 0;
 		font-size: 11px;
+	}
+
+	#custom-choice {
+		padding: 5px 10px;
+		margin: 0px;
+		width: 100%;
+		background-color: #ddd8d8;
+		border-radius: 10px;
+		border-width: 0;
+		font-size: 11px;
+		max-width: 100%;
 	}
 </style>

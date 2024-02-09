@@ -26,24 +26,27 @@
 
 		placeholder: 'type here',
 
-		default: ''
+		value: ''
 	};
 </script>
 
-<label class="Question-Header" for={data.name}>{data.content}</label>
-<textarea
-	bind:this={textarea_}
-	on:input={textAreaAdjustHeight}
-	name={data.name}
-	maxlength={data.maxLength}
-	minlength={data.minLength}
-	placeholder={data.placeholder}
-	required={data.required}
-	bind:value={data.default}
-/>
+<fieldset>
+	<legend>{data.content}</legend>
+	<textarea
+		bind:this={textarea_}
+		on:input={textAreaAdjustHeight}
+		name={data.name}
+		maxlength={data.maxLength}
+		minlength={data.minLength}
+		placeholder={data.placeholder}
+		required={data.required}
+		bind:value={data.value}
+	/>
+</fieldset>
 
 <style>
 	textarea {
+		max-width: 100%;
 		width: 100%;
 		box-sizing: border-box;
 		padding-left: 10px;
