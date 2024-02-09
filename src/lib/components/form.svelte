@@ -250,8 +250,8 @@
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 	/* uncomment the global to see css components */
-	/* 
-    :global(*) {
+	
+    /* :global(*) {
         border-style: dotted;
         border-color: red;
     } */
@@ -276,8 +276,12 @@
 	}
 	:global(fieldset) {
 		border: none;
+		min-width: 0;
 		margin: 0px;
 		padding: 0px;
+		max-width: 100%;
+		width: 100%;
+		display: block;
 	}
 	:global(legend) {
 		font-size: 13px;
