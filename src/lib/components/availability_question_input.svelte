@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { AvailablityQuestion, AvailabilityQuestionValue } from '$lib/form/form';
 	import { QuestionType } from '$lib/form/form';
-	import type { Timestamp } from '$lib/form/form';
+	// import type { Timestamp } from '$lib/form/form';
 	export let data: AvailablityQuestion = {
 		type: QuestionType.AVAILABILITY,
 
@@ -20,14 +20,14 @@
 
 		type: QuestionType.AVAILABILITY,
 
-		value: data.value || Array.from({ length: data.maxDateRanges || 1 }, () => [0, 0])
+		value: data.value ?? Array.from({ length: data.maxDateRanges ?? 1 }, () => [0, 0])
 	};
 </script>
 
 <fieldset>
 	<legend>{data.content}</legend>
 	<div class="datetime-range">
-		{#each Array(data.maxDateRanges) as _, i}
+		{#each Array.from({ length: data.maxDateRanges ?? 1 }, (_, i) => i) as i}
 			<div class="datetime-range-input">
 				<input
 					type="datetime-local"
