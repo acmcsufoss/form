@@ -29,6 +29,14 @@
 			<label for={choice}>{choice}</label>
 		</div>
 	{/each}
+	{#if data.allowCustomChoice}
+		<div class="choice">
+			<input type="radio" required={data.required} name={data.name} id="custom" />
+			<label for="custom">
+				<input name={data.name} id="custom-choice" type="text" bind:value={data.customChoice} />
+			</label>
+		</div>
+	{/if}
 </fieldset>
 
 <style>
@@ -55,5 +63,16 @@
 	.choice label {
 		margin: 0;
 		font-size: 11px;
+	}
+
+	#custom-choice {
+		padding: 5px 10px;
+		margin: 0px;
+		width: 100%;
+		background-color: #ddd8d8;
+		border-radius: 10px;
+		border-width: 0;
+		font-size: 11px;
+		max-width: 100%;
 	}
 </style>

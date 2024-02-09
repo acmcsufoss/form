@@ -37,10 +37,7 @@
 
 <style>
 	input {
-		padding-left: 10px;
-		padding-right: 10px;
-		padding-top: 5px;
-		padding-bottom: 5px;
+		padding: 5px 10px;
 		background-color: #ddd8d8;
 		border-radius: 10px;
 		border-width: 0;

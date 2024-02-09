@@ -61,7 +61,7 @@
 
 		required: true,
 
-		allowCustomChoice: false,
+		allowCustomChoice: true,
 
 		choices: ['choice 1', 'choice 2', 'choice 3', 'choice 4'],
 
