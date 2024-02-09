@@ -25,13 +25,25 @@
 	<!-- TODO: Create functionality for defualt choice and custom choice -->
 	{#each data.choices as choice, i}
 		<div class="choice">
-			<input type="radio" required={data.required} name={data.name} id={choice} checked={data.choiceIndex !== undefined && i === data.choiceIndex}/>
+			<input
+				type="radio"
+				required={data.required}
+				name={data.name}
+				id={choice}
+				checked={data.choiceIndex !== undefined && i === data.choiceIndex}
+			/>
 			<label for={choice}>{choice}</label>
 		</div>
 	{/each}
 	{#if data.allowCustomChoice}
 		<div class="choice">
-			<input type="radio" required={data.required} name={data.name} id="custom" checked={data.choiceIndex === -1} />
+			<input
+				type="radio"
+				required={data.required}
+				name={data.name}
+				id="custom"
+				checked={data.choiceIndex === -1}
+			/>
 			<label for="custom">
 				<input name={data.name} id="custom-choice" type="text" bind:value={data.customChoice} />
 			</label>
