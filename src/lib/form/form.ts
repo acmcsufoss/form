@@ -155,8 +155,10 @@ export interface QuestionList {
 
 	/**
 	 * shuffled is whether or not the questions are shuffled.
+	 *
+	 * By default, questions are not shuffled.
 	 */
-	shuffled: boolean;
+	shuffled?: boolean;
 }
 
 /**

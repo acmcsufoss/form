@@ -2,10 +2,10 @@
 	import type { User, Form } from '$lib/store';
 	import QuestionInput from './question_input.svelte';
 
-	export let action: string;
-	export let method: string;
 	export let data: Form;
-	export let user: User;
+	export let user: User | undefined = undefined;
+	export let action = '';
+	export let method = 'POST';
 
 	if (data.questions.shuffled) {
 		data.questions.data = data.questions.data.sort(() => Math.random() - 0.5);
@@ -18,7 +18,15 @@
 		<p class="form-description">{data.description}</p>
 		<hr />
 		<div class="form-information">
-			<p>Account: {user.discordUsername}</p>
+			<p>
+				Account:
+				{#if user}
+					{user.discordUsername}
+				{:else}
+					Unauthenticated
+				{/if}
+			</p>
+
 			{#if data.schedule?.startDate}
 				<p>Opened at: {data.schedule?.startDate}</p>
 			{/if}

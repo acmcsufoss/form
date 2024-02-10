@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import DemoForm from '$lib/components/demo_form.svelte';
 
 	export let data: PageData;
 </script>
@@ -19,15 +18,9 @@
 	{/if}
 </p>
 
-<DemoForm />
-
 <style>
 	h1,
 	p {
 		text-align: center;
-	}
-
-	:global(body) {
-		background-color: #ebf8ff;
 	}
 </style>
