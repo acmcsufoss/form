@@ -152,6 +152,21 @@
 		width: 100%;
 		padding: 0px 15px;
 	}
+	:global(fieldset) {
+		border: none;
+		min-width: 0;
+		margin: 0px;
+		padding: 0px;
+		max-width: 100%;
+		width: 100%;
+		display: block;
+	}
+	:global(legend) {
+		font-size: 13px;
+		font-weight: bold;
+		margin-bottom: 10px;
+		font-family: 'Poppins';
+	}
 	.form-header {
 		padding: 15px 15px;
 		width: calc(100% - 30px);
