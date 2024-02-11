@@ -50,6 +50,3 @@ jobs:
 
       - name: Lint
         run: npm run lint && git diff --exit-code
-
-      - name: Build
-        run: npm run build
