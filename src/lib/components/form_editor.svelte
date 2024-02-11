@@ -89,11 +89,13 @@
 		}}
 	/> -->
 
-	/** * id is the ID of the Discord message that the form is linked to (if any). */ id?: ID; /** *
+	<!-- /** * id is the ID of the Discord message that the form is linked to (if any). */ id?: ID; /** *
 	channelID is the ID of the Discord channel that the message is in. */ channelID: ID; /** *
-	threadID is the ID of the Discord thread that the message is in. */ threadID?: ID;
+	threadID is the ID of the Discord thread that the message is in. */ threadID?: ID; -->
 
 	<!-- Questions -->
+
+	<!-- TODO: Make editor inputs for each type of question. -->
 
 	<button type="submit">Submit</button>
 </form>
