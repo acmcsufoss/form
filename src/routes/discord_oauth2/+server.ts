@@ -65,12 +65,12 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 
 	// Make a session ID.
 	const sessionID = crypto.randomUUID();
+	const query = fromDiscordUser(sessionID, discordUser);
 
 	// If user does not exist, create user.
+	// Otherwise, create session for user.
 	let user = await s.getUserByDiscordUserID(discordUser.id);
-	if (!user) {
-		user = await s.createUser(fromDiscordUser(sessionID, discordUser));
-	}
+	user = await (user !== null ? s.createSession(query) : s.createUser(query));
 
 	// Set session cookie with 1 week expiry.
 	// Redirect the user to their destination.
