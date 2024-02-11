@@ -4,9 +4,12 @@
 	export let data: PageData;
 </script>
 
-<h1>Demo form</h1>
+<h1>Form</h1>
 
-<p>Welcome to Form (give us a star <a href="https://github.com/acmcsufoss/form">on GitHub</a>)</p>
+<p>
+	Form is a platform managing authenticated Discord form submissions within Discord servers. Give us
+	a star <a href="https://github.com/acmcsufoss/form">on GitHub</a>.
+</p>
 
 <p>
 	{#if data.user}
