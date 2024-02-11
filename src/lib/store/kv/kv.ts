@@ -58,7 +58,11 @@ export class KvStore implements store.Store {
 
 	public async createForm(r: store.CreateFormRequest): Promise<store.Form> {
 		const formKey = this.key(KvCollection.FORMS_BY_ID, r.id);
-		await this.kv.set(formKey, r);
+		const result = await this.kv.set(formKey, r);
+		if (!result.ok) {
+			throw new Error('Failed to create form.');
+		}
+
 		return r;
 	}
 
