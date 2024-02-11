@@ -1,7 +1,8 @@
 import { openKv } from '@deno/kv';
 import { KvStore } from '$lib/store/kv';
-import { DENO_KV_ACCESS_TOKEN } from '$env/static/private';
+import { DENO_KV_ACCESS_TOKEN, DENO_KV_CONNECT_URL } from '$env/static/private';
 
-const kv = await openKv('./db.kv', { accessToken: DENO_KV_ACCESS_TOKEN });
+const kvPath = DENO_KV_CONNECT_URL || './db.kv';
+const kv = await openKv(kvPath, { accessToken: DENO_KV_ACCESS_TOKEN });
 
 export const s = new KvStore(kv);
