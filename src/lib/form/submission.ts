@@ -1,6 +1,6 @@
+import type { ID } from './id';
 import type {
 	Form,
-	ID,
 	QuestionValue,
 	TextQuestionValue,
 	TextareaQuestionValue,
@@ -83,11 +83,10 @@ export function parse(formSchema: Form, formData: FormData): QuestionValue[] {
 					throw new Error('invalid form value');
 				}
 
-				const value = new Date(formValue).getTime();
 				data.push({
 					type: question.type,
 					name: question.name,
-					value
+					value: formValue
 				} satisfies DateQuestionValue | TimeQuestionValue | DatetimeQuestionValue);
 				break;
 			}
@@ -124,7 +123,7 @@ export function parse(formSchema: Form, formData: FormData): QuestionValue[] {
 
 			case QuestionType.AVAILABILITY: {
 				const value: AvailabilityQuestionValue['value'] = Array.from(
-					{ length: question.maxDateRanges ?? DEFAULT_MAX_DATE_RANGES },
+					{ length: question.maxDatetimeRanges ?? DEFAULT_MAX_DATE_RANGES },
 					(_, i) => {
 						const startDateFormValue = formData.get(`${question.name}-${i}-start`);
 						const endDateFormValue = formData.get(`${question.name}-${i}-end`);
@@ -132,9 +131,7 @@ export function parse(formSchema: Form, formData: FormData): QuestionValue[] {
 							throw new Error('invalid form value');
 						}
 
-						const startDatetime = new Date(startDateFormValue).getTime();
-						const endDatetime = new Date(endDateFormValue).getTime();
-						return [startDatetime, endDatetime];
+						return [startDateFormValue, endDateFormValue];
 					}
 				);
 				data.push({

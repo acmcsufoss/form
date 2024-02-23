@@ -1,26 +1,7 @@
 <script lang="ts">
-	import type { NumberQuestion } from '$lib/form/form';
-	import { QuestionType } from '$lib/form/form';
+	import type { NumberQuestion } from '$lib/form';
 
-	export let data: NumberQuestion = {
-		type: QuestionType.NUMBER,
-
-		name: 'Defualt Number Question',
-
-		content: 'Defualt Number?',
-
-		required: false,
-
-		min: 0,
-
-		max: 100,
-
-		value: 0,
-
-		placeholder: 'Enter a number',
-
-		step: 1
-	};
+	export let data: NumberQuestion;
 </script>
 
 <fieldset>

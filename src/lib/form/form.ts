@@ -1,13 +1,11 @@
-/**
- * ID is a unique identifier.
- */
-export type ID = string;
+import type { ID } from './id';
 
 /**
- * Timestamp is a Unix timestamp. It is the number of milliseconds since
- * January 1, 1970, 00:00:00 UTC.
+ * Timestamp is a local timestamp. A date is represented as a string
+ * in the format YYYY-MM-DD. A datetime is represented as a string in the
+ * format YYYY-MM-DDTHH:MM:SS.
  */
-export type Timestamp = number;
+export type Timestamp = string;
 
 /**
  * Form is a form.
@@ -17,6 +15,24 @@ export interface Form {
 	 *  id is the form ID.
 	 */
 	id: ID;
+
+	/**
+	 * permissions is the permissions data for the form.
+	 *
+	 * Status: Future work.
+	 */
+	// permissions: FormPermissions;
+
+	/**
+	 * title is the title of the form.
+	 */
+	title?: string;
+
+	/**
+	 * description is the markdown description of the form. This is displayed
+	 * in the Discord message.
+	 */
+	description?: string;
 
 	/**
 	 * questions is the list of questions for the form.
@@ -29,10 +45,48 @@ export interface Form {
 	message?: DiscordMessage;
 
 	/**
-	 * allowMultipleSubmissions is whether or not the form allows multiple
+	 * schedule is the schedule for the form.
+	 *
+	 * If undefined, the form is always open and immediately posted to Discord when created.
+	 */
+	schedule?: FormSchedule;
+
+	/**
+	 * allowsMultipleSubmissions is whether or not the form allows multiple
 	 * submissions. Defaults to false.
 	 */
-	allowMultipleSubmissions?: boolean;
+	allowsMultipleSubmissions?: boolean;
+
+	/**
+	 * anonymized is whether or not the form's submissions are anonymized.
+	 *
+	 * Defaults to false.
+	 */
+	anonymized?: boolean;
+}
+
+/**
+ * FormSchedule is the schedule for a form.
+ */
+export interface FormSchedule {
+	/**
+	 * startDate is the start time for the form.
+	 *
+	 * This is also the time that the form will be posted to Discord.
+	 */
+	startDate: Timestamp;
+
+	/**
+	 * endDate is the end time for the form.
+	 *
+	 * This is when the form will be closed and may be edited.
+	 */
+	endDate: Timestamp | null;
+
+	/**
+	 * timezone is the timezone ID for the form. Defaults to UTC/GMT.
+	 */
+	timezone?: string;
 }
 
 /**
@@ -45,11 +99,6 @@ export interface DiscordMessage {
 	id?: ID;
 
 	/**
-	 * content is the content of the Discord message.
-	 */
-	content?: string;
-
-	/**
 	 * channelID is the ID of the Discord channel that the message is in.
 	 */
 	channelID: ID;
@@ -59,10 +108,7 @@ export interface DiscordMessage {
 	 */
 	threadID?: ID;
 
-	/**
-	 * timestamp is the Discord message timestamp.
-	 */
-	timestamp: Timestamp;
+	// TODO: Add guild ID to target specific guild.
 }
 
 /**
@@ -78,7 +124,9 @@ export type Question =
 	| DateQuestion
 	| TimeQuestion
 	| DatetimeQuestion
-	| AvailablityQuestion;
+	| AvailablityQuestion
+	| TimezoneQuestion
+	| SelectQuestion;
 
 /**
  * QuestionValue is the value of a question.
@@ -93,7 +141,8 @@ export type QuestionValue =
 	| DateQuestionValue
 	| TimeQuestionValue
 	| DatetimeQuestionValue
-	| AvailabilityQuestionValue;
+	| AvailabilityQuestionValue
+	| TimezoneQuestionValue;
 
 /**
  * QuestionList is a list of questions.
@@ -106,8 +155,10 @@ export interface QuestionList {
 
 	/**
 	 * shuffled is whether or not the questions are shuffled.
+	 *
+	 * By default, questions are not shuffled.
 	 */
-	shuffled: boolean;
+	shuffled?: boolean;
 }
 
 /**
@@ -123,7 +174,9 @@ export enum QuestionType {
 	DATE = 'date',
 	TIME = 'time',
 	DATETIME = 'datetime',
-	AVAILABILITY = 'availability'
+	AVAILABILITY = 'availability',
+	TIMEZONE = 'timezone',
+	SELECT = 'select'
 }
 
 /**
@@ -147,8 +200,10 @@ export interface QuestionBase {
 
 	/**
 	 * required is whether or not the form field is required.
+	 *
+	 * By default, form fields are not required.
 	 */
-	required: boolean;
+	required?: boolean;
 }
 
 /**
@@ -166,6 +221,9 @@ export interface QuestionValueBase {
 	name: string;
 }
 
+/**
+ * SingleTextSelectQuestion is a traditional multiple choice question.
+ */
 export interface SingleTextSelectQuestion extends QuestionBase {
 	/**
 	 * type is the type of question.
@@ -174,6 +232,9 @@ export interface SingleTextSelectQuestion extends QuestionBase {
 
 	/**
 	 * choices is the list of choices for the question.
+	 *
+	 * TODO: Update to choices: { value: string; content: string; }[].
+	 * This will allow for custom choice values. Replace choiceIndex with value.
 	 */
 	choices: string[];
 
@@ -344,14 +405,14 @@ export interface BooleanQuestion extends QuestionBase {
 	type: QuestionType.BOOLEAN;
 
 	/**
-	 * style is the style of the boolean question.
+	 * style is the style of the boolean question. Defaults to checkbox.
 	 */
-	style: 'checkbox' | 'radio';
+	style?: 'checkbox' | 'radio';
 
 	/**
 	 * value is the value for the boolean question.
 	 */
-	value: boolean;
+	value?: boolean;
 }
 
 export interface BooleanQuestionValue extends QuestionValueBase {
@@ -492,7 +553,7 @@ export interface DatetimeQuestionValue extends QuestionValueBase {
 	value: Timestamp;
 }
 
-export const DEFAULT_MAX_DATE_RANGES = 10;
+export const DEFAULT_MAX_DATE_RANGES = 1;
 
 export interface AvailablityQuestion extends QuestionBase {
 	/**
@@ -516,9 +577,9 @@ export interface AvailablityQuestion extends QuestionBase {
 	maxEndDatetime?: Timestamp;
 
 	/**
-	 * maxDateRanges is the number of date input pairs that the user can enter.
+	 * maxDatetimeRanges is the number of date input pairs that the user can enter.
 	 */
-	maxDateRanges?: number;
+	maxDatetimeRanges?: number;
 }
 
 /**
@@ -534,4 +595,72 @@ export interface AvailabilityQuestionValue extends QuestionValueBase {
 	 * value is the list of date ranges.
 	 */
 	value: [Timestamp, Timestamp][];
+}
+
+/**
+ * TimezoneQuestion is a timezone selection.
+ */
+export interface TimezoneQuestion extends QuestionBase {
+	/**
+	 * type is the type of question.
+	 */
+	type: QuestionType.TIMEZONE;
+
+	/**
+	 * default is the default value for the timezone question.
+	 */
+	default?: TimezoneQuestionValue['value'];
+}
+
+/**
+ * TimezoneQuestionValue is a timezone.
+ */
+export interface TimezoneQuestionValue extends QuestionValueBase {
+	/**
+	 * type is the type of question.
+	 */
+	type: QuestionType.TIMEZONE;
+
+	/**
+	 * value is the timezone ID.
+	 */
+	value: string;
+}
+
+/**
+ * SelectQuestion is a select question with a list of options.
+ */
+export interface SelectQuestion extends QuestionBase {
+	/**
+	 * type is the type of question.
+	 */
+	type: QuestionType.SELECT;
+
+	/**
+	 * options is the list of options for the select question.
+	 */
+	options: {
+		value: string;
+		content: string;
+	}[];
+
+	/**
+	 * default is the default value for the select question.
+	 */
+	default?: string;
+}
+
+/**
+ * SelectQuestionValue is a select question value.
+ */
+export interface SelectQuestionValue extends QuestionValueBase {
+	/**
+	 * type is the type of question.
+	 */
+	type: QuestionType.SELECT;
+
+	/**
+	 * value is the value of the question.
+	 */
+	value: string;
 }

@@ -1,28 +1,11 @@
 <script lang="ts">
-	import type { SingleTextSelectQuestion } from '../form/form.js';
-	import { QuestionType } from '../form/form.js';
-	export let data: SingleTextSelectQuestion = {
-		type: QuestionType.SINGLE_TEXT_SELECT,
+	import type { SingleTextSelectQuestion } from '$lib/form';
 
-		name: 'SingleTextSelect Question',
-
-		content: 'Select One',
-
-		required: false,
-
-		choices: ['red', 'green', 'blue'],
-
-		allowCustomChoice: true,
-
-		choiceIndex: 0,
-
-		customChoice: ''
-	};
+	export let data: SingleTextSelectQuestion;
 </script>
 
 <fieldset>
 	<legend>{data.content}</legend>
-	<!-- TODO: Create functionality for defualt choice and custom choice -->
 	{#each data.choices as choice, i}
 		<div class="choice">
 			<input
@@ -45,7 +28,7 @@
 				checked={data.choiceIndex === -1}
 			/>
 			<label for="custom">
-				<input name={data.name} id="custom-choice" type="text" bind:value={data.customChoice} />
+				<input name={data.name} id="custom-choice" type="text" value={data.customChoice} />
 			</label>
 		</div>
 	{/if}

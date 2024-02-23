@@ -1,22 +1,7 @@
 <script lang="ts">
-	import type { DateQuestion } from '../form/form.js';
-	import { QuestionType } from '../form/form.js';
+	import type { DateQuestion } from '$lib/form';
 
-	export let data: DateQuestion = {
-		type: QuestionType.DATE,
-
-		name: 'Date Question',
-
-		value: 0.0,
-
-		min: 0.0,
-
-		max: 24.0,
-
-		content: '',
-
-		required: false
-	};
+	export let data: DateQuestion;
 </script>
 
 <fieldset>
@@ -27,6 +12,6 @@
 		required={data.required}
 		min={data.min}
 		max={data.max}
-		bind:value={data.value}
+		value={data.value}
 	/>
 </fieldset>

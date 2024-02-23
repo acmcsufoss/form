@@ -1,46 +1,37 @@
 <script lang="ts">
-	import type { TextareaQuestion } from '../form/form.js';
-	import { QuestionType } from '../form/form.js';
-	/**
-	 * funct for adjusting height of text area
-	 */
-	let textarea_: HTMLTextAreaElement;
-	const textAreaAdjustHeight = (): void => {
-		textarea_.style.height = 'auto';
-		textarea_.style.height = textarea_.scrollHeight + 'px';
-	};
+	import type { Action } from 'svelte/action';
+	import type { TextareaQuestion } from '$lib/form';
 
-	// DEFUALT VALUES
-	export let data: TextareaQuestion = {
-		type: QuestionType.TEXTAREA,
+	export let data: TextareaQuestion;
 
-		name: 'Text Area Question',
+	// Progressive enhancement for adjusting height of textarea.
+	// https://svelte.dev/docs/svelte-action
+	const adjustTextareaHeight: Action = (node: HTMLElement) => {
+		function handleInput() {
+			node.style.height = 'auto';
+			node.style.height = node.scrollHeight + 'px';
+		}
 
-		content: 'text area?',
+		node.addEventListener('input', handleInput);
 
-		required: false,
-
-		minLength: 0,
-
-		maxLength: 1000,
-
-		placeholder: 'type here',
-
-		value: ''
+		return {
+			destroy() {
+				node.removeEventListener('input', handleInput);
+			}
+		};
 	};
 </script>
 
 <fieldset>
 	<legend>{data.content}</legend>
 	<textarea
-		bind:this={textarea_}
-		on:input={textAreaAdjustHeight}
+		use:adjustTextareaHeight
 		name={data.name}
 		maxlength={data.maxLength}
 		minlength={data.minLength}
 		placeholder={data.placeholder}
 		required={data.required}
-		bind:value={data.value}
+		value={data.value}
 	/>
 </fieldset>
 

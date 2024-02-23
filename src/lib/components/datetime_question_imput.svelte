@@ -1,21 +1,7 @@
 <script lang="ts">
-	import type { DatetimeQuestion } from '$lib/form/form';
-	import { QuestionType } from '$lib/form/form';
-	export let data: DatetimeQuestion = {
-		type: QuestionType.DATETIME,
+	import type { DatetimeQuestion } from '$lib/form';
 
-		name: 'Date Time Question',
-
-		required: false,
-
-		content: 'date and time',
-
-		value: 0,
-
-		min: 0,
-
-		max: 100
-	};
+	export let data: DatetimeQuestion;
 </script>
 
 <fieldset>
@@ -24,7 +10,7 @@
 		name={data.name}
 		type="datetime-local"
 		required={data.required}
-		bind:value={data.value}
+		value={data.value}
 		min={data.min}
 		max={data.max}
 	/>

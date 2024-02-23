@@ -1,25 +1,7 @@
 <script lang="ts">
-	import type { TextQuestion } from '../form/form.js';
-	import { QuestionType } from '../form/form.js';
-	export let data: TextQuestion = {
-		type: QuestionType.TEXT,
+	import type { TextQuestion } from '$lib/form';
 
-		name: 'TextQuestion Question',
-
-		content: 'Text?',
-
-		required: false,
-
-		minLength: 0,
-
-		maxLength: 100,
-
-		value: '',
-
-		placeholder: 'type here',
-
-		pattern: ''
-	};
+	export let data: TextQuestion;
 </script>
 
 <fieldset>

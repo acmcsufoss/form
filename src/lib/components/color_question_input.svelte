@@ -1,20 +1,9 @@
 <script lang="ts">
-	import type { ColorQuestion } from '$lib/form/form';
-	import { QuestionType } from '$lib/form/form';
-	export let data: ColorQuestion = {
-		type: QuestionType.COLOR,
-
-		name: 'Default Color Question',
-
-		content: 'Default Pick a color',
-
-		required: false,
-
-		value: '#FFFFFF'
-	};
+	import type { ColorQuestion } from '$lib/form';
+	export let data: ColorQuestion;
 </script>
 
 <fieldset>
 	<legend>{data.content}</legend>
-	<input name={data.name} type="color" required={data.required} bind:value={data.value} />
+	<input name={data.name} type="color" required={data.required} value={data.value} />
 </fieldset>
