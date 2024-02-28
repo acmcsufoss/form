@@ -90,6 +90,10 @@
 	/> -->
 
 	<!-- TODO: Make editor inputs for each type of question. -->
+	{#each data.questions.data as question}
+		<QuestionInput data={question} />
+	{/each}
+	<!-- <button on:click|preventDefault={}></button>	 -->
 
 	<button type="submit">Submit</button>
 </form>
