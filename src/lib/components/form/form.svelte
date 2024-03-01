@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { User, Form } from '$lib/store';
-	import QuestionInput from './question_input.svelte';
+	import QuestionInput from '$lib/components/form/question_input/question_input.svelte';
 
 	export let data: Form;
 	export let user: User | undefined = undefined;
