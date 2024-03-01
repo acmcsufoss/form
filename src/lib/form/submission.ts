@@ -6,7 +6,7 @@ import type {
 	TextareaQuestionValue,
 	Timestamp,
 	BooleanQuestionValue,
-	SingleTextSelectQuestionValue,
+	RadioGroupQuestionValue,
 	ColorQuestionValue,
 	DateQuestionValue,
 	TimeQuestionValue,
@@ -61,7 +61,7 @@ export function parse(formSchema: Form, formData: FormData): QuestionValue[] {
 			case QuestionType.TEXT:
 			case QuestionType.TEXTAREA:
 			case QuestionType.COLOR:
-			case QuestionType.SINGLE_TEXT_SELECT: {
+			case QuestionType.RADIO_GROUP: {
 				const formValue = formData.get(question.name);
 				if (typeof formValue !== 'string') {
 					throw new Error('invalid form value');
@@ -71,7 +71,7 @@ export function parse(formSchema: Form, formData: FormData): QuestionValue[] {
 					type: question.type,
 					name: question.name,
 					value: formValue
-				} satisfies TextQuestionValue | TextareaQuestionValue | ColorQuestionValue | SingleTextSelectQuestionValue);
+				} satisfies TextQuestionValue | TextareaQuestionValue | ColorQuestionValue | RadioGroupQuestionValue);
 				break;
 			}
 

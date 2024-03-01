@@ -116,7 +116,7 @@ export interface DiscordMessage {
  */
 export type Question =
 	| BooleanQuestion
-	| SingleTextSelectQuestion
+	| RadioGroupQuestion
 	| NumberQuestion
 	| TextQuestion
 	| TextareaQuestion
@@ -133,7 +133,7 @@ export type Question =
  */
 export type QuestionValue =
 	| BooleanQuestionValue
-	| SingleTextSelectQuestionValue
+	| RadioGroupQuestionValue
 	| NumberQuestionValue
 	| TextQuestionValue
 	| TextareaQuestionValue
@@ -166,7 +166,7 @@ export interface QuestionList {
  */
 export enum QuestionType {
 	NUMBER = 'number',
-	SINGLE_TEXT_SELECT = 'single_text_select',
+	RADIO_GROUP = 'radio_group',
 	TEXT = 'text',
 	TEXTAREA = 'textarea',
 	BOOLEAN = 'boolean',
@@ -222,13 +222,13 @@ export interface QuestionValueBase {
 }
 
 /**
- * SingleTextSelectQuestion is a traditional multiple choice question.
+ * RadioGroupQuestion is a traditional multiple choice question.
  */
-export interface SingleTextSelectQuestion extends QuestionBase {
+export interface RadioGroupQuestion extends QuestionBase {
 	/**
 	 * type is the type of question.
 	 */
-	type: QuestionType.SINGLE_TEXT_SELECT;
+	type: QuestionType.RADIO_GROUP;
 
 	/**
 	 * choices is the list of choices for the question.
@@ -254,11 +254,11 @@ export interface SingleTextSelectQuestion extends QuestionBase {
 	customChoice?: string;
 }
 
-export interface SingleTextSelectQuestionValue extends QuestionValueBase {
+export interface RadioGroupQuestionValue extends QuestionValueBase {
 	/**
 	 * type is the type of question.
 	 */
-	type: QuestionType.SINGLE_TEXT_SELECT;
+	type: QuestionType.RADIO_GROUP;
 
 	/**
 	 * value is the value of the question.
@@ -645,9 +645,9 @@ export interface SelectQuestion extends QuestionBase {
 	}[];
 
 	/**
-	 * default is the default value for the select question.
+	 * value is the default value for the select question.
 	 */
-	default?: string;
+	value?: string;
 }
 
 /**

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { SingleTextSelectQuestion } from '$lib/form';
+	import type { RadioGroupQuestion } from '$lib/form';
 
-	export let data: SingleTextSelectQuestion;
+	export let data: RadioGroupQuestion;
 </script>
 
 <fieldset>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Form } from '$lib/store';
 	import { QuestionType } from '$lib/form';
-	import QuestionInput from './question_input.svelte';
+	import QuestionInput from '$lib/components/form/question_input/question_input.svelte';
 
 	export let action: string;
 	export let method: string;
@@ -19,6 +19,7 @@
 			<p>Form ID: {data.id}</p>
 		</div>
 	</div>
+
 	<QuestionInput
 		data={{
 			type: QuestionType.TEXT,
@@ -35,6 +36,7 @@
 		}}
 	/>
 
+	<!-- TODO: Replace camelCase names with snake_case. -->
 	<QuestionInput
 		data={{
 			type: QuestionType.TEXT,
