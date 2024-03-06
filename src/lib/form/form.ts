@@ -215,19 +215,28 @@ export interface RadioGroupQuestion extends QuestionBase {
 	choices: string[];
 
 	/**
-	 * customChoice is whether or not the form field has a custom choice.
+	 * allowCustomChoice is whether or not the form field has a custom choice.
+	 *
+	 * By default, custom choices are not allowed.
 	 */
-	allowCustomChoice: boolean;
+	allowCustomChoice?: boolean;
 
 	/**
-	 * choiceIndex is the value choice index for the question. A value of -1 for custom choice index.
+	 * choiceIndex is the value choice index for the question.
 	 */
 	choiceIndex?: number;
 
 	/**
-	 * DefaultCustomChoice is the value custom choice for the form field.
+	 * customChoice is the value custom choice for the form field.
+	 *
+	 * The custom choice is only used if allowCustomChoice is true.
 	 */
 	customChoice?: string;
+
+	/**
+	 * value is the default value for the question.
+	 */
+	value?: string;
 }
 
 export interface RadioGroupQuestionValue extends QuestionValueBase {
