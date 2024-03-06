@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { ColorQuestion } from '$lib/form';
-	export let data: ColorQuestion;
+
+	const data = $$props as ColorQuestion;
 </script>
 
 <fieldset>

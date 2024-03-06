@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { AvailablityQuestion } from '$lib/form';
 
-	export let data: AvailablityQuestion;
+	const data = $$props as AvailablityQuestion;
 </script>
 
 <fieldset>

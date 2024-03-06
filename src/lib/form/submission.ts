@@ -61,20 +61,7 @@ export function parse(formSchema: Form, formData: FormData): QuestionValue[] {
 			case QuestionType.TEXT:
 			case QuestionType.TEXTAREA:
 			case QuestionType.COLOR:
-			case QuestionType.RADIO_GROUP: {
-				const formValue = formData.get(question.name);
-				if (typeof formValue !== 'string') {
-					throw new Error('invalid form value');
-				}
-
-				data.push({
-					type: question.type,
-					name: question.name,
-					value: formValue
-				} satisfies TextQuestionValue | TextareaQuestionValue | ColorQuestionValue | RadioGroupQuestionValue);
-				break;
-			}
-
+			case QuestionType.RADIO_GROUP:
 			case QuestionType.DATE:
 			case QuestionType.TIME:
 			case QuestionType.DATETIME: {
@@ -87,7 +74,7 @@ export function parse(formSchema: Form, formData: FormData): QuestionValue[] {
 					type: question.type,
 					name: question.name,
 					value: formValue
-				} satisfies DateQuestionValue | TimeQuestionValue | DatetimeQuestionValue);
+				} satisfies TextQuestionValue | TextareaQuestionValue | ColorQuestionValue | RadioGroupQuestionValue | DateQuestionValue | TimeQuestionValue | DatetimeQuestionValue);
 				break;
 			}
 
