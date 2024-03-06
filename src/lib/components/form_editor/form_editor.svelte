@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { Form } from '$lib/store';
 	import { QuestionType } from '$lib/form';
-	import QuestionInput from '$lib/components/form/question_input/question_input.svelte';
+	import QuestionInput from '$lib/components/question_input/question_input.svelte';
+	import QuestionListEditor from './question_list_editor/question_list_editor.svelte';
 
 	export let action: string;
 	export let method: string;
-	export let data: Form;
+	export let value: Form;
 
 	// TODO: Add discord data: channels, threads, guilds, roles.
 </script>
@@ -16,82 +17,55 @@
 		<p class="form-description">Edit a form!</p>
 		<hr />
 		<div class="form-information">
-			<p>Form ID: {data.id}</p>
+			<p>Form ID: {value.id}</p>
 		</div>
 	</div>
 
+	<QuestionInput type={QuestionType.TEXT} name="title" content="Title" bind:value={value.title} />
+
 	<QuestionInput
-		data={{
-			type: QuestionType.TEXT,
-			name: 'title',
-			content: 'Title'
-		}}
+		type={QuestionType.TEXTAREA}
+		name="description"
+		content="Description"
+		bind:value={value.description}
 	/>
 
 	<QuestionInput
-		data={{
-			type: QuestionType.TEXTAREA,
-			name: 'description',
-			content: 'Description'
-		}}
-	/>
-
-	<!-- TODO: Replace camelCase names with snake_case. -->
-	<QuestionInput
-		data={{
-			type: QuestionType.TEXT,
-			name: 'schedule.startDatetime',
-			content: 'Start date'
-		}}
+		type={QuestionType.DATETIME}
+		name="startDate"
+		content="Start date"
+		bind:value={value.startDate}
 	/>
 
 	<QuestionInput
-		data={{
-			type: QuestionType.TEXT,
-			name: 'schedule.endDatetime',
-			content: 'End date'
-		}}
+		type={QuestionType.DATETIME}
+		name="endDate"
+		content="End date"
+		bind:value={value.endDate}
 	/>
 
 	<QuestionInput
-		data={{
-			type: QuestionType.TIMEZONE,
-			name: 'schedule.timezone',
-			content: 'Timezone (default: UTC/GMT)'
-		}}
+		type={QuestionType.TIMEZONE}
+		name="timezone"
+		content="Timezone (default: UTC/GMT)"
+		bind:value={value.timezone}
 	/>
 
 	<QuestionInput
-		data={{
-			type: QuestionType.BOOLEAN,
-			name: 'anonymized',
-			content: 'Anonymized'
-		}}
+		type={QuestionType.BOOLEAN}
+		name="anonymized"
+		content="Anonymized"
+		bind:value={value.anonymized}
 	/>
 
 	<QuestionInput
-		data={{
-			type: QuestionType.BOOLEAN,
-			name: 'allowsMultipleSubmissions',
-			content: 'Allows multiple submissions'
-		}}
+		type={QuestionType.BOOLEAN}
+		name="shuffled"
+		content="Shuffled"
+		bind:value={value.questions.shuffled}
 	/>
 
-	<!-- Discord message schedule -->
-
-	<!-- <QuestionInput
-		data={{
-			type: QuestionType.SELECT,
-			name: 'message.channelID',
-			content: 'Discord channel ID',
-			options: data.channels.map((channel) => ({
-				value: channel.id,
-				content: channel.name
-			}))
-		}}
-	/> -->
-
-	<!-- TODO: Make editor inputs for each type of question. -->
+	<QuestionListEditor bind:value={value.questions} />
 
 	<button type="submit">Submit</button>
 </form>

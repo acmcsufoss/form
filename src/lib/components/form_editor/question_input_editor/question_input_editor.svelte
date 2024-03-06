@@ -5,11 +5,7 @@
 	// export let value: Question;
 </script>
 
-<!-- <QuestionInput
-	data={{
-		type: value.type,
-		name: value.name,
-		content: value.content,
-		value: value.value
-	}}
-/> -->
+<!-- TODO: Reconcile changes made in
+https://github.com/acmcsufoss/form/pull/new/question-input-editor -->
+
+<!-- TODO: Make a new PR out of this current branch. -->
