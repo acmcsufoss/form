@@ -19,6 +19,9 @@ export const GET: RequestHandler = async () => {
 async function createEmptyForm() {
 	return await s.createForm({
 		id: ulid(),
+		discordChannelID: '',
+		startDate: '',
+		endDate: null,
 		questions: {
 			shuffled: false,
 			data: []
