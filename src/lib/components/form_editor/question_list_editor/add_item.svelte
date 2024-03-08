@@ -10,6 +10,10 @@
 		// TODO: Add a helper function to create a blank question object for each type.
 		addAction({ type });
 	}
+
+	// function makeDefault(type: QuestionType): Question {
+	// 	switch...
+	// }
 </script>
 
 <select bind:value={type}>
