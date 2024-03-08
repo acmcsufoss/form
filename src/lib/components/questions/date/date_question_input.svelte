@@ -1,0 +1,17 @@
+<script lang="ts">
+	import type { DateQuestion } from '$lib/form';
+
+	const data = $$props as DateQuestion;
+</script>
+
+<fieldset>
+	<legend>{data.content}</legend>
+	<input
+		name={data.name}
+		type="date"
+		required={data.required}
+		min={data.min}
+		max={data.max}
+		value={data.value}
+	/>
+</fieldset>

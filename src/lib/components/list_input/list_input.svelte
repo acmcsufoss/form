@@ -1,21 +1,22 @@
 <script lang="ts">
 	import type { ItemProps, Components } from './list_input.ts';
 
-	export let data: ItemProps[] = [];
 	export let components: Components;
+	export let value: ItemProps[] = [];
 
 	function deleteItem(i: number): void {
-		data.splice(i, 1);
-		// data = [...data];
+		value.splice(i, 1);
 	}
 
 	function addItem(item: ItemProps): void {
-		data.push(item);
+		value.push(item);
 	}
+
+	// TODO: Make sortable items.
 </script>
 
 <div>
-	{#each data as item, i}
+	{#each value as item, i}
 		<div>
 			<svelte:component this={components.item} {...item} />
 			<svelte:component this={components.deleteItem} deleteAction={() => deleteItem(i)} />

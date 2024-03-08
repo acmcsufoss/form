@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { User, Form } from '$lib/store';
-	import QuestionInput from '$lib/components/form/question_input/question_input.svelte';
+	import QuestionInput from '$lib/components/question_input/question_input.svelte';
 
-	export let data: Form;
-	export let user: User | undefined = undefined;
 	export let action = '';
 	export let method = 'POST';
+	export let data: Form;
+	export let user: User | undefined = undefined;
 
 	if (data.questions.shuffled) {
 		data.questions.data = data.questions.data.sort(() => Math.random() - 0.5);
@@ -27,16 +27,16 @@
 				{/if}
 			</p>
 
-			{#if data.schedule?.startDate}
-				<p>Opened at: {data.schedule?.startDate}</p>
+			{#if data.startDate}
+				<p>Opened at: {data.startDate}</p>
 			{/if}
-			{#if data.schedule?.endDate}
-				<p>Opened until: {data.schedule?.endDate}</p>
+			{#if data?.endDate}
+				<p>Opened until: {data?.endDate}</p>
 			{/if}
 		</div>
 	</div>
 	{#each data.questions.data as question}
-		<QuestionInput data={question} />
+		<QuestionInput {...question} />
 	{/each}
 
 	<button type="submit">Submit</button>
