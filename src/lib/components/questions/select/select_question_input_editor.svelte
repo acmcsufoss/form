@@ -1,19 +1,13 @@
 <script lang="ts">
 	import type { SelectQuestion } from '$lib/form';
 	import { QuestionType } from '$lib/form';
+	import BooleanQuestionInput from '../boolean/boolean_question_input.svelte';
+	import TextQuestionInput from '../text/text_question_input.svelte';
 	import SelectQuestionInput from './select_question_input.svelte';
 
 	var newOption: string = '';
 
-	let data: SelectQuestion = {
-		type: QuestionType.SELECT,
-		options: [
-			{ value: '55', content: 'Apple' },
-			{ value: '66', content: 'Bananna' }
-		],
-		name: '',
-		content: ''
-	};
+	export var data = $$props as SelectQuestion;
 
 	// let other: TextQuestion = {
 	// 	type: QuestionType.TEXT,
@@ -44,6 +38,13 @@
 	}
 </script>
 
+<TextQuestionInput value={data.content} content="Question Title" placeholder="Question Title" />
+<TextQuestionInput
+	content="Internal Question Name"
+	value={data.name}
+	placeholder="Internal Question Name"
+/>
+<BooleanQuestionInput value={data.required} content="Required" />
 <form on:submit|preventDefault={addOptions}>
 	<input type="text" bind:value={newOption} /><button type="submit">➕</button>
 </form>
@@ -52,4 +53,4 @@
 	<p><button on:click={() => removeOption(option)}>🗑️</button>{option.content}</p>
 {/each}
 
-<SelectQuestionInput {data} />
+<SelectQuestionInput {...data} />
