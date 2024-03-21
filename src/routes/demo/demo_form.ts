@@ -1,6 +1,7 @@
 import type { Form } from '$lib/form';
 import { QuestionType } from '$lib/form';
 
+// TODO: Add more questions to cover all question types.
 export const demoForm: Form = {
 	id: 'demo_form_id',
 	discordChannelID: '',
