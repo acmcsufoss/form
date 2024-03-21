@@ -3,6 +3,9 @@ import { QuestionType } from '$lib/form';
 
 export const demoForm: Form = {
 	id: 'demo_form_id',
+	discordChannelID: '',
+	startDate: '',
+	endDate: null,
 	questions: {
 		data: [
 			{
@@ -21,7 +24,7 @@ export const demoForm: Form = {
 				value: 'Sample Text'
 			},
 			{
-				type: QuestionType.SINGLE_TEXT_SELECT,
+				type: QuestionType.RADIO_GROUP,
 				name: 'multiple choice',
 				content: 'please pick one',
 				required: false,

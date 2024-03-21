@@ -1,31 +1,14 @@
 <script lang="ts">
-	import type { Action } from 'svelte/action';
 	import type { TextareaQuestion } from '$lib/form';
+	import { adjustableTextareaHeight } from './adjustable_textarea_height';
 
-	export let data: TextareaQuestion;
-
-	// Progressive enhancement for adjusting height of textarea.
-	// https://svelte.dev/docs/svelte-action
-	const adjustTextareaHeight: Action = (node: HTMLElement) => {
-		function handleInput() {
-			node.style.height = 'auto';
-			node.style.height = node.scrollHeight + 'px';
-		}
-
-		node.addEventListener('input', handleInput);
-
-		return {
-			destroy() {
-				node.removeEventListener('input', handleInput);
-			}
-		};
-	};
+	const data = $$props as TextareaQuestion;
 </script>
 
 <fieldset>
 	<legend>{data.content}</legend>
 	<textarea
-		use:adjustTextareaHeight
+		use:adjustableTextareaHeight
 		name={data.name}
 		maxlength={data.maxLength}
 		minlength={data.minLength}

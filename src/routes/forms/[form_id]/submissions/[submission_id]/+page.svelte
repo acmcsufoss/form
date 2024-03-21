@@ -5,7 +5,6 @@
 </script>
 
 {#if data.submission}
-	<!-- <Submission data={data.submission} /> -->
 	<code>{'<Submission />'}</code>
 {:else}
 	<p>Submission not found</p>

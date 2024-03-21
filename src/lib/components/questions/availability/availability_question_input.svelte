@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { AvailablityQuestion } from '$lib/form';
 
-	export let data: AvailablityQuestion;
+	const data = $$props as AvailablityQuestion;
 </script>
 
 <fieldset>
@@ -16,6 +16,7 @@
 					max={data.maxEndDatetime}
 					value={data.value?.[i][0]}
 				/>
+				<!-- TODO: Convert break to hr tag. -->
 				<p>----</p>
 				<input
 					type="datetime-local"

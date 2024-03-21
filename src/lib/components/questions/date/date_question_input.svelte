@@ -1,17 +1,17 @@
 <script lang="ts">
-	import type { DatetimeQuestion } from '$lib/form';
+	import type { DateQuestion } from '$lib/form';
 
-	export let data: DatetimeQuestion;
+	const data = $$props as DateQuestion;
 </script>
 
 <fieldset>
 	<legend>{data.content}</legend>
 	<input
 		name={data.name}
-		type="datetime-local"
+		type="date"
 		required={data.required}
-		value={data.value}
 		min={data.min}
 		max={data.max}
+		value={data.value}
 	/>
 </fieldset>

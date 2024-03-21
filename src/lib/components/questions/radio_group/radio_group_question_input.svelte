@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { SingleTextSelectQuestion } from '$lib/form';
+	import type { RadioGroupQuestion } from '$lib/form';
 
-	export let data: SingleTextSelectQuestion;
+	const data = $$props as RadioGroupQuestion;
 </script>
 
 <fieldset>

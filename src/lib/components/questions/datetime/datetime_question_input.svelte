@@ -1,19 +1,17 @@
 <script lang="ts">
-	import type { NumberQuestion } from '$lib/form';
+	import type { DatetimeQuestion } from '$lib/form';
 
-	export let data: NumberQuestion;
+	const data = $$props as DatetimeQuestion;
 </script>
 
 <fieldset>
 	<legend>{data.content}</legend>
 	<input
 		name={data.name}
-		type="number"
+		type="datetime-local"
 		required={data.required}
+		value={data.value}
 		min={data.min}
 		max={data.max}
-		bind:value={data.value}
-		placeholder={data.placeholder}
-		step={data.step}
 	/>
 </fieldset>

@@ -40,35 +40,20 @@ export interface Form {
 	questions: QuestionList;
 
 	/**
-	 * message is the Discord message that the form is linked to.
+	 * discordMessageID is the ID of the Discord message that the form is linked to (if any).
 	 */
-	message?: DiscordMessage;
+	discordMessageID?: ID;
 
 	/**
-	 * schedule is the schedule for the form.
-	 *
-	 * If undefined, the form is always open and immediately posted to Discord when created.
+	 * discordChannelID is the ID of the Discord channel that the message is in.
 	 */
-	schedule?: FormSchedule;
+	discordChannelID: ID;
 
 	/**
-	 * allowsMultipleSubmissions is whether or not the form allows multiple
-	 * submissions. Defaults to false.
+	 * discordThreadID is the ID of the Discord thread that the message is in.
 	 */
-	allowsMultipleSubmissions?: boolean;
+	discordThreadID?: ID;
 
-	/**
-	 * anonymized is whether or not the form's submissions are anonymized.
-	 *
-	 * Defaults to false.
-	 */
-	anonymized?: boolean;
-}
-
-/**
- * FormSchedule is the schedule for a form.
- */
-export interface FormSchedule {
 	/**
 	 * startDate is the start time for the form.
 	 *
@@ -87,28 +72,19 @@ export interface FormSchedule {
 	 * timezone is the timezone ID for the form. Defaults to UTC/GMT.
 	 */
 	timezone?: string;
-}
-
-/**
- * DiscordMessage is a Discord message.
- */
-export interface DiscordMessage {
-	/**
-	 * id is the ID of the Discord message that the form is linked to (if any).
-	 */
-	id?: ID;
 
 	/**
-	 * channelID is the ID of the Discord channel that the message is in.
+	 * allowsMultipleSubmissions is whether or not the form allows multiple
+	 * submissions. Defaults to false.
 	 */
-	channelID: ID;
+	allowsMultipleSubmissions?: boolean;
 
 	/**
-	 * threadID is the ID of the Discord thread that the message is in.
+	 * anonymized is whether or not the form's submissions are anonymized.
+	 *
+	 * Defaults to false.
 	 */
-	threadID?: ID;
-
-	// TODO: Add guild ID to target specific guild.
+	anonymized?: boolean;
 }
 
 /**
@@ -116,7 +92,7 @@ export interface DiscordMessage {
  */
 export type Question =
 	| BooleanQuestion
-	| SingleTextSelectQuestion
+	| RadioGroupQuestion
 	| NumberQuestion
 	| TextQuestion
 	| TextareaQuestion
@@ -133,7 +109,7 @@ export type Question =
  */
 export type QuestionValue =
 	| BooleanQuestionValue
-	| SingleTextSelectQuestionValue
+	| RadioGroupQuestionValue
 	| NumberQuestionValue
 	| TextQuestionValue
 	| TextareaQuestionValue
@@ -166,7 +142,7 @@ export interface QuestionList {
  */
 export enum QuestionType {
 	NUMBER = 'number',
-	SINGLE_TEXT_SELECT = 'single_text_select',
+	RADIO_GROUP = 'radio_group',
 	TEXT = 'text',
 	TEXTAREA = 'textarea',
 	BOOLEAN = 'boolean',
@@ -222,13 +198,13 @@ export interface QuestionValueBase {
 }
 
 /**
- * SingleTextSelectQuestion is a traditional multiple choice question.
+ * RadioGroupQuestion is a traditional multiple choice question.
  */
-export interface SingleTextSelectQuestion extends QuestionBase {
+export interface RadioGroupQuestion extends QuestionBase {
 	/**
 	 * type is the type of question.
 	 */
-	type: QuestionType.SINGLE_TEXT_SELECT;
+	type: QuestionType.RADIO_GROUP;
 
 	/**
 	 * choices is the list of choices for the question.
@@ -239,26 +215,35 @@ export interface SingleTextSelectQuestion extends QuestionBase {
 	choices: string[];
 
 	/**
-	 * customChoice is whether or not the form field has a custom choice.
+	 * allowCustomChoice is whether or not the form field has a custom choice.
+	 *
+	 * By default, custom choices are not allowed.
 	 */
-	allowCustomChoice: boolean;
+	allowCustomChoice?: boolean;
 
 	/**
-	 * choiceIndex is the value choice index for the question. A value of -1 for custom choice index.
+	 * choiceIndex is the value choice index for the question.
 	 */
 	choiceIndex?: number;
 
 	/**
-	 * DefaultCustomChoice is the value custom choice for the form field.
+	 * customChoice is the value custom choice for the form field.
+	 *
+	 * The custom choice is only used if allowCustomChoice is true.
 	 */
 	customChoice?: string;
+
+	/**
+	 * value is the default value for the question.
+	 */
+	value?: string;
 }
 
-export interface SingleTextSelectQuestionValue extends QuestionValueBase {
+export interface RadioGroupQuestionValue extends QuestionValueBase {
 	/**
 	 * type is the type of question.
 	 */
-	type: QuestionType.SINGLE_TEXT_SELECT;
+	type: QuestionType.RADIO_GROUP;
 
 	/**
 	 * value is the value of the question.
@@ -645,9 +630,9 @@ export interface SelectQuestion extends QuestionBase {
 	}[];
 
 	/**
-	 * default is the default value for the select question.
+	 * value is the default value for the select question.
 	 */
-	default?: string;
+	value?: string;
 }
 
 /**
