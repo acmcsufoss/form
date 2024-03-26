@@ -38,6 +38,7 @@
 	}
 </script>
 
+<input bind:value={data.content}/>
 <TextQuestionInput value={data.content} content="Question Title" placeholder="Question Title" />
 <TextQuestionInput
 	content="Internal Question Name"
@@ -53,4 +54,6 @@
 	<p><button on:click={() => removeOption(option)}>🗑️</button>{option.content}</p>
 {/each}
 
-<SelectQuestionInput {...data} />
+<SelectQuestionInput data={data} />
+
+
