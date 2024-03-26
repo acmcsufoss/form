@@ -6,7 +6,8 @@
 
 	let type = QuestionType.TEXT;
 
-	function add() {
+	function add(e: MouseEvent) {
+		e.preventDefault();
 		// TODO: Add a helper function to create a blank question object for each type.
 		addAction({ type });
 	}

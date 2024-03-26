@@ -5,15 +5,7 @@
 
 	var newOption: string = '';
 
-	let data: SelectQuestion = {
-		type: QuestionType.SELECT,
-		options: [
-			{ value: '55', content: 'Apple' },
-			{ value: '66', content: 'Bananna' }
-		],
-		name: '',
-		content: ''
-	};
+	export var data = $$props as SelectQuestion;
 
 	// let other: TextQuestion = {
 	// 	type: QuestionType.TEXT,
@@ -43,6 +35,8 @@
 		}
 	}
 </script>
+
+<input bind:value={data.content} />
 
 <form on:submit|preventDefault={addOptions}>
 	<input type="text" bind:value={newOption} /><button type="submit">➕</button>

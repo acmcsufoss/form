@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { QuestionType, type BooleanQuestion, type SelectQuestion } from '$lib/form';
 	import BooleanQuestionInput from './boolean_question_input.svelte';
-	import TextQuestionInput from '../text/text_question_input.svelte';
+	import input from '../text/text_question_input.svelte';
 	import TextareaQuestionInput from '../textarea/textarea_question_input.svelte';
 	import SelectQuestionInput from '../select/select_question_input.svelte';
 	import { drafts } from '$lib/stores/drafts/drafts';
-	const data = $$props as BooleanQuestion;
+	export var data = $$props as BooleanQuestion;
 
 	/* 
     type: QuestionType.BOOLEAN,
@@ -25,16 +25,8 @@
 	// };
 </script>
 
-<TextQuestionInput
-	bind:value={data.content}
-	content="Question Title"
-	placeholder="Question Title"
-/>
-<TextQuestionInput
-	content="Internal Question Name"
-	bind:value={data.name}
-	placeholder="Internal Question Name"
-/>
+<input bind:value={data.content} name="temp" placeholder="Question Title" />
+<input bind:value={data.name} placeholder="Internal Question Name" />
 <SelectQuestionInput
 	name={'style'}
 	content={'Choose a Style'}
@@ -47,5 +39,5 @@
 <BooleanQuestionInput bind:value={data.required} content="Required" />
 <details>
 	<summary>Sample</summary>
-	<BooleanQuestionInput {...data} />
+	<BooleanQuestionInput bind:data />
 </details>

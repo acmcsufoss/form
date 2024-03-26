@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Form } from '$lib/store';
-	import { QuestionType } from '$lib/form';
+	import { QuestionType, type QuestionList } from '$lib/form';
 	import QuestionInput from '$lib/components/question_input/question_input.svelte';
 	import QuestionListEditor from './question_list_editor/question_list_editor.svelte';
 
@@ -8,7 +8,14 @@
 	export let method: string;
 	export let value: Form;
 
+	var questions: any = value.questions;
 	// TODO: Add discord data: channels, threads, guilds, roles.
+	function addItem() {
+		questions.append();
+	}
+	function handleSumbit(event: MouseEvent) {
+		console.log(questions);
+	}
 </script>
 
 <form {action} {method}>
@@ -65,9 +72,8 @@
 		bind:value={value.questions.shuffled}
 	/>
 
-	<QuestionListEditor bind:value={value.questions} />
-
-	<button type="submit">Submit</button>
+	<QuestionListEditor bind:value={questions} />
+	<button type="submit" on:click={handleSumbit}>Submit</button>
 </form>
 
 <style>

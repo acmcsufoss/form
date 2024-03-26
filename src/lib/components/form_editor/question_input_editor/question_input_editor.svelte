@@ -11,6 +11,9 @@
 	import TextQuestionInputEditor from '$lib/components/questions/text/text_question_input_editor.svelte';
 	import TextareaQuestionInputEditor from '$lib/components/questions/textarea/textarea_question_input_editor.svelte';
 	import TimeQuestionInputEditor from '$lib/components/questions/time/time_question_input_editor.svelte';
+	import BooleanQuestionInput from '$lib/components/questions/boolean/boolean_question_input.svelte';
+
+	export var data1: any = $$props;
 </script>
 
 <!-- TODO: Reconcile changes made in
@@ -21,6 +24,7 @@ https://github.com/acmcsufoss/form/pull/new/question-input-editor -->
 <!-- Uncomment finished questions to see if it renders -->
 <div>
 	{#if $$props.type === QuestionType.BOOLEAN}
+		<!-- <svelte:component this={BooleanQuestionInputEditor} bind:data={data1} /> -->
 		<BooleanQuestionInputEditor {...$$props} />
 		<!-- {:else if $$props.type === QuestionType.TEXT}
 		<TextQuestionInputEditor {...$$props} />
@@ -41,6 +45,6 @@ https://github.com/acmcsufoss/form/pull/new/question-input-editor -->
 	{:else if $$props.type === QuestionType.TIME}
 		<TimeQuestionInputEditor {...$$props} />
 	{:else if $$props.type === QuestionType.SELECT}
-		<SelectQuestionInputEditor {...$$props} /> -->
+		<SelectQuestionInputEditor {...$$props} />  -->
 	{/if}
 </div>
