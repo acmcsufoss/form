@@ -3,6 +3,8 @@
 	import { QuestionType, type QuestionList } from '$lib/form';
 	import QuestionInput from '$lib/components/question_input/question_input.svelte';
 	import QuestionListEditor from './question_list_editor/question_list_editor.svelte';
+	import BaseEditor from '../questions/base/base_editor.svelte';
+	import BooleanQuestionInputEditor from '../questions/boolean/boolean_question_input_editor.svelte';
 
 	export let action: string;
 	export let method: string;
@@ -14,6 +16,7 @@
 		questions.append();
 	}
 	function handleSumbit(event: MouseEvent) {
+		event.preventDefault();
 		console.log(questions);
 	}
 </script>
@@ -73,6 +76,7 @@
 	/>
 
 	<QuestionListEditor bind:value={questions} />
+	<BooleanQuestionInputEditor bind:data={questions[0]} />
 	<button type="submit" on:click={handleSumbit}>Submit</button>
 </form>
 
