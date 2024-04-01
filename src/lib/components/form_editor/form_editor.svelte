@@ -77,7 +77,6 @@
 	/>
 
 	<QuestionListEditor bind:value={questions} />
-	<QuestionInputEditor bind:data={questions[0]} />
 	<button type="submit" on:click={handleSumbit}>Submit</button>
 </form>
 
@@ -90,4 +89,38 @@
 		margin: 0 auto;
 		max-width: 400px;
 	}
+	/* :global(fieldset) {
+		border: none;
+		min-width: 0;
+		margin: 0px;
+		padding: 0px;
+		max-width: 100%;
+		width: 100%;
+		display: block;
+	} */
+	:global(legend) {
+		font-size: 13px;
+		font-weight: bold;
+		margin-bottom: 10px;
+		font-family: 'Poppins';
+	}
+
+	:global(.question) {
+		padding: 20px 15px;
+		width: calc(100% - 30px);
+		margin: 10px auto;
+		background-color: #ffffff;
+		border-radius: 10px;
+		border-color: #c5c8c9;
+		border-width: 0;
+		border-style: solid;
+	}
+
+	/* :global(label) {
+		display: flex;
+	} */
+
+	/* :global(input) {
+		display: flex;
+	} */
 </style>

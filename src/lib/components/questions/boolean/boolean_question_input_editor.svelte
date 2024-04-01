@@ -37,6 +37,8 @@
 	/>
 	<details>
 		<summary>Sample</summary>
-		<BooleanQuestionInput bind:data />
+		<div class="question">
+			<BooleanQuestionInput bind:data />
+		</div>
 	</details>
 </BaseEditor>

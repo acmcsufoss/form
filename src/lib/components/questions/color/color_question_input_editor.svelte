@@ -13,6 +13,8 @@
 	<input type="color" name="color-" bind:value={data.value} />
 	<details>
 		<summary>Sample</summary>
-		<ColorQuestionInput bind:data />
+		<div class="question">
+			<ColorQuestionInput bind:data />
+		</div>
 	</details>
 </BaseEditor>
