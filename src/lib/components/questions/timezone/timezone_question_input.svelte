@@ -2,7 +2,7 @@
 	import type { TimezoneQuestion } from '$lib/form';
 	import { TIMEZONES } from '$lib/timezones';
 
-	const data = $$props as TimezoneQuestion;
+	export let data = $$props as TimezoneQuestion;
 
 	let localTimezoneID = '';
 	if (Intl.DateTimeFormat) {
