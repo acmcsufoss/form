@@ -5,6 +5,7 @@
 	import QuestionListEditor from './question_list_editor/question_list_editor.svelte';
 	import BaseEditor from '../questions/base/base_editor.svelte';
 	import BooleanQuestionInputEditor from '../questions/boolean/boolean_question_input_editor.svelte';
+	import QuestionInputEditor from './question_input_editor/question_input_editor.svelte';
 
 	export let action: string;
 	export let method: string;
@@ -76,7 +77,7 @@
 	/>
 
 	<QuestionListEditor bind:value={questions} />
-	<BooleanQuestionInputEditor bind:data={questions[0]} />
+	<QuestionInputEditor bind:data={questions[0]} />
 	<button type="submit" on:click={handleSumbit}>Submit</button>
 </form>
 

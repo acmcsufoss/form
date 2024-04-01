@@ -419,7 +419,7 @@ export interface ColorQuestion extends QuestionBase {
 	type: QuestionType.COLOR;
 
 	/**
-	 * value is the value value for the color input.
+	 * value is the value for the color input.
 	 */
 	value?: string;
 }

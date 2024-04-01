@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { TextQuestion } from '$lib/form';
 
-	export const data = $$props as TextQuestion;
+	export let data = $$props as TextQuestion;
 </script>
 
 <fieldset>

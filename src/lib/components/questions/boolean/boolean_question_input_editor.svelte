@@ -7,7 +7,6 @@
 	import { drafts } from '$lib/stores/drafts/drafts';
 	import BaseEditor from '../base/base_editor.svelte';
 	export var data = $$props as BooleanQuestion;
-
 	/* 
     type: QuestionType.BOOLEAN,
 		name: 'internal name',
