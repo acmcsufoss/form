@@ -42,8 +42,8 @@ https://github.com/acmcsufoss/form/pull/new/question-input-editor -->
 	{:else if $$props.type === QuestionType.DATETIME}
 		<DatetimeQuestionInputEditor {...$$props} />
 	{:else if $$props.type === QuestionType.TIME}
-		<TimeQuestionInputEditor {...$$props} />
+		<TimeQuestionInputEditor {...$$props} /> -->
 	{:else if $$props.type === QuestionType.SELECT}
-		<SelectQuestionInputEditor {...$$props} />  -->
+		<SelectQuestionInputEditor {...$$props} />
 	{/if}
 </div>

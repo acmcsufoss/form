@@ -6,7 +6,7 @@
 	import SelectQuestionInput from '../select/select_question_input.svelte';
 	import { drafts } from '$lib/stores/drafts/drafts';
 	import BaseEditor from '../base/base_editor.svelte';
-	export var data = $$props as BooleanQuestion;
+	export let data: BooleanQuestion;
 	/* 
     type: QuestionType.BOOLEAN,
 		name: 'internal name',
@@ -26,7 +26,7 @@
 </script>
 
 <BaseEditor bind:data>
-	<SelectQuestionInput
+	<!-- <SelectQuestionInput
 		name={'style'}
 		content={'Choose a Style'}
 		options={[
@@ -34,7 +34,18 @@
 			{ content: 'radio', value: 'radio' }
 		]}
 		bind:value={data.style}
-	/>
+	/> -->
+	<fieldset>
+		<legend>Choose a Style</legend>
+		<select name={'style'} bind:value={data.style}>
+			{#each [
+				{ content: 'checkbox', value: 'checkbox' },
+				{ content: 'radio', value: 'radio' }
+			] as option}
+				<option value={option.value}>{option.content}</option>
+			{/each}
+		</select>
+	</fieldset>
 	<details>
 		<summary>Sample</summary>
 		<div class="question">

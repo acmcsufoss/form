@@ -57,6 +57,12 @@ export const demoForm: Form = {
 				maxLength: 1_000,
 				placeholder: 'write here',
 				value: ''
+			},
+			{
+				type: QuestionType.SELECT,
+				name: 'Select Question',
+				content: 'Pick an option',
+				options: [{ value: 'text', content: 'test' }]
 			}
 		]
 	}

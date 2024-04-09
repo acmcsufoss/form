@@ -38,12 +38,13 @@
 
 <input bind:value={data.content} />
 
-<form on:submit|preventDefault={addOptions}>
-	<input type="text" bind:value={newOption} /><button type="submit">➕</button>
-</form>
+<input type="text" bind:value={newOption} /><button on:click|preventDefault={addOptions}>➕</button>
 
 {#each data.options as option (option.content)}
-	<p><button on:click={() => removeOption(option)}>🗑️</button>{option.content}</p>
+	<button on:click={() => removeOption(option)}>🗑️</button><input
+		name={option.value}
+		bind:value={option.content}
+	/> <br />
 {/each}
 
 <SelectQuestionInput {data} />

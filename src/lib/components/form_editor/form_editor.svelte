@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Form } from '$lib/store';
+	import type { Form } from '$lib/form';
 	import { QuestionType, type QuestionList } from '$lib/form';
 	import QuestionInput from '$lib/components/question_input/question_input.svelte';
 	import QuestionListEditor from './question_list_editor/question_list_editor.svelte';

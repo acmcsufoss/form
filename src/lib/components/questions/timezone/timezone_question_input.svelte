@@ -10,9 +10,11 @@
 	}
 </script>
 
-<label class="Question-Header" for={data.name}>{data.content}</label>
-<select name={data.name} required={data.required} value={data.default || localTimezoneID}>
-	{#each TIMEZONES as choice}
-		<option value={choice.id}>{choice.text}</option>
-	{/each}
-</select>
+<fieldset>
+	<legend>{data.content}</legend>
+	<select name={data.name} required={data.required} value={data.default || localTimezoneID}>
+		{#each TIMEZONES as choice}
+			<option value={choice.id}>{choice.text}</option>
+		{/each}
+	</select>
+</fieldset>
