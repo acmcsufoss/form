@@ -592,9 +592,9 @@ export interface TimezoneQuestion extends QuestionBase {
 	type: QuestionType.TIMEZONE;
 
 	/**
-	 * default is the default value for the timezone question.
+	 * value is the timezone.
 	 */
-	default?: TimezoneQuestionValue['value'];
+	value?: TimezoneQuestionValue['value'];
 }
 
 /**
