@@ -72,6 +72,15 @@ export const demoForm: Form = {
 				value: '2024-04-10',
 				min: '2024-04-10',
 				max: '2024-04-10'
+			},
+			{
+				type: QuestionType.DATETIME,
+				name: 'justDate',
+				content: 'Pick a date (jk you can only pick today)',
+				required: false,
+				value: '2024-04-10T11:11:11',
+				min: '2024-04-10T11:11:11',
+				max: '2024-04-10T11:11:11'
 			}
 		]
 	}
