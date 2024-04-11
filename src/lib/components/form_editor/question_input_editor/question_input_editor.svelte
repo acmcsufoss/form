@@ -29,20 +29,24 @@ https://github.com/acmcsufoss/form/pull/new/question-input-editor -->
 		<ColorQuestionInputEditor bind:data />
 	{:else if $$props.type === QuestionType.NUMBER}
 		<NumberQuestionInputEditor {...$$props} />
-		<!-- {:else if $$props.type === QuestionType.TEXT}
+	{:else if $$props.type === QuestionType.TEXT}
 		<TextQuestionInputEditor {...$$props} />
-	{:else if $$props.type === QuestionType.RADIO_GROUP}
-		<RadioGroupQuestionInputEditor {...$$props} />
 	{:else if $$props.type === QuestionType.TEXTAREA}
 		<TextareaQuestionInputEditor {...$$props} />
 	{:else if $$props.type === QuestionType.DATE}
 		<DateQuestionInputEditor {...$$props} />
-	{:else if $$props.type === QuestionType.AVAILABILITY}
-		<AvailabilityQuestionInputEditor {...$$props} />
 	{:else if $$props.type === QuestionType.DATETIME}
 		<DatetimeQuestionInputEditor {...$$props} />
 	{:else if $$props.type === QuestionType.TIME}
-		<TimeQuestionInputEditor {...$$props} /> -->
+		<TimeQuestionInputEditor {...$$props} />
+		<!-- 
+	{:else if $$props.type === QuestionType.RADIO_GROUP}
+		<RadioGroupQuestionInputEditor {...$$props} />
+	
+	{:else if $$props.type === QuestionType.AVAILABILITY}
+		<AvailabilityQuestionInputEditor {...$$props} />
+	
+	 -->
 	{:else if $$props.type === QuestionType.SELECT}
 		<SelectQuestionInputEditor {...$$props} />
 	{/if}
