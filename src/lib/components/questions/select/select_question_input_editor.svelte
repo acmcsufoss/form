@@ -46,5 +46,7 @@
 		bind:value={option.content}
 	/> <br />
 {/each}
-
-<SelectQuestionInput {data} />
+<details>
+	<summary>Sample</summary>
+	<SelectQuestionInput {data} />
+</details>

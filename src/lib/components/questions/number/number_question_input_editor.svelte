@@ -6,25 +6,28 @@
 </script>
 
 <BaseEditor bind:data>
+	<!--Copied from number_question_input -->
 	<fieldset>
-		<legend>Min</legend>
+		<legend>min</legend>
 		<input type="number" bind:value={data.min} />
 	</fieldset>
 	<fieldset>
-		<legend>Max</legend>
+		<legend>max</legend>
 		<input type="number" bind:value={data.max} />
 	</fieldset>
+
 	<fieldset>
-		<legend>Step by</legend>
+		<legend>step</legend>
 		<input type="number" bind:value={data.step} />
 	</fieldset>
+
 	<fieldset>
-		<legend>Default Value</legend>
+		<legend>Defualt value</legend>
 		<input type="number" bind:value={data.value} />
 	</fieldset>
 	<fieldset>
-		<legend>Placeholder</legend>
-		<input type="number" bind:value={data.placeholder} />
+		<legend>placeholder</legend>
+		<input type="text" bind:value={data.placeholder} />
 	</fieldset>
 	<details>
 		<summary>Sample</summary>
