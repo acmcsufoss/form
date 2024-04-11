@@ -10,7 +10,11 @@
 </script>
 
 <BaseEditor bind:data>
-	<input type="color" name="color-" bind:value={data.value} />
+	<!-- Copied From BaseEditor -->
+	<fieldset>
+		<legend>Default Color</legend>
+		<input type="color" name="color-" bind:value={data.value} />
+	</fieldset>
 	<details>
 		<summary>Sample</summary>
 		<div class="question">
