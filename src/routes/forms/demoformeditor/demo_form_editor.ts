@@ -63,6 +63,15 @@ export const demoForm: Form = {
 				name: 'Select Question',
 				content: 'Pick an option',
 				options: [{ value: 'text', content: 'test' }]
+			},
+			{
+				type: QuestionType.DATE,
+				name: 'justDate',
+				content: 'Pick a date (jk you can only pick today)',
+				required: false,
+				value: '2024-04-10',
+				min: '2024-04-10',
+				max: '2024-04-10'
 			}
 		]
 	}
