@@ -81,6 +81,15 @@ export const demoForm: Form = {
 				value: '2024-04-10T11:11:11',
 				min: '2024-04-10T11:11:11',
 				max: '2024-04-10T11:11:11'
+			},
+			{
+				type: QuestionType.TIME,
+				name: 'just time',
+				content: 'just time',
+				required: false,
+				value: '11:11:11',
+				min: '11:11:11',
+				max: '11:11:11'
 			}
 		]
 	}
