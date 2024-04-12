@@ -15,6 +15,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
+		"@types/sortablejs": "^1.15.8",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
 		"eslint": "^8.28.0",
@@ -33,6 +34,7 @@
 		"@deno/kv": "^0.7.0",
 		"discord-api-types": "^0.37.67",
 		"export-to-csv": "^1.2.2",
+		"sortablejs": "^1.15.2",
 		"ulid": "^2.3.0"
 	}
 }
