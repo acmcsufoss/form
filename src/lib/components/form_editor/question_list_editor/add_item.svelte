@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { QuestionType } from '$lib/form';
 	import type { AddItemProps } from '$lib/components/list_input/list_input';
+	import { makeBlankQuestion } from './add_item';
 
 	export let addAction: AddItemProps['addAction'];
 
@@ -8,9 +9,7 @@
 
 	function add(e: MouseEvent) {
 		e.preventDefault();
-		const data = { type };
-		// TODO: Add a helper function to create a blank question object for each type.
-		addAction(data);
+		addAction(makeBlankQuestion(type));
 	}
 
 	// function makeDefault(type: QuestionType): Question {
