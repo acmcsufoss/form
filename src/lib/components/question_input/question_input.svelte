@@ -6,7 +6,7 @@
 	import DateQuestionInput from '$lib/components/questions/date/date_question_input.svelte';
 	import DatetimeQuestionInput from '$lib/components/questions/datetime/datetime_question_input.svelte';
 	import NumberQuestionInput from '$lib/components/questions/number/number_question_input.svelte';
-	import RadioGroupQuestionInput from '$lib/components/questions/radio_group/radio_group_question_input.svelte';
+	import SingleTextSelectQuestionInput from '$lib/components/questions/radio_group/radio_group_question_input.svelte';
 	import TextQuestionInput from '$lib/components/questions/text/text_question_input.svelte';
 	import TextareaQuestionInput from '$lib/components/questions/textarea/textarea_question_input.svelte';
 	import TimeQuestionInput from '$lib/components/questions/time/time_question_input.svelte';
@@ -19,7 +19,7 @@
 	{:else if $$props.type === QuestionType.TEXT}
 		<TextQuestionInput {...$$props} />
 	{:else if $$props.type === QuestionType.RADIO_GROUP}
-		<RadioGroupQuestionInput {...$$props} />
+		<SingleTextSelectQuestionInput {...$$props} />
 	{:else if $$props.type === QuestionType.NUMBER}
 		<NumberQuestionInput {...$$props} />
 	{:else if $$props.type === QuestionType.COLOR}
