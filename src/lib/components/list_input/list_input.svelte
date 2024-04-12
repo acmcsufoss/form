@@ -29,9 +29,18 @@
 			<li class="item">
 				<details>
 					<summary>
-						<span class="my-handle">🟦</span>
-						Question title ?? untitled (question type)
+						<span class="my-handle">☰</span>
+						<span class="item-content">
+							{#if item.content}
+								<!-- TODO: Make the content reactive. -->
+								{item.content}
+							{:else}
+								<em>Untitled</em>
+							{/if}
+						</span>
+						<span class="item-type">{item.type}</span>
 					</summary>
+
 					<svelte:component this={components.item} {...item} />
 					<svelte:component this={components.deleteItem} deleteAction={() => deleteItem(i)} />
 				</details>

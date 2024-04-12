@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { User, Form } from '$lib/store';
+	import type * as db from '$lib/db';
 	import QuestionInput from '$lib/components/question_input/question_input.svelte';
 
 	export let action = '';
 	export let method = 'POST';
-	export let data: Form;
-	export let user: User | undefined = undefined;
+	export let data: db.Form;
+	export let user: db.User | undefined = undefined;
 
 	if (data.questions.shuffled) {
 		data.questions.data = data.questions.data.sort(() => Math.random() - 0.5);

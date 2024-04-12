@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types';
 import * as exportToCSV from 'export-to-csv';
+import type * as db from '$lib/db';
 import { s } from '$lib/resources/store';
-import type { Submission } from '$lib/store';
 
 export const GET: RequestHandler = async ({ params }) => {
 	const submissions = await s.getSubmissionsByFormID(params.form_id);
@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ params }) => {
 };
 
 // TODO: Submissions to JSON.
-function submissionsToCSV(submissions: Submission[]): string {
+function submissionsToCSV(submissions: db.Submission[]): string {
 	const config = exportToCSV.mkConfig({ useKeysAsHeaders: true });
 	const data = exportToCSV.generateCsv(config)(
 		submissions.map((submission) => ({
