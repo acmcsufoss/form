@@ -26,9 +26,15 @@
 {#if value.length > 0}
 	<ul bind:this={ref}>
 		{#each value as item, i}
-			<li>
-				<svelte:component this={components.item} {...item} />
-				<svelte:component this={components.deleteItem} deleteAction={() => deleteItem(i)} />
+			<li class="item">
+				<details>
+					<summary>
+						<span class="my-handle">🟦</span>
+						Question title ?? untitled (question type)
+					</summary>
+					<svelte:component this={components.item} {...item} />
+					<svelte:component this={components.deleteItem} deleteAction={() => deleteItem(i)} />
+				</details>
 			</li>
 		{/each}
 	</ul>
@@ -37,3 +43,9 @@
 {/if}
 
 <svelte:component this={components.addItem} addAction={(item) => addItem(item)} />
+
+<style>
+	li {
+		outline: 2px solid red;
+	}
+</style>
