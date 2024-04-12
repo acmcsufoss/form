@@ -27,5 +27,4 @@
 	<input type="checkbox" bind:value={data.required} placeholder="Question Required" />
 </fieldset>
 
-
 <slot />
