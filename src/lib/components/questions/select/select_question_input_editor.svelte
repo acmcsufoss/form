@@ -5,15 +5,7 @@
 
 	var newOption: string = '';
 
-	let data: SelectQuestion = {
-		type: QuestionType.SELECT,
-		options: [
-			{ value: '55', content: 'Apple' },
-			{ value: '66', content: 'Bananna' }
-		],
-		name: '',
-		content: ''
-	};
+	export var data = $$props as SelectQuestion;
 
 	// let other: TextQuestion = {
 	// 	type: QuestionType.TEXT,
@@ -44,12 +36,17 @@
 	}
 </script>
 
-<form on:submit|preventDefault={addOptions}>
-	<input type="text" bind:value={newOption} /><button type="submit">➕</button>
-</form>
+<input bind:value={data.content} />
+
+<input type="text" bind:value={newOption} /><button on:click|preventDefault={addOptions}>➕</button>
 
 {#each data.options as option (option.content)}
-	<p><button on:click={() => removeOption(option)}>🗑️</button>{option.content}</p>
+	<button on:click={() => removeOption(option)}>🗑️</button><input
+		name={option.value}
+		bind:value={option.content}
+	/> <br />
 {/each}
-
-<SelectQuestionInput {data} />
+<details>
+	<summary>Sample</summary>
+	<SelectQuestionInput {data} />
+</details>

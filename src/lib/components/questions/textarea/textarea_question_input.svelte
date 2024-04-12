@@ -2,7 +2,7 @@
 	import type { TextareaQuestion } from '$lib/form';
 	import { adjustableTextareaHeight } from './adjustable_textarea_height';
 
-	const data = $$props as TextareaQuestion;
+	export let data = $$props as TextareaQuestion;
 </script>
 
 <fieldset>

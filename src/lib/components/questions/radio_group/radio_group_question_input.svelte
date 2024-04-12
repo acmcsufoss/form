@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { RadioGroupQuestion } from '$lib/form';
 
-	const data = $$props as RadioGroupQuestion;
+	export let data = $$props as RadioGroupQuestion;
 </script>
 
 <fieldset>

@@ -121,13 +121,6 @@
 		font-weight: 400;
 	}
 
-	:global(.Question-Header) {
-		font-size: 13px;
-		font-weight: bold;
-		margin-bottom: 10px;
-		font-family: 'Poppins';
-	}
-
 	:global(.question) {
 		padding: 20px 15px;
 		width: calc(100% - 30px);

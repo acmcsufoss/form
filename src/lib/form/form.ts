@@ -419,7 +419,7 @@ export interface ColorQuestion extends QuestionBase {
 	type: QuestionType.COLOR;
 
 	/**
-	 * value is the value value for the color input.
+	 * value is the value for the color input.
 	 */
 	value?: string;
 }
@@ -592,9 +592,9 @@ export interface TimezoneQuestion extends QuestionBase {
 	type: QuestionType.TIMEZONE;
 
 	/**
-	 * default is the default value for the timezone question.
+	 * value is the timezone.
 	 */
-	default?: TimezoneQuestionValue['value'];
+	value?: TimezoneQuestionValue['value'];
 }
 
 /**

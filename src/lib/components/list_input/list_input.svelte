@@ -5,11 +5,11 @@
 	export let value: ItemProps[] = [];
 
 	function deleteItem(i: number): void {
-		value.splice(i, 1);
+		value = value.filter((_, index) => index !== i);
 	}
 
 	function addItem(item: ItemProps): void {
-		value.push(item);
+		value = [...value, item];
 	}
 
 	// TODO: Make sortable items.
