@@ -2,10 +2,10 @@
 	import { onMount } from 'svelte';
 	import type { ItemProps, Components } from './list_input';
 	import { initSortable } from './sortable';
+	import type { QuestionList } from '$lib/form';
 
 	export let components: Components;
 	export let value: ItemProps[] = [];
-
 	let ref: HTMLElement;
 
 	function deleteItem(i: number): void {
@@ -40,7 +40,11 @@
 						</span>
 						<span class="item-type">{item.type}</span>
 					</summary>
-
+					<!-- 
+						<svelte:component> isnt reactive because of {...item}
+						it is possible to bind it if you can find a way to do bind:data={item}
+						that would allow it to be reactive hopefully
+					-->
 					<svelte:component this={components.item} {...item} />
 					<svelte:component this={components.deleteItem} deleteAction={() => deleteItem(i)} />
 				</details>
@@ -55,6 +59,12 @@
 
 <style>
 	li {
-		outline: 2px solid red;
+		/* outline: 2px solid red; */
+	}
+	summary {
+		margin-top: 10px;
+		padding: 2px;
+		border-radius: 5px;
+		background-color: #ffffff;
 	}
 </style>

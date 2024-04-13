@@ -89,15 +89,15 @@
 		margin: 0 auto;
 		max-width: 400px;
 	}
-	/* :global(fieldset) {
+	:global(fieldset) {
 		border: none;
 		min-width: 0;
-		margin: 0px;
+		margin: 10px;
 		padding: 0px;
-		max-width: 100%;
+		max-width: calc(100% - 20px);
 		width: 100%;
 		display: block;
-	} */
+	}
 	:global(legend) {
 		font-size: 13px;
 		font-weight: bold;
@@ -120,7 +120,7 @@
 		display: flex;
 	} */
 
-	/* :global(input) {
+	:global(input) {
 		display: flex;
-	} */
+	}
 </style>

@@ -12,19 +12,29 @@
 </script>
 
 <!-- Copied From TextQuestionInput -->
-<fieldset>
-	<legend>Question Title</legend>
-	<input type="text" bind:value={data.content} placeholder="Question Title" />
-</fieldset>
+<div>
+	<fieldset>
+		<legend>Question Title</legend>
+		<input type="text" bind:value={data.content} placeholder="Question Title" />
+	</fieldset>
 
-<fieldset>
-	<legend>Internal Question</legend>
-	<input type="text" bind:value={data.name} placeholder="Internal Question Name" />
-</fieldset>
+	<fieldset>
+		<legend>Internal Question</legend>
+		<input type="text" bind:value={data.name} placeholder="Internal Question Name" />
+	</fieldset>
 
-<fieldset>
-	<legend>Question Required</legend>
-	<input type="checkbox" bind:value={data.required} placeholder="Question Required" />
-</fieldset>
+	<fieldset>
+		<legend>Question Required</legend>
+		<input type="checkbox" bind:value={data.required} placeholder="Question Required" />
+	</fieldset>
 
-<slot />
+	<slot />
+</div>
+
+<style>
+	div {
+		background-color: #ffffff;
+		/* border: blue 10px solid; */
+		border-radius: 20px;
+	}
+</style>
