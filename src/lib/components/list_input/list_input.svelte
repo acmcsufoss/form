@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import type { ItemProps, Components } from './list_input';
-	import { initSortable } from './sortable';
 	import type { QuestionList } from '$lib/form';
 
 	export let components: Components;
@@ -16,11 +14,16 @@
 		value = [...value, item];
 	}
 
-	onMount(() => {
-		if (ref) {
-			initSortable(ref);
+	function handleMove(i: number, direction: number): void {
+		const newIndex = i + direction;
+		if (newIndex < 0 || newIndex >= value.length) {
+			return;
 		}
-	});
+
+		const item = value[i];
+		value[i] = value[newIndex];
+		value[newIndex] = item;
+	}
 </script>
 
 {#if value.length > 0}
@@ -29,7 +32,13 @@
 			<li class="item">
 				<details>
 					<summary>
-						<span class="my-handle">☰</span>
+						<span class="sort-buttons">
+							<button disabled={i === 0} on:click={() => handleMove(i, -1)}>Up</button>
+							<button disabled={i === value.length - 1} on:click={() => handleMove(i, 1)}
+								>Down</button
+							>
+						</span>
+
 						<span class="item-content">
 							{#if item.content}
 								<!-- TODO: Make the content reactive. -->
