@@ -2,6 +2,10 @@
 	import type { SelectQuestion } from '$lib/form';
 	import { QuestionType } from '$lib/form';
 	import SelectQuestionInput from './select_question_input.svelte';
+	import ListInput from '$lib/components/list_input/list_input.svelte';
+	import TextQuestionInput from '../text/text_question_input.svelte';
+	import SelectAddItem from './select_add_item.svelte';
+	import DeleteItem from '$lib/components/form_editor/question_list_editor/delete_item.svelte';
 
 	var newOption: string = '';
 
@@ -38,14 +42,22 @@
 
 <input bind:value={data.content} />
 
-<input type="text" bind:value={newOption} /><button on:click|preventDefault={addOptions}>➕</button>
+<!-- <input type="text" bind:value={newOption} /><button on:click|preventDefault={addOptions}>➕</button>
 
 {#each data.options as option (option.content)}
 	<button on:click={() => removeOption(option)}>🗑️</button><input
 		name={option.value}
 		bind:value={option.content}
 	/> <br />
-{/each}
+{/each} -->
+<ListInput
+	bind:value={data.options}
+	components={{
+		item: TextQuestionInput,
+		addItem: SelectAddItem,
+		deleteItem: DeleteItem
+	}}
+/>
 <details>
 	<summary>Sample</summary>
 	<SelectQuestionInput {data} />
