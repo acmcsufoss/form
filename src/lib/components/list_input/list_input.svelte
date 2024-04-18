@@ -54,7 +54,7 @@
 						it is possible to bind it if you can find a way to do bind:data={item}
 						that would allow it to be reactive hopefully
 					-->
-					<svelte:component this={components.item} {...item} />
+					<svelte:component this={components.item} bind:data={item} />
 					<svelte:component this={components.deleteItem} deleteAction={() => deleteItem(i)} />
 				</details>
 			</li>

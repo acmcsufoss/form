@@ -13,7 +13,7 @@
 	import TimeQuestionInputEditor from '$lib/components/questions/time/time_question_input_editor.svelte';
 	import BooleanQuestionInput from '$lib/components/questions/boolean/boolean_question_input.svelte';
 
-	export var data: any = $$props;
+	export var data: any;
 </script>
 
 <!-- TODO: Reconcile changes made in
@@ -23,32 +23,32 @@ https://github.com/acmcsufoss/form/pull/new/question-input-editor -->
 
 <!-- Uncomment finished questions to see if it renders -->
 <div>
-	{#if $$props.type === QuestionType.BOOLEAN}
+	{#if data.type === QuestionType.BOOLEAN}
 		<BooleanQuestionInputEditor bind:data />
-	{:else if $$props.type === QuestionType.COLOR}
+	{:else if data.type === QuestionType.COLOR}
 		<ColorQuestionInputEditor bind:data />
-	{:else if $$props.type === QuestionType.NUMBER}
-		<NumberQuestionInputEditor {...$$props} />
-	{:else if $$props.type === QuestionType.TEXT}
-		<TextQuestionInputEditor {...$$props} />
-	{:else if $$props.type === QuestionType.TEXTAREA}
-		<TextareaQuestionInputEditor {...$$props} />
-	{:else if $$props.type === QuestionType.DATE}
-		<DateQuestionInputEditor {...$$props} />
-	{:else if $$props.type === QuestionType.DATETIME}
-		<DatetimeQuestionInputEditor {...$$props} />
-	{:else if $$props.type === QuestionType.TIME}
-		<TimeQuestionInputEditor {...$$props} />
+	{:else if data.type === QuestionType.NUMBER}
+		<NumberQuestionInputEditor bind:data />
+	{:else if data.type === QuestionType.TEXT}
+		<TextQuestionInputEditor bind:data />
+	{:else if data.type === QuestionType.TEXTAREA}
+		<TextareaQuestionInputEditor bind:data />
+	{:else if data.type === QuestionType.DATE}
+		<DateQuestionInputEditor bind:data />
+	{:else if data.type === QuestionType.DATETIME}
+		<DatetimeQuestionInputEditor bind:data />
+	{:else if data.type === QuestionType.TIME}
+		<TimeQuestionInputEditor bind:data />
 		<!-- 
-	{:else if $$props.type === QuestionType.RADIO_GROUP}
-		<RadioGroupQuestionInputEditor {...$$props} />
+	{:else if data.type === QuestionType.RADIO_GROUP}
+		<RadioGroupQuestionInputEditor bind:data />
 	
-	{:else if $$props.type === QuestionType.AVAILABILITY}
-		<AvailabilityQuestionInputEditor {...$$props} />
+	{:else if data.type === QuestionType.AVAILABILITY}
+		<AvailabilityQuestionInputEditor bind:data />
 	
 	 -->
-	{:else if $$props.type === QuestionType.SELECT}
-		<SelectQuestionInputEditor {...$$props} />
+	{:else if data.type === QuestionType.SELECT}
+		<SelectQuestionInputEditor bind:data />
 	{/if}
 </div>
 
