@@ -6,41 +6,12 @@
 	import TextQuestionInput from '../text/text_question_input.svelte';
 	import SelectAddItem from './select_add_item.svelte';
 	import DeleteItem from '$lib/components/form_editor/question_list_editor/delete_item.svelte';
-
-	var newOption: string = '';
+	import BaseEditor from '../base/base_editor.svelte';
+	import TextQuestionInputEditor from '../text/text_question_input_editor.svelte';
+	import { AuditLogOptionsType } from 'discord-api-types/v10';
 
 	export var data = $$props as SelectQuestion;
-
-	// let other: TextQuestion = {
-	// 	type: QuestionType.TEXT,
-	// 	name: 'OOP',
-	// 	content: newOption
-	// };
-
-	function removeOption(option: unknown) {
-		var index = (data.options as unknown[]).indexOf(option);
-		if (index > -1) {
-			data.options.splice(index, 1);
-			data.options = data.options;
-		}
-	}
-
-	function addOptions() {
-		if (/^.+$/.test(newOption)) {
-			if (data.options.includes({ value: newOption, content: newOption })) {
-				console.log('Key / value already exists for this value!');
-				return;
-			} else {
-				// KV does not exist
-				data.options.push({ value: newOption, content: newOption });
-				data.options = data.options;
-				newOption = '';
-			}
-		}
-	}
 </script>
-
-<input bind:value={data.content} />
 
 <!-- <input type="text" bind:value={newOption} /><button on:click|preventDefault={addOptions}>➕</button>
 
@@ -50,15 +21,22 @@
 		bind:value={option.content}
 	/> <br />
 {/each} -->
-<ListInput
-	bind:value={data.options}
-	components={{
-		item: TextQuestionInput,
-		addItem: SelectAddItem,
-		deleteItem: DeleteItem
-	}}
-/>
-<details>
-	<summary>Sample</summary>
-	<SelectQuestionInput {data} />
-</details>
+<BaseEditor bind:data>
+	<!-- For the time being the Item is using BaseEditor 
+		   as it has two text inputs that can be for 
+			 data.options.content and data.options.value 
+					
+	-->
+	<ListInput
+		bind:value={data.options}
+		components={{
+			item: BaseEditor,
+			addItem: SelectAddItem,
+			deleteItem: DeleteItem
+		}}
+	/>
+	<details>
+		<summary>Sample</summary>
+		<SelectQuestionInput {data} />
+	</details>
+</BaseEditor>

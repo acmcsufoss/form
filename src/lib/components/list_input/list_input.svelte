@@ -41,19 +41,19 @@
 
 						<span class="item-content">
 							{#if item.content}
-								<!-- TODO: Make the content reactive. -->
 								{item.content}
 							{:else}
 								<em>Untitled</em>
 							{/if}
+							<!-- Remove item.value display after testing -->
+							{#if item.value}
+								{item.value}
+							{:else}
+								<em>No value found</em>
+							{/if}
 						</span>
 						<span class="item-type">{item.type}</span>
 					</summary>
-					<!-- 
-						<svelte:component> isnt reactive because of {...item}
-						it is possible to bind it if you can find a way to do bind:data={item}
-						that would allow it to be reactive hopefully
-					-->
 					<svelte:component this={components.item} bind:data={item} />
 					<svelte:component this={components.deleteItem} deleteAction={() => deleteItem(i)} />
 				</details>

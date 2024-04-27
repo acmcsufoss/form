@@ -7,11 +7,12 @@
 	function add(e: MouseEvent) {
 		e.preventDefault();
 		addAction({
-			value: '',
-			content: ''
+			content: '',
+			value: ''
 		});
 	}
 
+	function makeTextInput() {}
 	// function makeDefault(type: QuestionType): Question {
 	// 	switch...
 	// }

@@ -42,11 +42,9 @@ https://github.com/acmcsufoss/form/pull/new/question-input-editor -->
 		<!-- 
 	{:else if data.type === QuestionType.RADIO_GROUP}
 		<RadioGroupQuestionInputEditor bind:data />
-	
+	 -->
 	{:else if data.type === QuestionType.AVAILABILITY}
 		<AvailabilityQuestionInputEditor bind:data />
-	
-	 -->
 	{:else if data.type === QuestionType.SELECT}
 		<SelectQuestionInputEditor bind:data />
 	{/if}

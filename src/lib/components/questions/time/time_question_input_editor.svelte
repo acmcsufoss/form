@@ -6,6 +6,7 @@
 	export let data = $$props as TimeQuestion;
 </script>
 
+<!-- TODO: Fix time, Its min and max are just not working right now -->
 <BaseEditor bind:data>
 	<fieldset>
 		<legend>Min Time</legend>
@@ -17,7 +18,7 @@
 	</fieldset>
 	<fieldset>
 		<legend>Default Time</legend>
-		<input type="time" bind:value={data.value} />
+		<input type="time" bind:value={data.value} min={data.min} max={data.max} />
 	</fieldset>
 	<details>
 		<summary>Sample</summary>
