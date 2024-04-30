@@ -26,15 +26,6 @@
 </script>
 
 <BaseEditor bind:data>
-	<!-- <SelectQuestionInput
-		name={'style'}
-		content={'Choose a Style'}
-		options={[
-			{ content: 'checkbox', value: 'checkbox' },
-			{ content: 'radio', value: 'radio' }
-		]}
-		bind:value={data.style}
-	/> -->
 	<fieldset>
 		<legend>Choose a Style</legend>
 		<select name={'style'} bind:value={data.style}>
@@ -43,10 +34,9 @@
 			{/each}
 		</select>
 	</fieldset>
-	<details>
-		<summary>Sample</summary>
+	<svelte:fragment slot="preview">
 		<div class="question">
 			<BooleanQuestionInput bind:data />
 		</div>
-	</details>
+	</svelte:fragment>
 </BaseEditor>

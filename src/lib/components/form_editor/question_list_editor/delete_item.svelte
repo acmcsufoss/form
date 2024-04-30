@@ -8,3 +8,10 @@
 <!-- With the enter key still inactive its very easy to accidentally delete a question. -->
 <!-- Some inputs may also use an enter such as text area if the user writes mutliple paragraphs -->
 <button on:click={() => deleteAction()}>Delete</button>
+
+<style>
+	button {
+		position: absolute;
+		transform: translateX(-140%) translateY(-80%);
+	}
+</style>
