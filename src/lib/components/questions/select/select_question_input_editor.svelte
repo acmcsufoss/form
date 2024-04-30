@@ -27,6 +27,7 @@
 			 data.options.content and data.options.value 
 					
 	-->
+	<h4>Edit Choices</h4>
 	<ListInput
 		bind:value={data.options}
 		components={{

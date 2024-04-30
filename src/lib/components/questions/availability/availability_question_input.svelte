@@ -2,12 +2,17 @@
 	import type { AvailablityQuestion } from '$lib/form';
 
 	export let data = $$props as AvailablityQuestion;
+	// Computed Logic to precompute data ranges array.
 </script>
 
 <fieldset>
 	<legend>{data.content}</legend>
 	<div class="datetime-range">
 		{#each Array.from({ length: data.maxDatetimeRanges ?? 1 }, (_, i) => i) as i}
+			<!-- {@const { startValue, endValue } = {
+				startValue: data.value?.[i][0],
+				endValue: data.value?.[i][1]
+			}} -->
 			<div class="datetime-range-input">
 				<input
 					type="datetime-local"

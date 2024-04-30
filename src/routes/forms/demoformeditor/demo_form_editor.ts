@@ -90,6 +90,13 @@ export const demoForm: Form = {
 				value: '11:11:11',
 				min: '11:11:11',
 				max: '11:11:11'
+			},
+			{
+				type: QuestionType.AVAILABILITY,
+				name: 'availability',
+				content: 'Availability Question?',
+				required: false,
+				value: [['2024-04-10T11:11:11', '2024-04-10T11:11:12']]
 			}
 		]
 	}

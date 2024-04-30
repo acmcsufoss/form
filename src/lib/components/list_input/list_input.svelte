@@ -76,4 +76,11 @@
 		border-radius: 5px;
 		background-color: #ffffff;
 	}
+	li {
+		list-style-type: none;
+	}
+	ul {
+		margin: 0px;
+		padding: 0px;
+	}
 </style>

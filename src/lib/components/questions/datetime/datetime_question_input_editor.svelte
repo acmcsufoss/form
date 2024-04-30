@@ -29,7 +29,7 @@
 	<details>
 		<summary>Sample</summary>
 		<div class="question">
-			<DatetimeQuestionInput bind:data />
+			<DatetimeQuestionInput {data} />
 		</div>
 	</details>
 </BaseEditor>
