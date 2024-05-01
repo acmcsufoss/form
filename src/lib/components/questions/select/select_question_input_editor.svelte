@@ -9,6 +9,7 @@
 	import BaseEditor from '../base/base_editor.svelte';
 	import TextQuestionInputEditor from '../text/text_question_input_editor.svelte';
 	import { AuditLogOptionsType } from 'discord-api-types/v10';
+	import ChoiceEditor from '../base/choice_editor.svelte';
 
 	export var data = $$props as SelectQuestion;
 </script>
@@ -31,7 +32,7 @@
 	<ListInput
 		bind:value={data.options}
 		components={{
-			item: BaseEditor,
+			item: ChoiceEditor,
 			addItem: SelectAddItem,
 			deleteItem: DeleteItem
 		}}

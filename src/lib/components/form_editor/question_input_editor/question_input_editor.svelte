@@ -39,10 +39,8 @@ https://github.com/acmcsufoss/form/pull/new/question-input-editor -->
 		<DatetimeQuestionInputEditor bind:data />
 	{:else if data.type === QuestionType.TIME}
 		<TimeQuestionInputEditor bind:data />
-		<!-- 
 	{:else if data.type === QuestionType.RADIO_GROUP}
 		<RadioGroupQuestionInputEditor bind:data />
-	 -->
 	{:else if data.type === QuestionType.AVAILABILITY}
 		<AvailabilityQuestionInputEditor bind:data />
 	{:else if data.type === QuestionType.SELECT}

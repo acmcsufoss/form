@@ -212,7 +212,10 @@ export interface RadioGroupQuestion extends QuestionBase {
 	 * TODO: Update to choices: { value: string; content: string; }[].
 	 * This will allow for custom choice values. Replace choiceIndex with value.
 	 */
-	choices: string[];
+	choices: {
+		value: string;
+		content: string;
+	}[];
 
 	/**
 	 * allowCustomChoice is whether or not the form field has a custom choice.
