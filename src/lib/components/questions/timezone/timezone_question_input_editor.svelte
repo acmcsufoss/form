@@ -11,8 +11,7 @@
 		<legend>Defualt Timezone ID</legend>
 		<input type="text" bind:value={data.value} />
 	</fieldset>
-	<details>
-		<summary> Time </summary>
+	<svelte:fragment slot="preview">
 		<TimezoneQuestionInput bind:data />
-	</details>
+	</svelte:fragment>
 </BaseEditor>

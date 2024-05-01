@@ -15,10 +15,9 @@
 		<legend>Default Color</legend>
 		<input type="color" name="color-" bind:value={data.value} />
 	</fieldset>
-	<details>
-		<summary>Sample</summary>
+	<svelte:fragment slot="preview">
 		<div class="question">
 			<ColorQuestionInput bind:data />
 		</div>
-	</details>
+	</svelte:fragment>
 </BaseEditor>

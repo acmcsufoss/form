@@ -36,8 +36,9 @@
 			deleteItem: DeleteItem
 		}}
 	/>
-	<details>
-		<summary>Sample</summary>
-		<SelectQuestionInput {data} />
-	</details>
+	<svelte:fragment slot="preview">
+		<div class="question">
+			<SelectQuestionInput {data} />
+		</div>
+	</svelte:fragment>
 </BaseEditor>

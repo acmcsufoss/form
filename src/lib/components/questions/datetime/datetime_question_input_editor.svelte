@@ -26,10 +26,9 @@
 		<legend>Default Date/Time</legend>
 		<input type="datetime-local" bind:value={data.value} />
 	</fieldset>
-	<details>
-		<summary>Sample</summary>
+	<svelte:fragment slot="preview">
 		<div class="question">
 			<DatetimeQuestionInput {data} />
 		</div>
-	</details>
+	</svelte:fragment>
 </BaseEditor>

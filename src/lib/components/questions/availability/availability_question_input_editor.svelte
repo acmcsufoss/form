@@ -32,9 +32,7 @@
 	</fieldset>
 	<!-- TODO: Make the avaibilityQuestion Input here be the default value for the sample -->
 	<AvailabilityQuestionInput bind:data />
-	<details>
-		<summary>Sample</summary>
-
+	<svelte:fragment slot="preview">
 		<AvailabilityQuestionInput {data} />
-	</details>
+	</svelte:fragment>
 </BaseEditor>

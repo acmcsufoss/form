@@ -29,8 +29,9 @@
 		<legend>placeholder</legend>
 		<input type="text" bind:value={data.placeholder} />
 	</fieldset>
-	<details>
-		<summary>Sample</summary>
-		<NumberQuestionInput bind:data />
-	</details>
+	<svelte:fragment slot="preview">
+		<div class="question">
+			<NumberQuestionInput bind:data />
+		</div>
+	</svelte:fragment>
 </BaseEditor>

@@ -43,10 +43,9 @@
 	<fieldset>
 		<legend>Choices (COMMING SOON)</legend>
 	</fieldset>
-	<details>
-		<summary>Sample</summary>
+	<svelte:fragment slot="preview">
 		<div class="question">
 			<TextQuestionInput bind:data />
 		</div>
-	</details>
+	</svelte:fragment>
 </BaseEditor>

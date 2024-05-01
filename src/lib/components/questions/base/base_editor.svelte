@@ -13,7 +13,12 @@
 
 <!-- Copied From TextQuestionInput -->
 <div class="tabs">
-	<input type="radio" name="tabs" id="tab-01-{data.name}:{data.type}" checked={true} />
+	<input
+		type="radio"
+		name="tabs-{data.name}:{data.type}"
+		id="tab-01-{data.name}:{data.type}"
+		checked={true}
+	/>
 	<label for="tab-01-{data.name}:{data.type}">Tab 1</label>
 	<div class="tab-content">
 		<fieldset>
@@ -35,7 +40,7 @@
 		<slot />
 	</div>
 
-	<input type="radio" name="tabs" id="tab-02-{data.name}:{data.type}" />
+	<input type="radio" name="tabs-{data.name}:{data.type}" id="tab-02-{data.name}:{data.type}" />
 	<label for="tab-02-{data.name}:{data.type}">Tab 2</label>
 	<div class="tab-content">
 		<slot name="preview" />

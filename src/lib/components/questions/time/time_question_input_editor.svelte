@@ -20,10 +20,9 @@
 		<legend>Default Time</legend>
 		<input type="time" bind:value={data.value} min={data.min} max={data.max} />
 	</fieldset>
-	<details>
-		<summary>Sample</summary>
+	<svelte:fragment slot="preview">
 		<div class="question">
 			<TimeQuestionInput bind:data />
 		</div>
-	</details>
+	</svelte:fragment>
 </BaseEditor>
