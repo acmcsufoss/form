@@ -19,7 +19,7 @@
 		id="tab-01-{data.name}:{data.type}"
 		checked={true}
 	/>
-	<label for="tab-01-{data.name}:{data.type}">Tab 1</label>
+	<label for="tab-01-{data.name}:{data.type}">Editor</label>
 	<div class="tab-content">
 		<fieldset>
 			<legend>Question Title</legend>
@@ -41,7 +41,7 @@
 	</div>
 
 	<input type="radio" name="tabs-{data.name}:{data.type}" id="tab-02-{data.name}:{data.type}" />
-	<label for="tab-02-{data.name}:{data.type}">Tab 2</label>
+	<label for="tab-02-{data.name}:{data.type}">Preview</label>
 	<div class="tab-content">
 		<slot name="preview" />
 	</div>
@@ -91,7 +91,7 @@
 		--primary-text-color: #222;
 		--secondary-text-color: #fff;
 		--primary-bg-color: #222;
-		--secondary-bg-color: #fff;
+		--secondary-bg-color: #88cdd8;
 		--tertiary-bg-color: #ddd;
 	}
 
@@ -121,13 +121,12 @@
 		padding: 1rem 2rem;
 		transition: background ease 0.3s;
 		width: 100%;
+		transform: translateX(10%);
 	}
 
 	.tabs .tab-content {
-		background: var(--secondary-bg-color);
 		display: none;
 		flex-grow: 1;
-		padding: 1rem;
 		width: 100%;
 	}
 
