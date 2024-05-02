@@ -12,6 +12,6 @@
 <style>
 	button {
 		position: absolute;
-		transform: translateX(-140%) translateY(-80%);
+		transform: translateX(-120%) translateY(-250%);
 	}
 </style>

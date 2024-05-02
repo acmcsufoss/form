@@ -71,14 +71,13 @@
 		/* outline: 2px solid red; */
 	}
 	summary {
-		margin: 10px 0px;
-		padding: 2px;
+		margin: 15px 0px;
+		padding: 10px;
 		border-radius: 5px;
 		background-color: #ffffff;
 	}
 	details {
 		padding: 0;
-		background: transparent;
 	}
 	li {
 		list-style-type: none;

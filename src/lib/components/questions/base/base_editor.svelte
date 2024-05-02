@@ -82,7 +82,7 @@
 	}
 	:global(details .sort-buttons) {
 		position: absolute;
-		transform: translateX(-140%) translateY(-80%);
+		transform: translateX(-140%) translateY(-50%);
 		display: flex;
 		flex-direction: column;
 	}
@@ -106,7 +106,6 @@
 	.tabs {
 		display: flex;
 		flex-wrap: wrap;
-		margin: 2rem auto;
 		max-width: 70ch;
 	}
 
