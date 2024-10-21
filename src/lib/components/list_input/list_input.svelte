@@ -67,9 +67,9 @@
 <svelte:component this={components.addItem} addAction={(item) => addItem(item)} />
 
 <style>
-	li {
-		/* outline: 2px solid red; */
-	}
+	/* li {
+		outline: 2px solid red;
+	} */
 	summary {
 		margin: 15px 0px;
 		padding: 10px;

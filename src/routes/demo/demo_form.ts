@@ -30,7 +30,12 @@ export const demoForm: Form = {
 				content: 'please pick one',
 				required: false,
 				allowCustomChoice: false,
-				choices: ['choice 1', 'choice 2', 'choice 3', 'choice 4']
+				choices: [
+					{ value: 'choice1', content: 'choice 1' },
+					{ value: 'choice2', content: 'choice 2' },
+					{ value: 'choice3', content: 'choice 3' },
+					{ value: 'choice4', content: 'choice 4' }
+				]
 			},
 			{
 				type: QuestionType.COLOR,

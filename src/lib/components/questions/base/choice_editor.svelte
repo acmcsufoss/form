@@ -16,5 +16,5 @@
 
 <fieldset>
 	<legend>Choice internal value</legend>
-	<input type="text" bind:value={data.value} placeholder="Internal Question Name" />
+	<input type="text" bind:value={data.name} placeholder="Internal Question Name" />
 </fieldset>
