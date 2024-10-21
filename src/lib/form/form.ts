@@ -212,7 +212,10 @@ export interface RadioGroupQuestion extends QuestionBase {
 	 * TODO: Update to choices: { value: string; content: string; }[].
 	 * This will allow for custom choice values. Replace choiceIndex with value.
 	 */
-	choices: string[];
+	choices: {
+		value: string;
+		content: string;
+	}[];
 
 	/**
 	 * allowCustomChoice is whether or not the form field has a custom choice.
@@ -419,7 +422,7 @@ export interface ColorQuestion extends QuestionBase {
 	type: QuestionType.COLOR;
 
 	/**
-	 * value is the value value for the color input.
+	 * value is the value for the color input.
 	 */
 	value?: string;
 }
@@ -592,9 +595,9 @@ export interface TimezoneQuestion extends QuestionBase {
 	type: QuestionType.TIMEZONE;
 
 	/**
-	 * default is the default value for the timezone question.
+	 * value is the timezone.
 	 */
-	default?: TimezoneQuestionValue['value'];
+	value?: TimezoneQuestionValue['value'];
 }
 
 /**

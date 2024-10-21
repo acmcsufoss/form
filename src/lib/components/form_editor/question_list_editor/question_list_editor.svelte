@@ -10,12 +10,12 @@
 	export let value: QuestionList;
 </script>
 
-<QuestionInput
+<!-- <QuestionInput
 	type={QuestionType.BOOLEAN}
 	name="shuffled"
 	content="Shuffled"
 	bind:value={value.shuffled}
-/>
+/> -->
 
 <!-- TODO: Figure out how to handle indexed names for the items in the list if needed. -->
 

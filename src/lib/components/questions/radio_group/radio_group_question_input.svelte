@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { RadioGroupQuestion } from '$lib/form';
 
-	const data = $$props as RadioGroupQuestion;
+	export let data = $$props as RadioGroupQuestion;
 </script>
 
 <fieldset>
@@ -12,10 +12,10 @@
 				type="radio"
 				required={data.required}
 				name={data.name}
-				id={choice}
+				id={choice.value}
 				checked={data.choiceIndex !== undefined && i === data.choiceIndex}
 			/>
-			<label for={choice}>{choice}</label>
+			<label for={choice.value}>{choice.content}</label>
 		</div>
 	{/each}
 	{#if data.allowCustomChoice}

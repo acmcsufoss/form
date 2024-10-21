@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { BooleanQuestion } from '$lib/form';
 
-	const data = $$props as BooleanQuestion;
+	export var data = $$props as BooleanQuestion;
 </script>
 
 <fieldset>

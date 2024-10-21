@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { DateQuestion } from '$lib/form';
 
-	const data = $$props as DateQuestion;
+	export let data = $$props as DateQuestion;
 </script>
 
 <fieldset>
@@ -12,6 +12,6 @@
 		required={data.required}
 		min={data.min}
 		max={data.max}
-		value={data.value}
+		bind:value={data.value}
 	/>
 </fieldset>

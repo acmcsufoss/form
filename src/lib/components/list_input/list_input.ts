@@ -1,6 +1,6 @@
 import type { ComponentType, SvelteComponent } from 'svelte';
 
-export type ItemProps = object;
+export type ItemProps = Record<PropertyKey, unknown>;
 
 export interface AddItemProps {
 	addAction(item: ItemProps): void;

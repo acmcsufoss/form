@@ -31,10 +31,9 @@ export const demoForm: Form = {
 				required: false,
 				allowCustomChoice: false,
 				choices: [
-					{ value: 'choice1', content: 'choice 1' },
-					{ value: 'choice2', content: 'choice 2' },
-					{ value: 'choice3', content: 'choice 3' },
-					{ value: 'choice4', content: 'choice 4' }
+					{ content: 'choice 1', value: 'choice 1 value' },
+					{ content: 'choice 2', value: 'choice 2 value' },
+					{ content: 'choice 3', value: 'choice 3 value' }
 				]
 			},
 			{
@@ -62,6 +61,46 @@ export const demoForm: Form = {
 				maxLength: 1_000,
 				placeholder: 'write here',
 				value: ''
+			},
+			{
+				type: QuestionType.SELECT,
+				name: 'Select Question',
+				content: 'Pick an option',
+				options: [{ value: 'text', content: 'test' }]
+			},
+			{
+				type: QuestionType.DATE,
+				name: 'justDate',
+				content: 'Pick a date (jk you can only pick today)',
+				required: false,
+				value: '2024-04-10',
+				min: '2024-04-10',
+				max: '2024-04-10'
+			},
+			{
+				type: QuestionType.DATETIME,
+				name: 'justDate',
+				content: 'Pick a date (jk you can only pick today)',
+				required: false,
+				value: '2024-04-10T11:11:11',
+				min: '2024-04-10T11:11:11',
+				max: '2024-04-10T11:11:11'
+			},
+			{
+				type: QuestionType.TIME,
+				name: 'just time',
+				content: 'just time',
+				required: false,
+				value: '11:11:11',
+				min: '11:11:11',
+				max: '11:11:11'
+			},
+			{
+				type: QuestionType.AVAILABILITY,
+				name: 'availability',
+				content: 'Availability Question?',
+				required: false,
+				value: [['2024-04-10T11:11:11', '2024-04-10T11:11:12']]
 			}
 		]
 	}

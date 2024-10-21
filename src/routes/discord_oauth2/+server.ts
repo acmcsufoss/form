@@ -1,5 +1,5 @@
 import type { RequestHandler } from './$types';
-import type { CreateUserRequest } from '$lib/store';
+import type * as db from '$lib/db';
 import {
 	DISCORD_REDIRECT_URI,
 	DISCORD_CLIENT_ID,
@@ -81,7 +81,7 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 	return redirect;
 };
 
-function fromDiscordUser(sessionID: string, discordUser: DiscordUser): CreateUserRequest {
+function fromDiscordUser(sessionID: string, discordUser: DiscordUser): db.CreateUserRequest {
 	return {
 		sessionID,
 		discordUserID: discordUser.id,
