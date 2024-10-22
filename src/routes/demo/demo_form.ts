@@ -4,6 +4,8 @@ import { QuestionType } from '$lib/form';
 // TODO: Add more questions to cover all question types.
 export const demoForm: Form = {
 	id: 'demo_form_id',
+	title: 'Demo form',
+	description: 'testing for user side form features',
 	discordChannelID: '',
 	startDate: '',
 	endDate: null,
@@ -30,7 +32,11 @@ export const demoForm: Form = {
 				content: 'please pick one',
 				required: false,
 				allowCustomChoice: false,
-				choices: ['choice 1', 'choice 2', 'choice 3', 'choice 4']
+				choices: [
+					{ value: 'option 1', content: 'option 1' },
+					{ value: 'option 2', content: 'option 2' },
+					{ value: 'option 3', content: 'option 3' }
+				]
 			},
 			{
 				type: QuestionType.COLOR,
@@ -57,6 +63,17 @@ export const demoForm: Form = {
 				maxLength: 1_000,
 				placeholder: 'write here',
 				value: ''
+			},
+			{
+				type: QuestionType.SELECT,
+				name: 'Select Question',
+				content: 'select one',
+				required: false,
+				options: [
+					{ value: 'option 1', content: 'option 1' },
+					{ value: 'option 2', content: 'option 2' },
+					{ value: 'option 3', content: 'option 3' }
+				]
 			}
 		]
 	}
