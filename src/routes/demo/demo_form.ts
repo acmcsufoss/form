@@ -33,9 +33,10 @@ export const demoForm: Form = {
 				required: false,
 				allowCustomChoice: false,
 				choices: [
-					{ value: 'option 1', content: 'option 1' },
-					{ value: 'option 2', content: 'option 2' },
-					{ value: 'option 3', content: 'option 3' }
+					{ value: 'choice1', content: 'choice 1' },
+					{ value: 'choice2', content: 'choice 2' },
+					{ value: 'choice3', content: 'choice 3' },
+					{ value: 'choice4', content: 'choice 4' }
 				]
 			},
 			{
