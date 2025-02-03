@@ -33,9 +33,12 @@
 				<details>
 					<summary>
 						<span class="sort-buttons">
-							<button disabled={i === 0} on:click={() => handleMove(i, -1)}>Up</button>
-							<button disabled={i === value.length - 1} on:click={() => handleMove(i, 1)}
-								>Down</button
+							<button type="button" disabled={i === 0} on:click={() => handleMove(i, -1)}>Up</button
+							>
+							<button
+								type="button"
+								disabled={i === value.length - 1}
+								on:click={() => handleMove(i, 1)}>Down</button
 							>
 						</span>
 
