@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { DateQuestion, DatetimeQuestion } from '$lib/form';
+	import type { DatetimeQuestion } from '$lib/form';
 	import BaseEditor from '../base/base_editor.svelte';
 	import DatetimeQuestionInput from './datetime_question_input.svelte';
 	export let data = $$props as DatetimeQuestion;

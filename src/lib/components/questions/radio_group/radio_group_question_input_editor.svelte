@@ -1,11 +1,9 @@
 <script lang="ts">
 	import type { RadioGroupQuestion } from '$lib/form';
-	import { QuestionType } from '$lib/form';
 	import RadioGroupQuestionInput from './radio_group_question_input.svelte';
 	import ListInput from '$lib/components/list_input/list_input.svelte';
 	import DeleteItem from '$lib/components/form_editor/question_list_editor/delete_item.svelte';
 	import BaseEditor from '../base/base_editor.svelte';
-	import TextQuestionInputEditor from '../text/text_question_input_editor.svelte';
 	import RadioGroupAddItem from './radio_group_add_item.svelte';
 	import ChoiceEditor from '../base/choice_editor.svelte';
 	// import { AuditLogOptionsType } from 'discord-api-types/v10';

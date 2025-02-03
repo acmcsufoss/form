@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { ItemProps, Components } from './list_input';
-	import type { QuestionList } from '$lib/form';
 
 	export let components: Components;
 	export let value: ItemProps[] = [];

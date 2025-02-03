@@ -3,19 +3,18 @@
 	import { QuestionType, type QuestionList } from '$lib/form';
 	import QuestionInput from '$lib/components/question_input/question_input.svelte';
 	import QuestionListEditor from './question_list_editor/question_list_editor.svelte';
-	import BaseEditor from '../questions/base/base_editor.svelte';
-	import BooleanQuestionInputEditor from '../questions/boolean/boolean_question_input_editor.svelte';
-	import QuestionInputEditor from './question_input_editor/question_input_editor.svelte';
 
 	export let action: string;
 	export let method: string;
 	export let value: Form;
 
-	var questions: any = value.questions;
+	var questions: QuestionList = value.questions;
 	// TODO: Add discord data: channels, threads, guilds, roles.
-	function addItem() {
-		questions.append();
-	}
+
+	// Uncalled function so commented out for now.
+	// function addItem() {
+	// 	questions.append();
+	// }
 	function handleSumbit(event: MouseEvent) {
 		event.preventDefault();
 		console.log(questions);

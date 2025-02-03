@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Question } from '$lib/form';
 	import { QuestionType } from '$lib/form';
 	import AvailabilityQuestionInputEditor from '$lib/components/questions/availability/availability_question_input_editor.svelte';
 	import BooleanQuestionInputEditor from '$lib/components/questions/boolean/boolean_question_input_editor.svelte';
@@ -11,9 +12,8 @@
 	import TextQuestionInputEditor from '$lib/components/questions/text/text_question_input_editor.svelte';
 	import TextareaQuestionInputEditor from '$lib/components/questions/textarea/textarea_question_input_editor.svelte';
 	import TimeQuestionInputEditor from '$lib/components/questions/time/time_question_input_editor.svelte';
-	import BooleanQuestionInput from '$lib/components/questions/boolean/boolean_question_input.svelte';
 
-	export var data: any;
+	export var data: Question;
 </script>
 
 <!-- TODO: Reconcile changes made in

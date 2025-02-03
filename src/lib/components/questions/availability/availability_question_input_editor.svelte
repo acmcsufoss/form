@@ -1,15 +1,7 @@
 <script lang="ts">
 	import type { AvailablityQuestion } from '$lib/form';
-	import { QuestionType } from '$lib/form';
-	import ListInput from '$lib/components/list_input/list_input.svelte';
-	import TextQuestionInput from '../text/text_question_input.svelte';
-	import DeleteItem from '$lib/components/form_editor/question_list_editor/delete_item.svelte';
 	import BaseEditor from '../base/base_editor.svelte';
-	import TextQuestionInputEditor from '../text/text_question_input_editor.svelte';
 	import AvailabilityQuestionInput from './availability_question_input.svelte';
-	import DatetimeQuestionInput from '../datetime/datetime_question_input.svelte';
-	import AddItem from '$lib/components/form_editor/question_list_editor/add_item.svelte';
-	// import AvailabilityAddItem from './availability_add_item.svelte';
 
 	export var data = $$props as AvailablityQuestion;
 </script>

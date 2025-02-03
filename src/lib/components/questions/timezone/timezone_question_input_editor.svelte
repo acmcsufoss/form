@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { TimezoneQuestion } from '$lib/form';
-	import { TIMEZONES } from '$lib/timezones';
 	import BaseEditor from '../base/base_editor.svelte';
 	import TimezoneQuestionInput from './timezone_question_input.svelte';
 	export let data = $$props as TimezoneQuestion;

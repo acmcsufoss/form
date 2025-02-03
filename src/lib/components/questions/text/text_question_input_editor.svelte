@@ -1,6 +1,6 @@
 <script lang="ts">
 	import BaseEditor from '../base/base_editor.svelte';
-	import type { QuestionType, TextQuestion } from '$lib/form';
+	import type { TextQuestion } from '$lib/form';
 	import TextQuestionInput from './text_question_input.svelte';
 
 	export var data = $$props as TextQuestion;

@@ -1,10 +1,6 @@
 <script lang="ts">
-	import type { QuestionType, BooleanQuestion, SelectQuestion } from '$lib/form';
+	import type { BooleanQuestion } from '$lib/form';
 	import BooleanQuestionInput from './boolean_question_input.svelte';
-	import input from '../text/text_question_input.svelte';
-	import TextareaQuestionInput from '../textarea/textarea_question_input.svelte';
-	import SelectQuestionInput from '../select/select_question_input.svelte';
-	import { drafts } from '$lib/stores/drafts/drafts';
 	import BaseEditor from '../base/base_editor.svelte';
 	export let data: BooleanQuestion;
 	/* 

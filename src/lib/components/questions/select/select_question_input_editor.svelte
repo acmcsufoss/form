@@ -1,14 +1,10 @@
 <script lang="ts">
 	import type { SelectQuestion } from '$lib/form';
-	import { QuestionType } from '$lib/form';
 	import SelectQuestionInput from './select_question_input.svelte';
 	import ListInput from '$lib/components/list_input/list_input.svelte';
-	import TextQuestionInput from '../text/text_question_input.svelte';
 	import SelectAddItem from './select_add_item.svelte';
 	import DeleteItem from '$lib/components/form_editor/question_list_editor/delete_item.svelte';
 	import BaseEditor from '../base/base_editor.svelte';
-	import TextQuestionInputEditor from '../text/text_question_input_editor.svelte';
-	import { AuditLogOptionsType } from 'discord-api-types/v10';
 	import ChoiceEditor from '../base/choice_editor.svelte';
 
 	export var data = $$props as SelectQuestion;

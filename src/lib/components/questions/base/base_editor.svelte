@@ -1,8 +1,5 @@
 <script lang="ts">
-	import type { QuestionBase, TextQuestion } from '$lib/form';
-	import { QuestionType } from '$lib/form';
-	import BooleanQuestionInput from '../boolean/boolean_question_input.svelte';
-	import TextQuestionInput from '../text/text_question_input.svelte';
+	import type { QuestionBase } from '$lib/form';
 
 	/*  type: QuestionType;
 	    name: string;
@@ -13,6 +10,9 @@
 
 <!-- Copied From TextQuestionInput -->
 <div class="tabs">
+	<!-- TODO: Fix Issue where if radio inputs have the same name they are part of the same group and cannot be selected
+						 This means that if two questions have the same name then only one of the tabs can be selected at a time.
+					   -->
 	<input
 		type="radio"
 		name="tabs-{data.name}:{data.type}"
@@ -95,13 +95,13 @@
 		--tertiary-bg-color: #ddd;
 	}
 
-	body {
+	/* body {
 		background-color: var(--tertiary-bg-color);
 		color: var(--primary-text-color);
 		font-family: 'Rubik', serif;
 		font-size: 1.2rem;
 		line-height: 1.6;
-	}
+	} */
 
 	.tabs {
 		display: flex;
