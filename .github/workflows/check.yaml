@@ -1,5 +1,3 @@
-name: Check
-
 on:
   workflow_dispatch:
   push:
