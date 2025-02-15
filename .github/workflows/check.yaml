@@ -1,3 +1,5 @@
+name: Check
+
 on:
   workflow_dispatch:
   push:
@@ -50,10 +52,6 @@ jobs:
   lint:
     name: lint
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [21.x]
 
     steps:
       - name: Checkout
