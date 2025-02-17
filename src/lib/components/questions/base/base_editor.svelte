@@ -27,8 +27,8 @@
 		</fieldset>
 
 		<fieldset>
-			<legend>Internal Question</legend>
-			<input type="text" bind:value={data.name} placeholder="Internal Question Name" />
+			<legend>Question ID</legend>
+			<input type="text" bind:value={data.name} placeholder="Question ID" />
 		</fieldset>
 
 		<fieldset>
