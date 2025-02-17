@@ -32,4 +32,4 @@
 	<option value={QuestionType.AVAILABILITY}>Availability</option>
 </select>
 
-<button on:click={add}>Add</button>
+<button type="button" on:click={add}>Add</button>
