@@ -11,6 +11,7 @@
 	import TextareaQuestionInput from '$lib/components/questions/textarea/textarea_question_input.svelte';
 	import TimeQuestionInput from '$lib/components/questions/time/time_question_input.svelte';
 	import SelectQuestionInput from '$lib/components/questions/select/select_question_input.svelte';
+	import TimezoneQuestionInput from '../questions/timezone/timezone_question_input.svelte';
 </script>
 
 <div class="question">
@@ -36,6 +37,8 @@
 		<TimeQuestionInput {...$$props} />
 	{:else if $$props.type === QuestionType.SELECT}
 		<SelectQuestionInput {...$$props} />
+	{:else if $$props.type === QuestionType.TIMEZONE}
+		<TimezoneQuestionInput {...$$props} />
 	{/if}
 </div>
 

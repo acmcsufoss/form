@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Form } from '$lib/store';
-	import { QuestionType } from '$lib/form';
+	import type { Form } from '$lib/form';
+	import { QuestionType, type QuestionList } from '$lib/form';
 	import QuestionInput from '$lib/components/question_input/question_input.svelte';
 	import QuestionListEditor from './question_list_editor/question_list_editor.svelte';
 
@@ -8,7 +8,17 @@
 	export let method: string;
 	export let value: Form;
 
+	var questions: QuestionList = value.questions;
 	// TODO: Add discord data: channels, threads, guilds, roles.
+
+	// Uncalled function so commented out for now.
+	// function addItem() {
+	// 	questions.append();
+	// }
+	function handleSumbit(event: MouseEvent) {
+		event.preventDefault();
+		console.log(questions);
+	}
 </script>
 
 <form {action} {method}>
@@ -65,9 +75,8 @@
 		bind:value={value.questions.shuffled}
 	/>
 
-	<QuestionListEditor bind:value={value.questions} />
-
-	<button type="submit">Submit</button>
+	<QuestionListEditor bind:value={questions} />
+	<button type="submit" on:click={handleSumbit}>Submit</button>
 </form>
 
 <style>
@@ -78,5 +87,39 @@
 		align-items: center;
 		margin: 0 auto;
 		max-width: 400px;
+	}
+	:global(fieldset) {
+		border: none;
+		min-width: 0;
+		margin: 10px;
+		padding: 0px;
+		max-width: calc(100% - 20px);
+		width: 100%;
+		display: block;
+	}
+	:global(legend) {
+		font-size: 13px;
+		font-weight: bold;
+		margin-bottom: 10px;
+		font-family: 'Poppins';
+	}
+
+	:global(.question) {
+		padding: 20px 15px;
+		width: calc(100% - 30px);
+		margin: 10px auto;
+		background-color: #ffffff;
+		border-radius: 10px;
+		border-color: #c5c8c9;
+		border-width: 0;
+		border-style: solid;
+	}
+
+	/* :global(label) {
+		display: flex;
+	} */
+
+	:global(input) {
+		display: flex;
 	}
 </style>
