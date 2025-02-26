@@ -34,7 +34,8 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 		return makeRedirect(
 			makeOAuth2URL({
 				clientID: DISCORD_CLIENT_ID,
-				redirectURI: DISCORD_REDIRECT_URI
+				redirectURI: DISCORD_REDIRECT_URI,
+				state: JSON.stringify({ destination: state.destination })
 			})
 		);
 	}
