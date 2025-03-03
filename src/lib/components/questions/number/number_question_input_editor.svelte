@@ -9,25 +9,25 @@
 	<!--Copied from number_question_input -->
 	<fieldset>
 		<legend>min</legend>
-		<input type="number" bind:value={data.min} />
+		<input name="min" type="number" bind:value={data.min} />
 	</fieldset>
 	<fieldset>
 		<legend>max</legend>
-		<input type="number" bind:value={data.max} />
+		<input name="max" type="number" bind:value={data.max} />
 	</fieldset>
 
 	<fieldset>
 		<legend>step</legend>
-		<input type="number" bind:value={data.step} />
+		<input name="step" type="number" bind:value={data.step} />
 	</fieldset>
 
 	<fieldset>
 		<legend>Defualt value</legend>
-		<input type="number" bind:value={data.value} />
+		<input name="value" type="number" bind:value={data.value} />
 	</fieldset>
 	<fieldset>
 		<legend>placeholder</legend>
-		<input type="text" bind:value={data.placeholder} />
+		<input name="placeholder" type="text" bind:value={data.placeholder} />
 	</fieldset>
 	<svelte:fragment slot="preview">
 		<div class="question">

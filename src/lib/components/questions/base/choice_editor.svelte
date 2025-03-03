@@ -6,15 +6,19 @@
 	// this might be deleted or moved file locations sadge
 	import type { QuestionBase } from '$lib/form';
 
-	export let data = $$props as QuestionBase;
+	type Choice = {
+		content: string;
+		value: string;
+	};
+	export let data = $$props as Choice;
 </script>
 
 <fieldset>
 	<legend>Choice Content</legend>
-	<input type="text" bind:value={data.content} placeholder="Question Title" />
+	<input name="content" type="text" bind:value={data.content} placeholder="Choice Content" />
 </fieldset>
 
 <fieldset>
 	<legend>Choice internal value</legend>
-	<input type="text" bind:value={data.name} placeholder="Internal Question Name" />
+	<input name="value" type="text" bind:value={data.value} placeholder="Choice Value" />
 </fieldset>

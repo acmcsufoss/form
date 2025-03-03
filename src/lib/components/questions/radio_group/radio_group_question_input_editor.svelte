@@ -14,19 +14,19 @@
 <BaseEditor bind:data>
 	<fieldset>
 		<legend>allow custom choice</legend>
-		<input type="checkbox" bind:value={data.allowCustomChoice} />
+		<input name="allowCustomChoice" type="checkbox" bind:value={data.allowCustomChoice} />
 	</fieldset>
 	<fieldset>
 		<legend>default choice index</legend>
-		<input type="number" bind:value={data.choiceIndex} />
+		<input name="choiceIndex" type="number" bind:value={data.choiceIndex} />
 	</fieldset>
 	<fieldset>
 		<legend>defualt custom choice string</legend>
-		<input type="text" bind:value={data.customChoice} />
+		<input name="customChoice" type="text" bind:value={data.customChoice} />
 	</fieldset>
 	<fieldset>
 		<legend>defualt value</legend>
-		<input type="text" bind:value={data.value} />
+		<input name="value" type="text" bind:value={data.value} />
 	</fieldset>
 	<h4>Edit Choices</h4>
 	<ListInput

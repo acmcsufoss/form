@@ -22,18 +22,23 @@
 	<label for="tab-01-{data.name}:{data.type}">Editor</label>
 	<div class="tab-content">
 		<fieldset>
-			<legend>Question Title</legend>
-			<input type="text" bind:value={data.content} placeholder="Question Title" />
+			<legend>Question ID</legend>
+			<input name="name" type="text" bind:value={data.name} placeholder="Question ID" />
 		</fieldset>
 
 		<fieldset>
-			<legend>Question ID</legend>
-			<input type="text" bind:value={data.name} placeholder="Question ID" />
+			<legend>Question Content</legend>
+			<input name="content" type="text" bind:value={data.content} placeholder="Question Title" />
 		</fieldset>
 
 		<fieldset>
 			<legend>Question Required</legend>
-			<input type="checkbox" bind:value={data.required} placeholder="Question Required" />
+			<input
+				name="required"
+				type="checkbox"
+				bind:value={data.required}
+				placeholder="Question Required"
+			/>
 		</fieldset>
 
 		<!-- 	<slot name="additionalFields" /> -->

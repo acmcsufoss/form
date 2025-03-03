@@ -10,15 +10,15 @@
 <BaseEditor bind:data>
 	<fieldset>
 		<legend>Min Time</legend>
-		<input type="time" bind:value={data.min} />
+		<input name="min" type="time" bind:value={data.min} />
 	</fieldset>
 	<fieldset>
 		<legend>Max Time</legend>
-		<input type="time" bind:value={data.max} />
+		<input name="max" type="time" bind:value={data.max} />
 	</fieldset>
 	<fieldset>
 		<legend>Default Time</legend>
-		<input type="time" bind:value={data.value} min={data.min} max={data.max} />
+		<input name="value" type="time" bind:value={data.value} min={data.min} max={data.max} />
 	</fieldset>
 	<svelte:fragment slot="preview">
 		<div class="question">

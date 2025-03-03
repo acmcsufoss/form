@@ -8,7 +8,7 @@
 <BaseEditor bind:data>
 	<fieldset>
 		<legend>Defualt Timezone ID</legend>
-		<input type="text" bind:value={data.value} />
+		<input name="value" type="text" bind:value={data.value} />
 	</fieldset>
 	<svelte:fragment slot="preview">
 		<TimezoneQuestionInput bind:data />

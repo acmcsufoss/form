@@ -16,15 +16,15 @@
 <BaseEditor bind:data>
 	<fieldset>
 		<legend>Min Date/Time</legend>
-		<input type="datetime-local" bind:value={data.min} />
+		<input name="min" type="datetime-local" bind:value={data.min} />
 	</fieldset>
 	<fieldset>
 		<legend>Max Date/Time</legend>
-		<input type="datetime-local" bind:value={data.max} />
+		<input name="max" type="datetime-local" bind:value={data.max} />
 	</fieldset>
 	<fieldset>
 		<legend>Default Date/Time</legend>
-		<input type="datetime-local" bind:value={data.value} />
+		<input name="value" type="datetime-local" bind:value={data.value} />
 	</fieldset>
 	<svelte:fragment slot="preview">
 		<div class="question">

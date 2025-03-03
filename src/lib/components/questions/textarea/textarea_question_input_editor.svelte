@@ -9,19 +9,19 @@
 <BaseEditor bind:data>
 	<fieldset>
 		<legend>Min Length</legend>
-		<input type="number" bind:value={data.minLength} />
+		<input name="minLength" type="number" bind:value={data.minLength} />
 	</fieldset>
 	<fieldset>
 		<legend>Max Length</legend>
-		<input type="number" bind:value={data.maxLength} />
+		<input name="maxLength" type="number" bind:value={data.maxLength} />
 	</fieldset>
 	<fieldset>
 		<legend>Default Value</legend>
-		<input type="text" bind:value={data.value} />
+		<input name="value" type="text" bind:value={data.value} />
 	</fieldset>
 	<fieldset>
 		<legend>Placeholder</legend>
-		<input type="text" bind:value={data.placeholder} />
+		<input name="placeholder" type="text" bind:value={data.placeholder} />
 	</fieldset>
 	<svelte:fragment slot="preview">
 		<div class="question">
