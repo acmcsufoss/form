@@ -13,5 +13,6 @@
 		min={data.min}
 		max={data.max}
 		bind:value={data.value}
+		disabled={data.disabled}
 	/>
 </fieldset>

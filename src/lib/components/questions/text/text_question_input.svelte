@@ -14,6 +14,8 @@
 		placeholder={data.placeholder}
 		bind:value={data.value}
 		pattern={data.pattern}
+		required={data.required}
+		disabled={data.disabled}
 	/>
 </fieldset>
 

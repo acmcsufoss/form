@@ -7,8 +7,20 @@
 <fieldset>
 	<legend>{data.content}</legend>
 	{#if data.style === 'radio'}
-		<input name={data.name} type="radio" required={data.required} value={data.value} />
+		<input
+			name={data.name}
+			type="radio"
+			required={data.required}
+			value={data.value}
+			disabled={data.disabled}
+		/>
 	{:else}
-		<input name={data.name} type="checkbox" required={data.required} value={data.value} />
+		<input
+			name={data.name}
+			type="checkbox"
+			required={data.required}
+			value={data.value}
+			disabled={data.disabled}
+		/>
 	{/if}
 </fieldset>

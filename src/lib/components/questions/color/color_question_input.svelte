@@ -6,5 +6,11 @@
 
 <fieldset>
 	<legend>{data.content}</legend>
-	<input name={data.name} type="color" required={data.required} bind:value={data.value} />
+	<input
+		name={data.name}
+		type="color"
+		required={data.required}
+		bind:value={data.value}
+		disabled={data.disabled}
+	/>
 </fieldset>

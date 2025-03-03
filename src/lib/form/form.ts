@@ -175,6 +175,11 @@ export interface QuestionBase {
 	content: string;
 
 	/**
+	 * disabled is whether or not the form field is disabled.
+	 */
+	disabled?: boolean;
+
+	/**
 	 * required is whether or not the form field is required.
 	 *
 	 * By default, form fields are not required.

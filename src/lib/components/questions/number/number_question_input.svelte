@@ -15,5 +15,6 @@
 		bind:value={data.value}
 		placeholder={data.placeholder}
 		step={data.step}
+		disabled={data.disabled}
 	/>
 </fieldset>

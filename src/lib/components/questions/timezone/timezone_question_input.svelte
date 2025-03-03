@@ -12,7 +12,12 @@
 
 <fieldset>
 	<legend>{data.content}</legend>
-	<select name={data.name} required={data.required} value={data.value || localTimezoneID}>
+	<select
+		name={data.name}
+		required={data.required}
+		value={data.value || localTimezoneID}
+		disabled={data.disabled}
+	>
 		{#each TIMEZONES as choice}
 			<option value={choice.id}>{choice.text}</option>
 		{/each}
