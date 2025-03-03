@@ -17,6 +17,6 @@ import { makeOAuth2URL } from '$lib/oauth2';
 
 export const load: LayoutServerLoad = async ({ locals, url }) => {
 	if (!locals.user) {
-		redirect(303, makeOAuth2URL(url.toString()));
+		throw redirect(303, makeOAuth2URL(url.toString()));
 	}
 };

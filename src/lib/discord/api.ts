@@ -15,11 +15,11 @@ function makeGetGuildMemberURL(r: GetGuildMemberRequest, apiURL = API_URL): stri
 export async function getGuildMember(r: GetGuildMemberRequest): Promise<APIGuildMember> {
 	const response = await fetch(makeGetGuildMemberURL(r), {
 		headers: {
-			Authorization: `Bearer ${r.botToken}`
+			Authorization: `Bot ${r.botToken}`
 		}
 	});
 	if (!response.ok) {
-		throw new Error(`Failed to get guild member: ${response.statusText}`);
+		throw new Error(`Failed to get guild member: ${response.status} ${response.statusText}`);
 	}
 
 	return await response.json();
@@ -49,7 +49,7 @@ export async function createMessage(r: CreateMessageRequest): Promise<APIGuildMe
 	const response = await fetch(makeCreateMessageURL(r), {
 		method: 'POST',
 		headers: {
-			Authorization: `Bearer ${r.botToken}`
+			Authorization: `Bot ${r.botToken}`
 		},
 		body: JSON.stringify(r.body)
 	});
