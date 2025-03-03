@@ -11,6 +11,7 @@ export function makeBlankQuestion(type: QuestionType): Question {
 				type,
 				name: id,
 				content: 'No content.',
+				disabled: true,
 				choices: []
 			};
 		case QuestionType.SELECT:
@@ -18,13 +19,15 @@ export function makeBlankQuestion(type: QuestionType): Question {
 				type,
 				name: id,
 				content: 'No content.',
+				disabled: true,
 				options: []
 			};
 		default:
 			return {
 				type,
 				name: id,
-				content: 'No content.'
+				content: 'No content.',
+				disabled: true
 			};
 	}
 }
