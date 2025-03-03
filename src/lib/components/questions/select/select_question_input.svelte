@@ -6,14 +6,9 @@
 
 <fieldset>
 	<legend>{data.content}</legend>
-	<select
-		name={data.name}
-		required={data.required}
-		bind:value={data.value}
-		disabled={data.disabled}
-	>
+	<select name={data.name} required={data.required} bind:value={data.value}>
 		{#each data.options as option}
-			<option value={option.value}>{option.content}</option>
+			<option disabled={data.disabled} value={option.value}>{option.content}</option>
 		{/each}
 	</select>
 </fieldset>
