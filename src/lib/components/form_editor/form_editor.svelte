@@ -15,13 +15,17 @@
 	// function addItem() {
 	// 	questions.append();
 	// }
-	function handleSumbit(event: MouseEvent) {
+	function handleSumbit(event: Event) {
 		event.preventDefault();
+		const form = new FormData(event.target as HTMLFormElement);
 		console.log(questions);
+		for (const [key, value] of form.entries()) {
+			console.log(key, value);
+		}
 	}
 </script>
 
-<form {action} {method}>
+<form {action} {method} on:submit={handleSumbit}>
 	<div class="form-header">
 		<h1>Form editor</h1>
 		<p class="form-description">Edit a form!</p>
@@ -30,7 +34,7 @@
 			<p>Form ID: {value.id}</p>
 		</div>
 	</div>
-
+	<input type="hidden" name="id" value={value.id} />
 	<QuestionInput type={QuestionType.TEXT} name="title" content="Title" bind:value={value.title} />
 
 	<QuestionInput
@@ -75,8 +79,8 @@
 		bind:value={value.questions.shuffled}
 	/>
 
-	<QuestionListEditor bind:value={questions} />
-	<button type="submit" on:click={handleSumbit}>Submit</button>
+	<QuestionListEditor bind:data={questions.data} />
+	<button type="submit">Submit</button>
 </form>
 
 <style>

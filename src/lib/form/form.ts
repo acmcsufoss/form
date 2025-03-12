@@ -175,6 +175,11 @@ export interface QuestionBase {
 	content: string;
 
 	/**
+	 * position is the position of the question in the form.
+	 */
+	position: number;
+
+	/**
 	 * disabled is whether or not the form field is disabled.
 	 */
 	disabled?: boolean;

@@ -15,11 +15,11 @@
 					   -->
 	<input
 		type="radio"
-		name="tabs-{data.name}:{data.type}"
-		id="tab-01-{data.name}:{data.type}"
+		name="tabs-{data.name}:{data.type}-{data.position}"
+		id="tab-01-{data.name}:{data.type}-{data.position}"
 		checked={true}
 	/>
-	<label for="tab-01-{data.name}:{data.type}">Editor</label>
+	<label for="tab-01-{data.name}:{data.type}-{data.position}">Editor</label>
 	<div class="tab-content">
 		<fieldset>
 			<legend>Question ID</legend>
@@ -45,8 +45,12 @@
 		<slot />
 	</div>
 
-	<input type="radio" name="tabs-{data.name}:{data.type}" id="tab-02-{data.name}:{data.type}" />
-	<label for="tab-02-{data.name}:{data.type}">Preview</label>
+	<input
+		type="radio"
+		name="tabs-{data.name}:{data.type}-{data.position}"
+		id="tab-02-{data.name}:{data.type}-{data.position}"
+	/>
+	<label for="tab-02-{data.name}:{data.type}-{data.position}">Preview</label>
 	<div class="tab-content">
 		<slot name="preview" />
 	</div>

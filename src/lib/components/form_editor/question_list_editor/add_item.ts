@@ -2,7 +2,7 @@ import { QuestionType } from '$lib/form';
 import type { Question } from '$lib/form/form';
 import { nanoid } from 'nanoid';
 
-export function makeBlankQuestion(type: QuestionType): Question {
+export function makeBlankQuestion(type: QuestionType, position: number): Question {
 	const id = nanoid(5);
 
 	switch (type) {
@@ -12,6 +12,7 @@ export function makeBlankQuestion(type: QuestionType): Question {
 				name: id,
 				content: 'No content.',
 				disabled: true,
+				position: position,
 				choices: []
 			};
 		case QuestionType.SELECT:
@@ -20,6 +21,7 @@ export function makeBlankQuestion(type: QuestionType): Question {
 				name: id,
 				content: 'No content.',
 				disabled: true,
+				position: position,
 				options: []
 			};
 		default:
@@ -27,6 +29,7 @@ export function makeBlankQuestion(type: QuestionType): Question {
 				type,
 				name: id,
 				content: 'No content.',
+				position: position,
 				disabled: true
 			};
 	}

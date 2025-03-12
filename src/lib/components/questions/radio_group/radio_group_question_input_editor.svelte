@@ -1,10 +1,7 @@
 <script lang="ts">
 	import type { RadioGroupQuestion } from '$lib/form';
 	import RadioGroupQuestionInput from './radio_group_question_input.svelte';
-	import ListInput from '$lib/components/list_input/list_input.svelte';
-	import DeleteItem from '$lib/components/form_editor/question_list_editor/delete_item.svelte';
 	import BaseEditor from '../base/base_editor.svelte';
-	import RadioGroupAddItem from './radio_group_add_item.svelte';
 	import ChoiceEditor from '../base/choice_editor.svelte';
 	// import { AuditLogOptionsType } from 'discord-api-types/v10';
 
@@ -29,14 +26,7 @@
 		<input name="value" type="text" bind:value={data.value} />
 	</fieldset>
 	<h4>Edit Choices</h4>
-	<ListInput
-		bind:value={data.choices}
-		components={{
-			item: ChoiceEditor,
-			addItem: RadioGroupAddItem,
-			deleteItem: DeleteItem
-		}}
-	/>
+	<ChoiceEditor bind:data={data.choices} />
 	<svelte:fragment slot="preview">
 		<div class="question">
 			<RadioGroupQuestionInput {data} />

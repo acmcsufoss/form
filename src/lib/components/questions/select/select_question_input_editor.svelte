@@ -1,9 +1,7 @@
 <script lang="ts">
 	import type { SelectQuestion } from '$lib/form';
 	import SelectQuestionInput from './select_question_input.svelte';
-	import ListInput from '$lib/components/list_input/list_input.svelte';
-	import SelectAddItem from './select_add_item.svelte';
-	import DeleteItem from '$lib/components/form_editor/question_list_editor/delete_item.svelte';
+
 	import BaseEditor from '../base/base_editor.svelte';
 	import ChoiceEditor from '../base/choice_editor.svelte';
 
@@ -25,14 +23,7 @@
 					
 	-->
 	<h4>Edit Choices</h4>
-	<ListInput
-		bind:value={data.options}
-		components={{
-			item: ChoiceEditor,
-			addItem: SelectAddItem,
-			deleteItem: DeleteItem
-		}}
-	/>
+	<ChoiceEditor bind:data={data.options} />
 	<svelte:fragment slot="preview">
 		<div class="question">
 			<SelectQuestionInput {data} />
