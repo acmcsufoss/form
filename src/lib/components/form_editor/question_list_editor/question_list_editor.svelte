@@ -41,6 +41,7 @@
 
 <!-- TODO: Figure out how to handle indexed names for the items in the list if needed. -->
 
+<input type="hidden" name="form[questions][data][]" />
 {#each data as question, i}
 	<details>
 		<summary>

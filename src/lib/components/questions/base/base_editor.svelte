@@ -21,20 +21,36 @@
 	/>
 	<label for="tab-01-{data.name}:{data.type}-{data.position}">Editor</label>
 	<div class="tab-content">
+		<input type="hidden" name="form[questions][data][{data.position}][type]" value={data.type} />
+		<input
+			type="hidden"
+			name="form[questions][data][{data.position}][position]"
+			value={data.position}
+		/>
 		<fieldset>
 			<legend>Question ID</legend>
-			<input name="name" type="text" bind:value={data.name} placeholder="Question ID" />
+			<input
+				name="form[questions][data][{data.position}][name]"
+				type="text"
+				bind:value={data.name}
+				placeholder="Question ID"
+			/>
 		</fieldset>
 
 		<fieldset>
 			<legend>Question Content</legend>
-			<input name="content" type="text" bind:value={data.content} placeholder="Question Title" />
+			<input
+				name="form[questions][data][{data.position}][content]"
+				type="text"
+				bind:value={data.content}
+				placeholder="Question Title"
+			/>
 		</fieldset>
 
 		<fieldset>
 			<legend>Question Required</legend>
 			<input
-				name="required"
+				name="form[questions][data][{data.position}][required]"
 				type="checkbox"
 				bind:value={data.required}
 				placeholder="Question Required"

@@ -19,7 +19,8 @@
 			name={data.name}
 			type="checkbox"
 			required={data.required}
-			value={data.value}
+			bind:checked={data.value}
+			value={data.value ? 'true' : 'false'}
 			disabled={data.disabled}
 		/>
 	{/if}
