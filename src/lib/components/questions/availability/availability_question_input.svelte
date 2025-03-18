@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { AvailablityQuestion } from '$lib/form';
+	import type { AvailabilityQuestion } from '$lib/form';
 
-	export let data = $$props as AvailablityQuestion;
+	export let data = $$props as AvailabilityQuestion;
 	// Computed Logic to precompute data ranges array.
 </script>
 
