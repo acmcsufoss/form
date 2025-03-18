@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { AvailablityQuestion } from '$lib/form';
+	import type { AvailabilityQuestion } from '$lib/form';
 	import BaseEditor from '../base/base_editor.svelte';
 	import AvailabilityQuestionInput from './availability_question_input.svelte';
 
-	export var data = $$props as AvailablityQuestion;
+	export var data = $$props as AvailabilityQuestion;
 </script>
 
 <BaseEditor bind:data>
