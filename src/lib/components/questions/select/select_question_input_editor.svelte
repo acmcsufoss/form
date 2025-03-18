@@ -23,7 +23,10 @@
 					
 	-->
 	<h4>Edit Choices</h4>
-	<ChoiceEditor bind:data={data.options} />
+	<ChoiceEditor
+		prefix={`form[questions][data][${data.position}][options]`}
+		bind:data={data.options}
+	/>
 	<svelte:fragment slot="preview">
 		<div class="question">
 			<SelectQuestionInput {data} />

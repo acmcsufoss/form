@@ -16,7 +16,7 @@
 			<div class="datetime-range-input">
 				<input
 					type="datetime-local"
-					name="{data.name}-{i}-start"
+					name="form[questions][data][{data.position}][value][{i}]"
 					min={data.minStartDatetime}
 					max={data.maxEndDatetime}
 					value={data.value?.[i][0]}
@@ -25,7 +25,7 @@
 				<p>----</p>
 				<input
 					type="datetime-local"
-					name="{data.name}-{i}-end"
+					name="form[questions][data][{data.position}][value][{i}]"
 					min={data.minStartDatetime}
 					max={data.maxEndDatetime}
 					value={data.value?.[i][1]}

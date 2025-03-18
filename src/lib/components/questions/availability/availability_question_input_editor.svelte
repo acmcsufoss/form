@@ -10,17 +10,31 @@
 	<!-- Copied from datetime_question_input.svelte -->
 	<fieldset>
 		<legend>Enter Min Start Date Time</legend>
-		<input type="datetime-local" bind:value={data.minStartDatetime} max={data.maxEndDatetime} />
+		<input
+			name="form[quetsions][data][{data.position}][minStartDatetime]"
+			type="datetime-local"
+			bind:value={data.minStartDatetime}
+			max={data.maxEndDatetime}
+		/>
 	</fieldset>
 	<!-- Copied from datetime_question_input.svelte -->
 	<fieldset>
 		<legend>Enter Max End Date Time</legend>
-		<input type="datetime-local" bind:value={data.maxEndDatetime} min={data.minStartDatetime} />
+		<input
+			name="form[quetsions][data][{data.position}][maxEndDatetime]"
+			type="datetime-local"
+			bind:value={data.maxEndDatetime}
+			min={data.minStartDatetime}
+		/>
 	</fieldset>
 	<!-- Copied from number_question_input.svelte -->
 	<fieldset>
 		<legend>Enter Max Date Ranges</legend>
-		<input type="number" bind:value={data.maxDatetimeRanges} />
+		<input
+			name="form[quetsions][data][{data.position}][maxDatetimeRanges]"
+			type="number"
+			bind:value={data.maxDatetimeRanges}
+		/>
 	</fieldset>
 	<!-- TODO: Make the avaibilityQuestion Input here be the default value for the sample -->
 	<AvailabilityQuestionInput bind:data />

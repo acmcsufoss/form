@@ -22,23 +22,43 @@
 	<!-- Copied from BaseEditor -->
 	<fieldset>
 		<legend>Min Length</legend>
-		<input name="minLength" type="number" bind:value={data.minLength} />
+		<input
+			name="form[questions][data][{data.position}][minLength]"
+			type="number"
+			bind:value={data.minLength}
+		/>
 	</fieldset>
 	<fieldset>
 		<legend>Max Length</legend>
-		<input name="maxLength" type="number" bind:value={data.maxLength} />
+		<input
+			name="form[questions][data][{data.position}][maxLength]"
+			type="number"
+			bind:value={data.maxLength}
+		/>
 	</fieldset>
 	<fieldset>
 		<legend>Default Value</legend>
-		<input name="value" type="text" bind:value={data.value} />
+		<input
+			name="form[questions][data][{data.position}][value]"
+			type="text"
+			bind:value={data.value}
+		/>
 	</fieldset>
 	<fieldset>
 		<legend>Placeholder</legend>
-		<input name="placeholder" type="text" bind:value={data.placeholder} />
+		<input
+			name="form[questions][data][{data.position}][placeholder]"
+			type="text"
+			bind:value={data.placeholder}
+		/>
 	</fieldset>
 	<fieldset>
 		<legend>Regex Pattern</legend>
-		<input name="pattern" type="text" bind:value={data.pattern} />
+		<input
+			name="form[questions][data][{data.position}][pattern]"
+			type="text"
+			bind:value={data.pattern}
+		/>
 	</fieldset>
 	<fieldset>
 		<legend>Choices (COMMING SOON)</legend>

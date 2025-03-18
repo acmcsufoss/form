@@ -3,11 +3,12 @@
 	 * Choice Editor is for editing the choices of a question.
 	 */
 	type Choice = {
-		value: string;
-		content: string;
+		value?: string;
+		content?: string;
 	};
 
 	export let data: Choice[];
+	export let prefix: string;
 
 	function addChoice() {
 		data = [...data, { content: '', value: '' }];
@@ -36,8 +37,18 @@
 	</span>
 	<fieldset>
 		<legend>Choice {i + 1}</legend>
-		<input name="content" type="text" bind:value={choice.content} placeholder="Choice Content" />
-		<input name="value" type="text" bind:value={choice.value} placeholder="Choice Value" />
+		<input
+			name="{prefix}[{i}][content]"
+			type="text"
+			bind:value={choice.content}
+			placeholder="Choice Content"
+		/>
+		<input
+			name="{prefix}[{i}][value]"
+			type="text"
+			bind:value={choice.value}
+			placeholder="Choice Value"
+		/>
 	</fieldset>
 {/each}
 
