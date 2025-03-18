@@ -16,7 +16,7 @@
 	// 	questions.append();
 	// }
 	function handleSumbit(event: Event) {
-		event.preventDefault();
+		// event.preventDefault();
 		const form = new FormData(event.target as HTMLFormElement);
 		console.log(questions);
 		for (const [key, value] of form.entries()) {
@@ -34,47 +34,52 @@
 			<p>Form ID: {value.id}</p>
 		</div>
 	</div>
-	<input type="hidden" name="id" value={value.id} />
-	<QuestionInput type={QuestionType.TEXT} name="title" content="Title" bind:value={value.title} />
+	<input type="hidden" name="form[id]" value={value.id} />
+	<QuestionInput
+		type={QuestionType.TEXT}
+		name="form[title]"
+		content="Title"
+		bind:value={value.title}
+	/>
 
 	<QuestionInput
 		type={QuestionType.TEXTAREA}
-		name="description"
+		name="form[description]"
 		content="Description"
 		bind:value={value.description}
 	/>
 
 	<QuestionInput
 		type={QuestionType.DATETIME}
-		name="startDate"
+		name="form[startDate]"
 		content="Start date"
 		bind:value={value.startDate}
 	/>
 
 	<QuestionInput
 		type={QuestionType.DATETIME}
-		name="endDate"
+		name="form[endDate]"
 		content="End date"
 		bind:value={value.endDate}
 	/>
 
 	<QuestionInput
 		type={QuestionType.TIMEZONE}
-		name="timezone"
+		name="form[timezone]"
 		content="Timezone (default: UTC/GMT)"
 		bind:value={value.timezone}
 	/>
 
 	<QuestionInput
 		type={QuestionType.BOOLEAN}
-		name="anonymized"
+		name="form[anonymized]"
 		content="Anonymized"
 		bind:value={value.anonymized}
 	/>
 
 	<QuestionInput
 		type={QuestionType.BOOLEAN}
-		name="shuffled"
+		name="form[questions][shuffled]"
 		content="Shuffled"
 		bind:value={value.questions.shuffled}
 	/>
