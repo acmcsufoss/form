@@ -12,6 +12,7 @@
 	import TextQuestionInputEditor from '$lib/components/questions/text/text_question_input_editor.svelte';
 	import TextareaQuestionInputEditor from '$lib/components/questions/textarea/textarea_question_input_editor.svelte';
 	import TimeQuestionInputEditor from '$lib/components/questions/time/time_question_input_editor.svelte';
+	import TimezoneQuestionInputEditor from '$lib/components/questions/timezone/timezone_question_input_editor.svelte';
 
 	export var data: Question;
 </script>
@@ -45,6 +46,8 @@ https://github.com/acmcsufoss/form/pull/new/question-input-editor -->
 		<AvailabilityQuestionInputEditor bind:data />
 	{:else if data.type === QuestionType.SELECT}
 		<SelectQuestionInputEditor bind:data />
+	{:else if data.type === QuestionType.TIMEZONE}
+		<TimezoneQuestionInputEditor bind:data />
 	{/if}
 </div>
 
