@@ -101,8 +101,8 @@ export const RadioGroupQuestionSchema = QuestionBaseSchema.extend({
 	 */
 	choices: z.array(
 		z.object({
-			value: z.string(),
-			content: z.string()
+			value: z.string().optional(),
+			content: z.string().optional()
 		})
 	),
 
@@ -504,8 +504,8 @@ export const SelectQuestionSchema = QuestionBaseSchema.extend({
 	 */
 	options: z.array(
 		z.object({
-			value: z.string(),
-			content: z.string()
+			value: z.string().optional(),
+			content: z.string().optional()
 		})
 	),
 
