@@ -16,19 +16,21 @@
 			<div class="datetime-range-input">
 				<input
 					type="datetime-local"
-					name="form[questions][data][{data.position}][value][{i}]"
+					name="datetime-range{i}[]"
 					min={data.minStartDatetime}
 					max={data.maxEndDatetime}
 					value={data.value?.[i][0]}
+					disabled={data.disabled}
 				/>
 				<!-- TODO: Convert break to hr tag. -->
 				<p>----</p>
 				<input
 					type="datetime-local"
-					name="form[questions][data][{data.position}][value][{i}]"
+					name="datetime-range{i}[]"
 					min={data.minStartDatetime}
 					max={data.maxEndDatetime}
 					value={data.value?.[i][1]}
+					disabled={data.disabled}
 				/>
 			</div>
 		{/each}
