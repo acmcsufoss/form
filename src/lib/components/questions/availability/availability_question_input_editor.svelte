@@ -69,11 +69,6 @@
 </BaseEditor>
 
 <style>
-	.datetime-range {
-		display: flex;
-		flex-direction: column;
-	}
-
 	.datetime-range-input {
 		display: flex;
 		flex-direction: row;
