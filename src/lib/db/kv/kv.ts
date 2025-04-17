@@ -5,6 +5,7 @@ export enum KvCollection {
 	USERS_BY_DISCORD_USER_ID = 'users_by_discord_user_id',
 	USERS_BY_SESSION_ID = 'users_by_session_id',
 	FORMS_BY_ID = 'forms_by_id',
+	FORMS_BY_USER_ID = 'forms_by_user_id',
 	SUBMISSIONS_BY_ID = 'submissions_by_id',
 	SUBMISSIONS_BY_FORM_ID = 'submissions_by_form_id'
 }
@@ -26,6 +27,15 @@ export class KvStore implements db.Store {
 		const formKey = this.key(KvCollection.FORMS_BY_ID, id);
 		const formResult = await this.kv.get<db.Form>(formKey);
 		return formResult.value;
+	}
+
+	public async getFormByUserID(id: string): Promise<db.Form[]> {
+		const prefix = this.key(KvCollection.FORMS_BY_USER_ID, id);
+		const forms: db.Form[] = [];
+		for await (const entry of this.kv.list<db.Form>({ prefix })) {
+			forms.push(entry.value);
+		}
+		return forms;
 	}
 
 	public async getUserByDiscordUserID(id: string) {
@@ -58,9 +68,18 @@ export class KvStore implements db.Store {
 
 	public async createForm(r: db.CreateFormRequest): Promise<db.Form> {
 		const formKey = this.key(KvCollection.FORMS_BY_ID, r.id);
+
 		const result = await this.kv.set(formKey, r);
 		if (!result.ok) {
 			throw new Error('Failed to create form.');
+		}
+
+		for (const editorID of Object.keys(r.permissions?.edit ?? {})) {
+			const idxKey = this.key(KvCollection.FORMS_BY_USER_ID, editorID, r.id);
+			const res = await this.kv.set(idxKey, r);
+			if (!res.ok) {
+				throw new Error('Failed to key form by user ID.');
+			}
 		}
 
 		return r;
@@ -188,12 +207,12 @@ export class KvStore implements db.Store {
 		return [...this.kvNamespace, ...key];
 	}
 
-	public async saveForm(form: db.Form): Promise<db.Form> {
-		const formKey = this.key(KvCollection.FORMS_BY_ID, form.id);
-		const result = await this.kv.set(formKey, form);
+	public async saveFormEditor(r: db.saveFormRequest): Promise<db.Form> {
+		const formKey = this.key(KvCollection.FORMS_BY_ID, r.form.id);
+		const result = await this.kv.set(formKey, r.form);
 		if (!result.ok) {
 			throw new Error('Failed to save form.');
 		}
-		return form;
+		return r.form;
 	}
 }

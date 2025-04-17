@@ -43,6 +43,11 @@ export interface CreateUserRequest {
 	discordAvatar: string;
 }
 
+export interface saveFormRequest {
+	form: Form;
+	user: ID;
+}
+
 export interface Store {
 	createForm(r: CreateFormRequest): Promise<Form>;
 	createSession(r: CreateSessionRequest): Promise<User>;
@@ -52,10 +57,11 @@ export interface Store {
 	deleteSessionByID(id: ID): Promise<void>;
 	deleteSubmissionByID(id: ID): Promise<void>;
 	getFormByID(id: ID): Promise<Form | null>;
+	getFormByUserID(id: ID): Promise<Form[]>;
 	getForms(): Promise<Form[]>;
 	getSubmissionByID(id: ID): Promise<Submission | null>;
 	getSubmissionsByFormID(id: ID): Promise<Submission[]>;
 	getUserByDiscordUserID(id: ID): Promise<User | null>;
 	getUserBySessionID(id: ID): Promise<User | null>;
-	saveForm(form: Form): Promise<Form>;
+	saveFormEditor(r: saveFormRequest): Promise<Form>;
 }
