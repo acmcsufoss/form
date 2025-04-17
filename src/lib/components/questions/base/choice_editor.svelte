@@ -1,20 +1,55 @@
 <script lang="ts">
 	/**
-	 * I created choice Editor with the intention of helping questions
-	 * such as radio group and select question edit their content value pairs
+	 * Choice Editor is for editing the choices of a question.
 	 */
-	// this might be deleted or moved file locations sadge
-	import type { QuestionBase } from '$lib/form';
+	type Choice = {
+		value?: string;
+		content?: string;
+	};
 
-	export let data = $$props as QuestionBase;
+	export let data: Choice[];
+	export let prefix: string;
+
+	function addChoice() {
+		data = [...data, { content: '', value: '' }];
+	}
+
+	function deleteChoice(index: number) {
+		data = data.filter((_, i) => i !== index);
+	}
+
+	function handleMove(i: number, direction: number) {
+		let temp = data[i];
+		let newPos = i + direction;
+
+		data[i] = data[newPos];
+		data[newPos] = temp;
+	}
 </script>
 
-<fieldset>
-	<legend>Choice Content</legend>
-	<input type="text" bind:value={data.content} placeholder="Question Title" />
-</fieldset>
+{#each data as choice, i}
+	<span class="sort-buttons">
+		<button type="button" disabled={i === 0} on:click={() => handleMove(i, -1)}>Up</button>
+		<button type="button" disabled={i === data.length - 1} on:click={() => handleMove(i, 1)}
+			>Down</button
+		>
+		<button type="button" on:click={() => deleteChoice(i)}>Delete</button>
+	</span>
+	<fieldset>
+		<legend>Choice {i + 1}</legend>
+		<input
+			name="{prefix}[{i}][content]"
+			type="text"
+			bind:value={choice.content}
+			placeholder="Choice Content"
+		/>
+		<input
+			name="{prefix}[{i}][value]"
+			type="text"
+			bind:value={choice.value}
+			placeholder="Choice Value"
+		/>
+	</fieldset>
+{/each}
 
-<fieldset>
-	<legend>Choice internal value</legend>
-	<input type="text" bind:value={data.name} placeholder="Internal Question Name" />
-</fieldset>
+<button type="button" on:click={() => addChoice()}> Add Choice </button>

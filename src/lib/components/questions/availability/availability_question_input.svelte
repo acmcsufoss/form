@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { AvailablityQuestion } from '$lib/form';
+	import type { AvailabilityQuestion } from '$lib/form';
 
-	export let data = $$props as AvailablityQuestion;
+	export let data = $$props as AvailabilityQuestion;
 	// Computed Logic to precompute data ranges array.
 </script>
 
@@ -16,19 +16,21 @@
 			<div class="datetime-range-input">
 				<input
 					type="datetime-local"
-					name="{data.name}-{i}-start"
+					name="datetime-range{i}[]"
 					min={data.minStartDatetime}
 					max={data.maxEndDatetime}
 					value={data.value?.[i][0]}
+					disabled={data.disabled}
 				/>
 				<!-- TODO: Convert break to hr tag. -->
 				<p>----</p>
 				<input
 					type="datetime-local"
-					name="{data.name}-{i}-end"
+					name="datetime-range{i}[]"
 					min={data.minStartDatetime}
 					max={data.maxEndDatetime}
 					value={data.value?.[i][1]}
+					disabled={data.disabled}
 				/>
 			</div>
 		{/each}

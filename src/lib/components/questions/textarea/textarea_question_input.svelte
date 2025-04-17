@@ -15,6 +15,7 @@
 		placeholder={data.placeholder}
 		required={data.required}
 		value={data.value}
+		disabled={data.disabled}
 	/>
 </fieldset>
 

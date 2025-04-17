@@ -24,7 +24,7 @@
 <BaseEditor bind:data>
 	<fieldset>
 		<legend>Choose a Style</legend>
-		<select name={'style'} bind:value={data.style}>
+		<select name="form[questions][data][{data.position}][style]" bind:value={data.style}>
 			{#each [{ content: 'checkbox', value: 'checkbox' }, { content: 'radio', value: 'radio' }] as option}
 				<option value={option.value}>{option.content}</option>
 			{/each}

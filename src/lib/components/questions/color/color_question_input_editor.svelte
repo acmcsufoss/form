@@ -9,7 +9,11 @@
 	<!-- Copied From ColorQuestionInput  -->
 	<fieldset>
 		<legend>Default Color</legend>
-		<input type="color" name="color-" bind:value={data.value} />
+		<input
+			type="color"
+			name="form[questions][data][{data.position}][value]"
+			bind:value={data.value}
+		/>
 	</fieldset>
 	<svelte:fragment slot="preview">
 		<div class="question">

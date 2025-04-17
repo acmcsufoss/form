@@ -1,5 +1,6 @@
 import type { ID } from './id';
 
+// TODO: Convert this to a zod schema.
 /**
  * UserIDs is a map of user IDs to empty objects to use as a set for
  * fast lookups.

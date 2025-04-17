@@ -15,33 +15,58 @@
 					   -->
 	<input
 		type="radio"
-		name="tabs-{data.name}:{data.type}"
-		id="tab-01-{data.name}:{data.type}"
+		name="tabs-{data.name}:{data.type}-{data.position}"
+		id="tab-01-{data.name}:{data.type}-{data.position}"
 		checked={true}
 	/>
-	<label for="tab-01-{data.name}:{data.type}">Editor</label>
+	<label for="tab-01-{data.name}:{data.type}-{data.position}">Editor</label>
 	<div class="tab-content">
+		<input type="hidden" name="form[questions][data][{data.position}][type]" value={data.type} />
+		<input
+			type="hidden"
+			name="form[questions][data][{data.position}][position]"
+			value={data.position}
+		/>
 		<fieldset>
-			<legend>Question Title</legend>
-			<input type="text" bind:value={data.content} placeholder="Question Title" />
+			<legend>Question ID</legend>
+			<input
+				name="form[questions][data][{data.position}][name]"
+				type="text"
+				bind:value={data.name}
+				placeholder="Question ID"
+			/>
 		</fieldset>
 
 		<fieldset>
-			<legend>Question ID</legend>
-			<input type="text" bind:value={data.name} placeholder="Question ID" />
+			<legend>Question Content</legend>
+			<input
+				name="form[questions][data][{data.position}][content]"
+				type="text"
+				bind:value={data.content}
+				placeholder="Question Title"
+			/>
 		</fieldset>
 
 		<fieldset>
 			<legend>Question Required</legend>
-			<input type="checkbox" bind:value={data.required} placeholder="Question Required" />
+			<input
+				name="form[questions][data][{data.position}][required]"
+				type="checkbox"
+				bind:value={data.required}
+				placeholder="Question Required"
+			/>
 		</fieldset>
 
 		<!-- 	<slot name="additionalFields" /> -->
 		<slot />
 	</div>
 
-	<input type="radio" name="tabs-{data.name}:{data.type}" id="tab-02-{data.name}:{data.type}" />
-	<label for="tab-02-{data.name}:{data.type}">Preview</label>
+	<input
+		type="radio"
+		name="tabs-{data.name}:{data.type}-{data.position}"
+		id="tab-02-{data.name}:{data.type}-{data.position}"
+	/>
+	<label for="tab-02-{data.name}:{data.type}-{data.position}">Preview</label>
 	<div class="tab-content">
 		<slot name="preview" />
 	</div>

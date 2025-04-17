@@ -14,6 +14,7 @@
 				name={data.name}
 				id={choice.value}
 				checked={data.choiceIndex !== undefined && i === data.choiceIndex}
+				disabled={data.disabled}
 			/>
 			<label for={choice.value}>{choice.content}</label>
 		</div>
@@ -26,9 +27,16 @@
 				name={data.name}
 				id="custom"
 				checked={data.choiceIndex === -1}
+				disabled={data.disabled}
 			/>
 			<label for="custom">
-				<input name={data.name} id="custom-choice" type="text" value={data.customChoice} />
+				<input
+					name={data.name}
+					id="custom-choice"
+					type="text"
+					value={data.customChoice}
+					disabled={data.disabled}
+				/>
 			</label>
 		</div>
 	{/if}

@@ -57,4 +57,5 @@ export interface Store {
 	getSubmissionsByFormID(id: ID): Promise<Submission[]>;
 	getUserByDiscordUserID(id: ID): Promise<User | null>;
 	getUserBySessionID(id: ID): Promise<User | null>;
+	saveForm(form: Form): Promise<Form>;
 }
