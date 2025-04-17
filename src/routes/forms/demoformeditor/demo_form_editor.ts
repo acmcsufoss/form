@@ -5,6 +5,7 @@ import { QuestionType } from '$lib/form';
 export const demoForm: Form = {
 	id: 'demo_form_id',
 	discordChannelID: '',
+	permissions: {},
 	startDate: '',
 	endDate: null,
 	questions: {
