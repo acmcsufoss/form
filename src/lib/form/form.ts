@@ -1,5 +1,5 @@
-import * as formSchema from './formSchema';
-import { z } from 'zod';
+import type * as formSchema from './formSchema';
+import type { z } from 'zod';
 
 /**
  * ID is a unique identifier.

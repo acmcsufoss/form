@@ -14,6 +14,7 @@ export const demoForm: Form = {
 			{
 				type: QuestionType.BOOLEAN,
 				name: 'Age Check',
+				position: 0,
 				content: 'Are you over 18 years old?',
 				required: false,
 				value: true,
@@ -22,6 +23,7 @@ export const demoForm: Form = {
 			{
 				type: QuestionType.TEXT,
 				name: 'FRQ',
+				position: 1,
 				content: 'How do you feel about this form?',
 				required: false,
 				value: 'Sample Text'
@@ -29,6 +31,7 @@ export const demoForm: Form = {
 			{
 				type: QuestionType.RADIO_GROUP,
 				name: 'multiple choice',
+				position: 2,
 				content: 'please pick one',
 				required: false,
 				allowCustomChoice: false,
@@ -42,6 +45,7 @@ export const demoForm: Form = {
 			{
 				type: QuestionType.COLOR,
 				name: 'Color Question',
+				position: 3,
 				content: 'Pick a color',
 				required: false,
 				value: '#000000'
@@ -49,6 +53,7 @@ export const demoForm: Form = {
 			{
 				type: QuestionType.NUMBER,
 				name: 'Number Question',
+				position: 4,
 				content: 'Pick a number',
 				required: false,
 				min: 0,
@@ -58,6 +63,7 @@ export const demoForm: Form = {
 			{
 				type: QuestionType.TEXTAREA,
 				name: 'Text Area Question',
+				position: 5,
 				content: 'text area?',
 				required: false,
 				minLength: 0,
@@ -68,6 +74,7 @@ export const demoForm: Form = {
 			{
 				type: QuestionType.SELECT,
 				name: 'Select Question',
+				position: 6,
 				content: 'select one',
 				required: false,
 				options: [

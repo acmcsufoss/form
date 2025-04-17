@@ -603,12 +603,12 @@ export const FormSchema = z.object({
 	/**
 	 * discordMessageID is the ID of the Discord message that the form is linked to (if any).
 	 */
-	discordMessageId: z.string().optional(),
+	discordMessageID: z.string().optional(),
 
 	/**
 	 * discordChannelID is the ID of the Discord channel that the message is in.
 	 */
-	discordChannelId: z.string().optional(),
+	discordChannelID: z.string().optional(),
 
 	/**
 	 * discordThreadID is the ID of the Discord thread that the message is in.
