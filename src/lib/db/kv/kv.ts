@@ -207,12 +207,11 @@ export class KvStore implements db.Store {
 		return [...this.kvNamespace, ...key];
 	}
 
-	public async saveFormEditor(r: db.saveFormRequest): Promise<db.Form> {
-		const formKey = this.key(KvCollection.FORMS_BY_ID, r.form.id);
-		const result = await this.kv.set(formKey, r.form);
+	public async saveFormEditor(form: db.saveFormEditorRequest): Promise<void> {
+		const formKey = this.key(KvCollection.FORMS_BY_ID, form.id);
+		const result = await this.kv.set(formKey, form);
 		if (!result.ok) {
 			throw new Error('Failed to save form.');
 		}
-		return r.form;
 	}
 }

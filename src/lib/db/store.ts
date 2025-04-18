@@ -43,10 +43,7 @@ export interface CreateUserRequest {
 	discordAvatar: string;
 }
 
-export interface saveFormRequest {
-	form: Form;
-	user: ID;
-}
+export type saveFormEditorRequest = Form;
 
 export interface Store {
 	createForm(r: CreateFormRequest): Promise<Form>;
@@ -63,5 +60,5 @@ export interface Store {
 	getSubmissionsByFormID(id: ID): Promise<Submission[]>;
 	getUserByDiscordUserID(id: ID): Promise<User | null>;
 	getUserBySessionID(id: ID): Promise<User | null>;
-	saveFormEditor(r: saveFormRequest): Promise<Form>;
+	saveFormEditor(r: saveFormEditorRequest): Promise<void>;
 }
