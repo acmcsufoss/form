@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import type { Form } from '$lib/form';
 	import { QuestionType, type QuestionList } from '$lib/form';
 	import QuestionInput from '$lib/components/question_input/question_input.svelte';
@@ -15,17 +16,17 @@
 	// function addItem() {
 	// 	questions.append();
 	// }
-	function handleSumbit(event: Event) {
-		// event.preventDefault();
-		const form = new FormData(event.target as HTMLFormElement);
-		console.log(questions);
-		for (const [key, value] of form.entries()) {
-			console.log(key, value);
-		}
-	}
 </script>
 
-<form {action} {method} on:submit={handleSumbit}>
+<form
+	{action}
+	{method}
+	use:enhance={() => {
+		return async ({ update }) => {
+			update({ reset: false });
+		};
+	}}
+>
 	<div class="form-header">
 		<h1>Form editor</h1>
 		<p class="form-description">Edit a form!</p>
@@ -35,6 +36,12 @@
 		</div>
 	</div>
 	<input type="hidden" name="form[id]" value={value.id} />
+
+	<!-- TODO: Add ways for permissions to be added/removed -->
+	{#each Object.keys(value.permissions.edit ?? {}) as key}
+		<input type="hidden" name="form[permissions][edit][{key}]" value="null" />
+	{/each}
+
 	<QuestionInput
 		type={QuestionType.TEXT}
 		name="form[title]"
@@ -85,7 +92,7 @@
 	/>
 
 	<QuestionListEditor bind:data={questions.data} />
-	<button type="submit">Submit</button>
+	<button type="submit" formaction="?/save">Submit</button>
 </form>
 
 <style>
