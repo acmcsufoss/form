@@ -6,7 +6,11 @@ import { z } from 'zod';
  * UserIDs is a map of user IDs to empty objects to use as a set for
  * fast lookups.
  */
-export const UserIDsSchema = z.record(IDSchema, z.null());
+const NullableValueSchema = z
+	.union([z.null(), z.literal('null'), z.literal('')])
+	.transform(() => null);
+
+export const UserIDsSchema = z.record(IDSchema, NullableValueSchema);
 export type UserIDs = z.infer<typeof UserIDsSchema>;
 
 /**
