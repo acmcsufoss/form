@@ -32,8 +32,13 @@ export class KvStore implements db.Store {
 	public async getFormByUserID(id: string): Promise<db.Form[]> {
 		const prefix = this.key(KvCollection.FORMS_BY_USER_ID, id);
 		const forms: db.Form[] = [];
-		for await (const entry of this.kv.list<db.Form>({ prefix })) {
-			forms.push(entry.value);
+		for await (const entry of this.kv.list<boolean>({ prefix })) {
+			const formID = entry.key.at(-1) as string;
+			const formKey = this.key(KvCollection.FORMS_BY_ID, formID);
+			const formResult = await this.kv.get<db.Form>(formKey);
+			if (formResult.value) {
+				forms.push(formResult.value);
+			}
 		}
 		return forms;
 	}
@@ -76,7 +81,7 @@ export class KvStore implements db.Store {
 
 		for (const editorID of Object.keys(r.permissions?.edit ?? {})) {
 			const idxKey = this.key(KvCollection.FORMS_BY_USER_ID, editorID, r.id);
-			const res = await this.kv.set(idxKey, r);
+			const res = await this.kv.set(idxKey, true);
 			if (!res.ok) {
 				throw new Error('Failed to key form by user ID.');
 			}
