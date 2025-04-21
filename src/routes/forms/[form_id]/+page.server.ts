@@ -2,12 +2,10 @@ import type { PageServerLoad, Actions } from './$types';
 import type { Form } from '$lib/form/form';
 import { FormSchema } from '$lib/form/formSchema';
 import { s } from '$lib/resources/store';
-import type { User, saveFormEditorRequest } from '$lib/db';
-import qs, { parse } from 'qs';
+import qs from 'qs';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const form = await s.getFormByID(params.form_id);
-	console.log('load running');
 	return {
 		form,
 		user: locals.user

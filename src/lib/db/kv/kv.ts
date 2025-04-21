@@ -79,6 +79,7 @@ export class KvStore implements db.Store {
 			throw new Error('Failed to create form.');
 		}
 
+		// Could include editor ids in the request instead.
 		for (const editorID of Object.keys(r.permissions?.edit ?? {})) {
 			const idxKey = this.key(KvCollection.FORMS_BY_USER_ID, editorID, r.id);
 			const res = await this.kv.set(idxKey, true);
@@ -208,15 +209,15 @@ export class KvStore implements db.Store {
 		}
 	}
 
-	private key(...key: KvKey) {
-		return [...this.kvNamespace, ...key];
-	}
-
 	public async saveFormEditor(form: db.saveFormEditorRequest): Promise<void> {
 		const formKey = this.key(KvCollection.FORMS_BY_ID, form.id);
 		const result = await this.kv.set(formKey, form);
 		if (!result.ok) {
 			throw new Error('Failed to save form.');
 		}
+	}
+
+	private key(...key: KvKey) {
+		return [...this.kvNamespace, ...key];
 	}
 }

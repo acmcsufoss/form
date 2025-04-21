@@ -9,8 +9,3 @@ export const load: PageServerLoad = async ({ locals }) => {
 		user: locals.user
 	};
 };
-
-async function getFormsByUser() {
-	// TODO: Get forms by user.
-	return await s.getForms();
-}
