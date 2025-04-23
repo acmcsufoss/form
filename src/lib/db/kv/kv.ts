@@ -209,7 +209,7 @@ export class KvStore implements db.Store {
 		}
 	}
 
-	public async saveFormEditor(form: db.saveFormEditorRequest): Promise<void> {
+	public async saveFormEditor(form: db.SaveFormEditorRequest): Promise<void> {
 		const formKey = this.key(KvCollection.FORMS_BY_ID, form.id);
 		const formResult = await this.kv.get<db.Form>(formKey);
 		if (!formResult.value) {
@@ -223,7 +223,7 @@ export class KvStore implements db.Store {
 		}
 	}
 
-	public async deleteFormEditor(form: db.Form): Promise<void> {
+	public async deleteFormEditor(form: db.DeleteFormEditorRequest): Promise<void> {
 		const formKey = this.key(KvCollection.FORMS_BY_ID, form.id);
 		const formResult = await this.kv.get<db.Form>(formKey);
 		if (!formResult.value) {

@@ -3,6 +3,7 @@ import type { Form } from '$lib/form/form';
 import { FormSchema } from '$lib/form/formSchema';
 import { s } from '$lib/resources/store';
 import qs from 'qs';
+import { redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const form = await s.getFormByID(params.form_id);
@@ -34,6 +35,17 @@ export const actions: Actions = {
 		// TODO: Check if the user has permission to edit the form.
 		await s.saveFormEditor(form);
 		return { success: true };
+	},
+	delete: async ({ request, locals }) => {
+		const formData = await request.formData();
+		const form = parseFormData(formData);
+		const user = locals.user;
+		if (!user) {
+			return { success: false, error: 'User not found' };
+		}
+
+		await s.deleteFormEditor(form);
+		throw redirect(303, '/forms');
 	}
 };
 

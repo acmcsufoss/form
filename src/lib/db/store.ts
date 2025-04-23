@@ -45,7 +45,9 @@ export interface CreateUserRequest {
 	sessionTTL: number;
 }
 
-export type saveFormEditorRequest = Form;
+export type SaveFormEditorRequest = Form;
+
+export type DeleteFormEditorRequest = Form;
 
 export interface Store {
 	createForm(r: CreateFormRequest): Promise<Form>;
@@ -62,5 +64,6 @@ export interface Store {
 	getSubmissionsByFormID(id: ID): Promise<Submission[]>;
 	getUserByDiscordUserID(id: ID): Promise<User | null>;
 	getUserBySessionID(id: ID): Promise<User | null>;
-	saveFormEditor(r: saveFormEditorRequest): Promise<void>;
+	saveFormEditor(r: SaveFormEditorRequest): Promise<void>;
+	deleteFormEditor(form: DeleteFormEditorRequest): Promise<void>;
 }

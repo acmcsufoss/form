@@ -92,7 +92,8 @@
 	/>
 
 	<QuestionListEditor bind:data={questions.data} />
-	<button type="submit" formaction="?/save">Submit</button>
+	<button type="submit" formaction="?/save">Save</button>
+	<button type="submit" formaction="?/delete">Delete</button>
 </form>
 
 <style>
