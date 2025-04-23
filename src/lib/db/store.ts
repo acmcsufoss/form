@@ -32,6 +32,7 @@ export interface CreateSessionRequest {
 	discordUserID: ID;
 	discordUsername: string;
 	discordAvatar: string;
+	sessionTTL: number;
 }
 
 export type CreateSubmissionRequest = Submission;
@@ -41,6 +42,7 @@ export interface CreateUserRequest {
 	discordUserID: ID;
 	discordUsername: string;
 	discordAvatar: string;
+	sessionTTL: number;
 }
 
 export type saveFormEditorRequest = Form;

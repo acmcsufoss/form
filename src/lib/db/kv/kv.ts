@@ -110,7 +110,7 @@ export class KvStore implements db.Store {
 			// I thought this check was necessary, but it causes an error.
 			// .check({ key: usersByDiscordUserIDKey, versionstamp: null })
 			.set(usersByDiscordUserIDKey, user)
-			.set(usersBySessionIDKey, user)
+			.set(usersBySessionIDKey, user, { expireIn: r.sessionTTL * 1000 })
 			.commit();
 		if (!result.ok) {
 			throw new Error('Failed to create user.');
@@ -140,7 +140,7 @@ export class KvStore implements db.Store {
 			.atomic()
 			.check(userResult)
 			.set(usersByDiscordUserIDKey, updatedUser)
-			.set(usersBySessionIDKey, updatedUser)
+			.set(usersBySessionIDKey, updatedUser, { expireIn: r.sessionTTL * 1000 })
 			.commit();
 		if (!result.ok) {
 			throw new Error('Failed to create session.');
@@ -211,9 +211,36 @@ export class KvStore implements db.Store {
 
 	public async saveFormEditor(form: db.saveFormEditorRequest): Promise<void> {
 		const formKey = this.key(KvCollection.FORMS_BY_ID, form.id);
-		const result = await this.kv.set(formKey, form);
+		const formResult = await this.kv.get<db.Form>(formKey);
+		if (!formResult.value) {
+			throw new Error(`Form not found for id: ${form.id}`);
+		}
+		// TODO: either add a function that adds editors and views to the form
+		// or just update the form with the new permissions.
+		const result = await this.kv.atomic().check(formResult).set(formKey, form).commit();
 		if (!result.ok) {
 			throw new Error('Failed to save form.');
+		}
+	}
+
+	public async deleteFormEditor(form: db.Form): Promise<void> {
+		const formKey = this.key(KvCollection.FORMS_BY_ID, form.id);
+		const formResult = await this.kv.get<db.Form>(formKey);
+		if (!formResult.value) {
+			throw new Error(`Form not found for id: ${form.id}`);
+		}
+
+		const atomicOp = await this.kv.atomic().check(formResult).delete(formKey);
+
+		const permissions = form.permissions;
+		for (const editorID of Object.keys(permissions.edit ?? {})) {
+			const idxKey = this.key(KvCollection.FORMS_BY_USER_ID, editorID, form.id);
+			atomicOp.delete(idxKey);
+		}
+
+		const result = await atomicOp.commit();
+		if (!result.ok) {
+			throw new Error('Failed to delete form editor.');
 		}
 	}
 
