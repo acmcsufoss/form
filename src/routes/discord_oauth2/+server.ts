@@ -66,7 +66,7 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 
 	// Make a session ID.
 	const sessionID = crypto.randomUUID();
-	const sessionTTL = 15; // 60 * 60 * 24 * 7; // 1 week
+	const sessionTTL = 60 * 60 * 24 * 7; // 1 week
 	const query = fromDiscordUser(sessionID, discordUser, sessionTTL);
 
 	// If user does not exist, create user.
