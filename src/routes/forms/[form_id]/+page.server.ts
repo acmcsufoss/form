@@ -51,7 +51,6 @@ export const actions: Actions = {
 
 function parseFormData(formData: FormData): Form {
 	const flat = Object.fromEntries(formData.entries());
-	console.log(qs.stringify(flat));
 	const parsedBody = qs.parse(qs.stringify(flat), { allowEmptyArrays: true });
 	const form = FormSchema.parse(parsedBody.form);
 	return form;
