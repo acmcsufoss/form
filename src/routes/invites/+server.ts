@@ -29,6 +29,27 @@ export const POST: RequestHandler = async ({ request }) => {
 			headers: { 'Content-Type': 'application/json' }
 		});
 	}
+	console.log(interaction);
+	if (interaction.type === 3) {
+		const custom_id = interaction.data.custom_id;
+		console.log(custom_id);
 
+		// TODO: Create invites/[invite_id]
+		// Use custom_id to create a new invite_id.
+
+		return new Response(
+			JSON.stringify({
+				type: 4,
+				data: {
+					content: 'Form Link: ',
+					flags: 1 << 6
+				}
+			}),
+			{
+				headers: { 'Content-Type': 'application/json' },
+				status: 200
+			}
+		);
+	}
 	return new Response(null, { status: 204 });
 };
