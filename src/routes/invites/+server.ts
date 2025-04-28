@@ -1,10 +1,21 @@
 import { DISCORD_PUBLIC_KEY } from '$env/static/private';
 import { RequestHandler } from '@sveltejs/kit';
 import { verifyKey } from 'discord-interactions';
+import { s } from '$lib/resources/store';
+import type * as db from '$lib/db/store';
+import type { APIInteraction } from 'discord-api-types/v10';
+import { createHash } from 'crypto';
 
-export const POST: RequestHandler = async ({ request }) => {
+function generateUniqueInviteId(user_id: string, form_id: string) {
+	const hash = createHash('sha256');
+	// Using discord public key as a seed. Might need to change this later.
+	hash.update(user_id + form_id + DISCORD_PUBLIC_KEY);
+	return hash.digest('base64url').slice(0, 16);
+}
+
+export const POST: RequestHandler = async ({ url, request }) => {
 	const rawBody = await request.text();
-	let interaction: any;
+	let interaction: APIInteraction;
 	try {
 		interaction = JSON.parse(rawBody);
 	} catch {
@@ -29,10 +40,34 @@ export const POST: RequestHandler = async ({ request }) => {
 			headers: { 'Content-Type': 'application/json' }
 		});
 	}
-	console.log(interaction);
+
 	if (interaction.type === 3) {
 		const custom_id = interaction.data.custom_id;
-		console.log(custom_id);
+		const form = await s.getFormByID(custom_id);
+		const discord_user = interaction.member?.user;
+		if (!discord_user) {
+			return new Response('Invalid Discord User', { status: 401 });
+		}
+		if (!form) {
+			return new Response('Invalid custom_id', { status: 401 });
+		}
+
+		let user = await s.getUserByDiscordUserID(discord_user.id);
+
+		if (!user) {
+			user = await s.createUser({
+				discordUserID: discord_user.id,
+				discordUsername: discord_user.username,
+				discordAvatar: discord_user.avatar ?? ''
+			});
+		}
+
+		const hash = generateUniqueInviteId(user.id, form.id);
+
+		const invite = await s.getWIPFormByInviteID(hash);
+		if (!invite) {
+			s.createWIPFormByInviteID({ inviteID: hash, form: form, user: user });
+		}
 
 		// TODO: Create invites/[invite_id]
 		// Use custom_id to create a new invite_id.
@@ -41,7 +76,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			JSON.stringify({
 				type: 4,
 				data: {
-					content: 'Form Link: ',
+					content: 'Form Link: ' + url + '/' + hash,
 					flags: 1 << 6
 				}
 			}),
