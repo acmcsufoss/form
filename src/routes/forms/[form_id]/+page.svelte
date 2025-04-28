@@ -7,6 +7,13 @@
 </script>
 
 {#if data.form}
+	<button
+		on:click={() => {
+			window.location.href = '/forms';
+		}}
+	>
+		Back to Forms</button
+	>
 	<FormEditor action="" method="POST" value={data.form} />
 {:else}
 	<p>Form not found</p>

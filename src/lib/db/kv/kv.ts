@@ -5,6 +5,7 @@ export enum KvCollection {
 	USERS_BY_DISCORD_USER_ID = 'users_by_discord_user_id',
 	USERS_BY_SESSION_ID = 'users_by_session_id',
 	FORMS_BY_ID = 'forms_by_id',
+	FORMS_BY_USER_ID = 'forms_by_user_id',
 	SUBMISSIONS_BY_ID = 'submissions_by_id',
 	SUBMISSIONS_BY_FORM_ID = 'submissions_by_form_id'
 }
@@ -26,6 +27,20 @@ export class KvStore implements db.Store {
 		const formKey = this.key(KvCollection.FORMS_BY_ID, id);
 		const formResult = await this.kv.get<db.Form>(formKey);
 		return formResult.value;
+	}
+
+	public async getFormByUserID(id: string): Promise<db.Form[]> {
+		const prefix = this.key(KvCollection.FORMS_BY_USER_ID, id);
+		const forms: db.Form[] = [];
+		for await (const entry of this.kv.list<boolean>({ prefix })) {
+			const formID = entry.key.at(-1) as string;
+			const formKey = this.key(KvCollection.FORMS_BY_ID, formID);
+			const formResult = await this.kv.get<db.Form>(formKey);
+			if (formResult.value) {
+				forms.push(formResult.value);
+			}
+		}
+		return forms;
 	}
 
 	public async getUserByDiscordUserID(id: string) {
@@ -58,9 +73,19 @@ export class KvStore implements db.Store {
 
 	public async createForm(r: db.CreateFormRequest): Promise<db.Form> {
 		const formKey = this.key(KvCollection.FORMS_BY_ID, r.id);
+
 		const result = await this.kv.set(formKey, r);
 		if (!result.ok) {
 			throw new Error('Failed to create form.');
+		}
+
+		// Could include editor ids in the request instead.
+		for (const editorID of Object.keys(r.permissions?.edit ?? {})) {
+			const idxKey = this.key(KvCollection.FORMS_BY_USER_ID, editorID, r.id);
+			const res = await this.kv.set(idxKey, true);
+			if (!res.ok) {
+				throw new Error('Failed to key form by user ID.');
+			}
 		}
 
 		return r;
@@ -85,7 +110,7 @@ export class KvStore implements db.Store {
 			// I thought this check was necessary, but it causes an error.
 			// .check({ key: usersByDiscordUserIDKey, versionstamp: null })
 			.set(usersByDiscordUserIDKey, user)
-			.set(usersBySessionIDKey, user)
+			.set(usersBySessionIDKey, user, { expireIn: r.sessionTTL * 1000 })
 			.commit();
 		if (!result.ok) {
 			throw new Error('Failed to create user.');
@@ -115,7 +140,7 @@ export class KvStore implements db.Store {
 			.atomic()
 			.check(userResult)
 			.set(usersByDiscordUserIDKey, updatedUser)
-			.set(usersBySessionIDKey, updatedUser)
+			.set(usersBySessionIDKey, updatedUser, { expireIn: r.sessionTTL * 1000 })
 			.commit();
 		if (!result.ok) {
 			throw new Error('Failed to create session.');
@@ -184,16 +209,42 @@ export class KvStore implements db.Store {
 		}
 	}
 
-	private key(...key: KvKey) {
-		return [...this.kvNamespace, ...key];
-	}
-
-	public async saveForm(form: db.Form): Promise<db.Form> {
+	public async saveFormEditor(form: db.SaveFormEditorRequest): Promise<void> {
 		const formKey = this.key(KvCollection.FORMS_BY_ID, form.id);
-		const result = await this.kv.set(formKey, form);
+		const formResult = await this.kv.get<db.Form>(formKey);
+		if (!formResult.value) {
+			throw new Error(`Form not found for id: ${form.id}`);
+		}
+		// TODO: either add a function that adds editors and views to the form
+		// or just update the form with the new permissions.
+		const result = await this.kv.atomic().check(formResult).set(formKey, form).commit();
 		if (!result.ok) {
 			throw new Error('Failed to save form.');
 		}
-		return form;
+	}
+
+	public async deleteFormEditor(form: db.DeleteFormEditorRequest): Promise<void> {
+		const formKey = this.key(KvCollection.FORMS_BY_ID, form.id);
+		const formResult = await this.kv.get<db.Form>(formKey);
+		if (!formResult.value) {
+			throw new Error(`Form not found for id: ${form.id}`);
+		}
+
+		const atomicOp = await this.kv.atomic().check(formResult).delete(formKey);
+
+		const permissions = form.permissions;
+		for (const editorID of Object.keys(permissions.edit ?? {})) {
+			const idxKey = this.key(KvCollection.FORMS_BY_USER_ID, editorID, form.id);
+			atomicOp.delete(idxKey);
+		}
+
+		const result = await atomicOp.commit();
+		if (!result.ok) {
+			throw new Error('Failed to delete form editor.');
+		}
+	}
+
+	private key(...key: KvKey) {
+		return [...this.kvNamespace, ...key];
 	}
 }

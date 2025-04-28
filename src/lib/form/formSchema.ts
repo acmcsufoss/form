@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { FormPermissionsSchema } from './permissions';
 
 /**
  * IDSchema is a Zod schema that validates a string.
@@ -577,7 +578,7 @@ export const FormSchema = z.object({
 	 *
 	 * Status: Future work.
 	 */
-	// permissions: FormPermissions;
+	permissions: FormPermissionsSchema,
 
 	/**
 	 * title is the title of the form.

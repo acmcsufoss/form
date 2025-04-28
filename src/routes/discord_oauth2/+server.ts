@@ -66,7 +66,8 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 
 	// Make a session ID.
 	const sessionID = crypto.randomUUID();
-	const query = fromDiscordUser(sessionID, discordUser);
+	const sessionTTL = 60 * 60 * 24 * 7; // 1 week
+	const query = fromDiscordUser(sessionID, discordUser, sessionTTL);
 
 	// If user does not exist, create user.
 	// Otherwise, create session for user.
@@ -77,17 +78,22 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 	// Redirect the user to their destination.
 	redirect.headers.set(
 		'Set-Cookie',
-		`${SESSION_ID_COOKIE_NAME}=${sessionID}; HttpOnly; Max-Age=${60 * 60 * 24 * 7}`
+		`${SESSION_ID_COOKIE_NAME}=${sessionID}; HttpOnly; Max-Age=${sessionTTL}`
 	);
 	return redirect;
 };
 
-function fromDiscordUser(sessionID: string, discordUser: DiscordUser): db.CreateUserRequest {
+function fromDiscordUser(
+	sessionID: string,
+	discordUser: DiscordUser,
+	sessionTTL: number
+): db.CreateUserRequest {
 	return {
 		sessionID,
 		discordUserID: discordUser.id,
 		discordUsername: discordUser.username,
-		discordAvatar: discordUser.avatar
+		discordAvatar: discordUser.avatar,
+		sessionTTL: sessionTTL
 	};
 }
 
