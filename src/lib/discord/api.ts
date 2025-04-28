@@ -49,6 +49,7 @@ export async function createMessage(r: CreateMessageRequest): Promise<APIGuildMe
 	const response = await fetch(makeCreateMessageURL(r), {
 		method: 'POST',
 		headers: {
+			'Content-Type': 'application/json',
 			Authorization: `Bot ${r.botToken}`
 		},
 		body: JSON.stringify(r.body)
