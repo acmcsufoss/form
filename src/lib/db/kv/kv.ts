@@ -10,7 +10,8 @@ export enum KvCollection {
 	FORMS_BY_USER_ID = 'forms_by_user_id',
 	SUBMISSIONS_BY_ID = 'submissions_by_id',
 	SUBMISSIONS_BY_FORM_ID = 'submissions_by_form_id',
-	ACTIVE_FORM = 'active_form'
+	ACTIVE_FORM = 'active_form',
+	WIP_FORM_BY_INVITE_ID = 'wip_form_by_invite_id'
 }
 
 export class KvStore implements db.Store {
@@ -107,13 +108,20 @@ export class KvStore implements db.Store {
 			KvCollection.USERS_BY_DISCORD_USER_ID,
 			r.discordUserID
 		);
-		const usersBySessionIDKey = this.key(KvCollection.USERS_BY_SESSION_ID, r.sessionID);
-		const result = await this.kv
-			.atomic()
+
+		const atomicOp = this.kv.atomic();
+		if (r.sessionID) {
+			if (!r.sessionTTL) {
+				throw new Error('Session TTL is required when session ID is provided.');
+			}
+			const usersBySessionIDKey = this.key(KvCollection.USERS_BY_SESSION_ID, r.sessionID);
+			atomicOp.set(usersBySessionIDKey, user, { expireIn: r.sessionTTL * 1000 });
+		}
+
+		const result = await atomicOp
 			// I thought this check was necessary, but it causes an error.
 			// .check({ key: usersByDiscordUserIDKey, versionstamp: null })
 			.set(usersByDiscordUserIDKey, user)
-			.set(usersBySessionIDKey, user, { expireIn: r.sessionTTL * 1000 })
 			.commit();
 		if (!result.ok) {
 			throw new Error('Failed to create user.');
@@ -291,6 +299,49 @@ export class KvStore implements db.Store {
 		const result = await this.kv.atomic().delete(activeFormKey).commit();
 		if (!result.ok) {
 			throw new Error('Failed to deactivate form.');
+		}
+	}
+
+	public async getWIPFormByInviteID(id: string): Promise<db.WIPForm | null> {
+		const wipFormKey = this.key(KvCollection.WIP_FORM_BY_INVITE_ID, id);
+		const wipFormResult = await this.kv.get<db.WIPForm>(wipFormKey);
+		return wipFormResult.value;
+	}
+
+	public async createWIPFormByInviteID(r: db.CreateWIPFormRequest): Promise<db.WIPForm> {
+		const wipFormKey = this.key(KvCollection.WIP_FORM_BY_INVITE_ID, r.inviteID);
+		const wipForm: db.WIPForm = {
+			form: r.form,
+			user: r.user
+		};
+		const result = await this.kv.atomic().set(wipFormKey, wipForm).commit();
+		if (!result.ok) {
+			throw new Error('Failed to create WIP form.');
+		}
+		return wipForm;
+	}
+
+	public async deleteWIPFormByInviteID(id: string): Promise<void> {
+		const wipFormKey = this.key(KvCollection.WIP_FORM_BY_INVITE_ID, id);
+		const wipFormResult = await this.kv.get<db.WIPForm>(wipFormKey);
+		if (!wipFormResult.value) {
+			throw new Error(`WIP form not found for invite ID: ${id}`);
+		}
+		const result = await this.kv.atomic().check(wipFormResult).delete(wipFormKey).commit();
+		if (!result.ok) {
+			throw new Error('Failed to delete WIP form.');
+		}
+	}
+
+	public async saveWIPForm(id: string, r: db.WIPForm): Promise<void> {
+		const wipFormKey = this.key(KvCollection.WIP_FORM_BY_INVITE_ID, id);
+		const wipFormResult = await this.kv.get<db.WIPForm>(wipFormKey);
+		if (!wipFormResult.value) {
+			throw new Error(`WIP form not found for invite ID: ${id}`);
+		}
+		const result = await this.kv.atomic().check(wipFormResult).set(wipFormKey, r).commit();
+		if (!result.ok) {
+			throw new Error('Failed to save WIP form.');
 		}
 	}
 

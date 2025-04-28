@@ -38,16 +38,27 @@ export interface CreateSessionRequest {
 export type CreateSubmissionRequest = Submission;
 
 export interface CreateUserRequest {
-	sessionID: ID;
+	sessionID?: ID;
 	discordUserID: ID;
 	discordUsername: string;
 	discordAvatar: string;
-	sessionTTL: number;
+	sessionTTL?: number;
 }
 
 export type SaveFormEditorRequest = Form;
 
 export type DeleteFormEditorRequest = Form;
+
+export interface WIPForm {
+	form: Form;
+	user: User;
+}
+
+export interface CreateWIPFormRequest {
+	inviteID: string;
+	form: Form;
+	user: User;
+}
 
 export interface Store {
 	createForm(r: CreateFormRequest): Promise<Form>;
@@ -66,4 +77,7 @@ export interface Store {
 	getUserBySessionID(id: ID): Promise<User | null>;
 	saveFormEditor(r: SaveFormEditorRequest): Promise<void>;
 	deleteFormEditor(form: DeleteFormEditorRequest): Promise<void>;
+	checkActiveForm(id: string): Promise<boolean>;
+	activateForm(form: Form): Promise<void>;
+	deactivateForm(id: string): Promise<void>;
 }
