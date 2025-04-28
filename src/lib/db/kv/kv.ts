@@ -7,7 +7,8 @@ export enum KvCollection {
 	FORMS_BY_ID = 'forms_by_id',
 	FORMS_BY_USER_ID = 'forms_by_user_id',
 	SUBMISSIONS_BY_ID = 'submissions_by_id',
-	SUBMISSIONS_BY_FORM_ID = 'submissions_by_form_id'
+	SUBMISSIONS_BY_FORM_ID = 'submissions_by_form_id',
+	ACTIVE_FORM = 'active_form'
 }
 
 export class KvStore implements db.Store {
@@ -241,6 +242,33 @@ export class KvStore implements db.Store {
 		const result = await atomicOp.commit();
 		if (!result.ok) {
 			throw new Error('Failed to delete form editor.');
+		}
+	}
+
+	public async checkActiveForm(id: string): Promise<boolean> {
+		const activeFormKey = this.key(KvCollection.ACTIVE_FORM, id);
+		const activeFormResult = await this.kv.get<boolean>(activeFormKey);
+		if (activeFormResult.value) {
+			return true;
+		}
+		return false;
+	}
+
+	public async activateForm(form: db.Form): Promise<void> {
+		const id = form.id;
+		const activeFormKey = this.key(KvCollection.ACTIVE_FORM, id);
+
+		const result = await this.kv.atomic().set(activeFormKey, true).commit();
+		if (!result.ok) {
+			throw new Error('Failed to activate form.');
+		}
+	}
+
+	public async deactivateForm(id: string): Promise<void> {
+		const activeFormKey = this.key(KvCollection.ACTIVE_FORM, id);
+		const result = await this.kv.atomic().delete(activeFormKey).commit();
+		if (!result.ok) {
+			throw new Error('Failed to deactivate form.');
 		}
 	}
 
