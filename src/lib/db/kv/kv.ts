@@ -1,5 +1,7 @@
 import type { Kv, KvKey } from '@deno/kv';
 import type * as db from '$lib/db';
+import * as discordAPI from '$lib/discord/api';
+import { DISCORD_BOT_TOKEN } from '$env/static/private';
 
 export enum KvCollection {
 	USERS_BY_DISCORD_USER_ID = 'users_by_discord_user_id',
@@ -262,6 +264,26 @@ export class KvStore implements db.Store {
 		if (!result.ok) {
 			throw new Error('Failed to activate form.');
 		}
+
+		discordAPI.createMessage({
+			body: {
+				components: [
+					{
+						type: 1,
+						components: [
+							{
+								type: 2,
+								style: 1,
+								label: 'Get Form: ' + form.title,
+								custom_id: form.id
+							}
+						]
+					}
+				]
+			},
+			channelID: '1336983646317580331',
+			botToken: DISCORD_BOT_TOKEN
+		});
 	}
 
 	public async deactivateForm(id: string): Promise<void> {

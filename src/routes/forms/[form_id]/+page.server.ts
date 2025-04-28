@@ -46,6 +46,12 @@ export const actions: Actions = {
 
 		await s.deleteFormEditor(form);
 		throw redirect(303, '/forms');
+	},
+	testActivate: async ({ request, locals }) => {
+		const formData = await request.formData();
+		const form = parseFormData(formData);
+		await s.activateForm(form);
+		return { success: true };
 	}
 };
 

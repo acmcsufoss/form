@@ -39,7 +39,7 @@
 
 	<!-- TODO: Add ways for permissions to be added/removed -->
 	{#each Object.keys(value.permissions.edit ?? {}) as key}
-		<input type="hidden" name="form[permissions][edit][{key}]" value="null" />
+		<input type="hidden" name={`form[permissions][edit][${key}]`} value="null" />
 	{/each}
 
 	<QuestionInput
@@ -94,6 +94,7 @@
 	<QuestionListEditor bind:data={questions.data} />
 	<button type="submit" formaction="?/save">Save</button>
 	<button type="submit" formaction="?/delete">Delete</button>
+	<button type="submit" formaction="?/testActivate">Test Activate</button>
 </form>
 
 <style>
