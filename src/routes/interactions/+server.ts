@@ -2,7 +2,6 @@ import { DISCORD_PUBLIC_KEY } from '$env/static/private';
 import { RequestHandler } from '@sveltejs/kit';
 import { verifyKey } from 'discord-interactions';
 import { s } from '$lib/resources/store';
-import type * as db from '$lib/db/store';
 import type { APIInteraction } from 'discord-api-types/v10';
 import { createHash } from 'crypto';
 
@@ -76,7 +75,7 @@ export const POST: RequestHandler = async ({ url, request }) => {
 			JSON.stringify({
 				type: 4,
 				data: {
-					content: 'Form Link: ' + url + '/' + hash,
+					content: 'Form Link: ' + 'http://localhost:5173/invites' + hash,
 					flags: 1 << 6
 				}
 			}),
