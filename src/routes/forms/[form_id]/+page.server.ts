@@ -47,7 +47,8 @@ export const actions: Actions = {
 		await s.deleteFormEditor(form);
 		throw redirect(303, '/forms');
 	},
-	testActivate: async ({ request, locals }) => {
+	testActivate: async ({ request }) => {
+		// TODO: Check if the user has permission to edit the form.
 		const formData = await request.formData();
 		const form = parseFormData(formData);
 		await s.activateForm(form);

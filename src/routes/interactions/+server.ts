@@ -12,7 +12,7 @@ function generateUniqueInviteId(user_id: string, form_id: string) {
 	return hash.digest('base64url').slice(0, 16);
 }
 
-export const POST: RequestHandler = async ({ url, request }) => {
+export const POST: RequestHandler = async ({ request }) => {
 	const rawBody = await request.text();
 	let interaction: APIInteraction;
 	try {
@@ -70,7 +70,7 @@ export const POST: RequestHandler = async ({ url, request }) => {
 
 		// TODO: Create invites/[invite_id]
 		// Use custom_id to create a new invite_id.
-
+		// have the form link url be dynamic using the url.
 		return new Response(
 			JSON.stringify({
 				type: 4,

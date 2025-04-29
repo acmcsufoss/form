@@ -1,8 +1,6 @@
 <!-- TODO: Use code from authenticated form submission. -->
 <script lang="ts">
 	import Form from '$lib/components/form/form.svelte';
-	import type { Form as FormType } from '$lib/form';
-	import type * as db from '$lib/db';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
