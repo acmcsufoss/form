@@ -87,7 +87,7 @@ function fromDiscordUser(
 	sessionID: string,
 	discordUser: DiscordUser,
 	sessionTTL: number
-): db.CreateUserRequest {
+): db.CreateSessionRequest {
 	return {
 		sessionID,
 		discordUserID: discordUser.id,
