@@ -75,7 +75,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			JSON.stringify({
 				type: 4,
 				data: {
-					content: 'Form Link: ' + 'http://localhost:5173/invites' + hash,
+					content: 'Form Link: ' + 'http://localhost:5173/invites/' + hash,
 					flags: 1 << 6
 				}
 			}),
