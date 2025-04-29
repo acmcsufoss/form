@@ -1,5 +1,5 @@
 import { DISCORD_PUBLIC_KEY } from '$env/static/private';
-import { RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from '@sveltejs/kit';
 import { verifyKey } from 'discord-interactions';
 import { s } from '$lib/resources/store';
 import type { APIInteraction } from 'discord-api-types/v10';
